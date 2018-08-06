@@ -1,5 +1,5 @@
 # SharpLizer
-Short for "C# Colorizer" is a Visual Studio extension for customizing the colors of the code in Visual Studio. 
+Short for "C# Colorizer" is a Visual Studio extension for customizing the colors of keywords and modifiers in Visual Studio. 
 
 ## Raison d'être
 "There are a number of existing extensions that already do that", you may say. 
