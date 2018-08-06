@@ -7,7 +7,7 @@ namespace SharpLizer.Classification
     /// <summary>
     /// Classification type definition export for EditorClassifier
     /// </summary>
-    internal static class EditorClassifierClassificationDefinition
+    internal static class ClassifierTypeDefinitions
     {
         // This disables "The field is never used" compiler's warning. Justification: the field is used by MEF.
 #pragma warning disable 169

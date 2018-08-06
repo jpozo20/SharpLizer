@@ -11,7 +11,7 @@ namespace SharpLizer.Classification
     /// </summary>
     [Export(typeof(IClassifierProvider))]
     [ContentType("CSharp")] // This classifier applies to all text files.
-    internal class EditorClassifierProvider : IClassifierProvider
+    internal class ClassifierProvider : IClassifierProvider
     {
         // Disable "Field is never assigned to..." compiler's warning. Justification: the field is assigned by MEF.
 #pragma warning disable 649
@@ -30,15 +30,15 @@ namespace SharpLizer.Classification
         /// <summary>
         /// Gets a classifier for the given text buffer.
         /// </summary>
-        /// <param name="buffer">The <see cref="ITextBuffer"/> to classify.</param>
+        /// <param name="textBuffer">The <see cref="ITextBuffer"/> to classify.</param>
         /// <returns>A classifier for the text buffer, or null if the provider cannot do so in its current state.</returns>
-        public IClassifier GetClassifier(ITextBuffer buffer)
+        public IClassifier GetClassifier(ITextBuffer textBuffer)
         {
             var classificationTypes = new Dictionary<string, IClassificationType>(2);
             classificationTypes.Add(ClassificationTypes.FieldType, classificationRegistry.GetClassificationType(ClassificationTypes.FieldType));
             classificationTypes.Add(ClassificationTypes.MethodType, classificationRegistry.GetClassificationType(ClassificationTypes.MethodType));
 
-            return buffer.Properties.GetOrCreateSingletonProperty<EditorClassifier>(creator: () => new EditorClassifier(this.classificationRegistry,classificationTypes));
+            return textBuffer.Properties.GetOrCreateSingletonProperty<EditorClassifier>(creator: () => new EditorClassifier(this.classificationRegistry,classificationTypes));
         }
 
         #endregion

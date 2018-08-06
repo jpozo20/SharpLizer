@@ -49,9 +49,12 @@
   <ItemGroup>
     <Compile Include="Classification\ClassificationTypes.cs" />
     <Compile Include="Classification\EditorClassifier.cs" />
-    <Compile Include="Classification\EditorClassifierClassificationDefinition.cs" />
-    <Compile Include="Classification\EditorClassifierFormat.cs" />
-    <Compile Include="Classification\EditorClassifierProvider.cs" />
+    <Compile Include="Classification\ClassifierTypeDefinitions.cs" />
+    <Compile Include="Classification\ColorFormats.cs" />
+    <Compile Include="Classification\ClassifierProvider.cs" />
+    <Compile Include="Configuration\BaseSettings.cs" />
+    <Compile Include="Configuration\CategorySettings.cs" />
+    <Compile Include="Configuration\ColorSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,9 +64,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TreeWalker\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Reference Include="Microsoft.CodeAnalysis, Version=2.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeAnalysis.Common.2.8.2\lib\netstandard1.3\Microsoft.CodeAnalysis.dll</HintPath>

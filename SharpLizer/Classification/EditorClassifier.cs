@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Classification;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
+using System;
+using System.Collections.Generic;
 
 namespace SharpLizer.Classification
 {
@@ -22,9 +22,9 @@ namespace SharpLizer.Classification
         private readonly IClassificationType methodClassification;
         private readonly IClassificationTypeRegistryService _registryService;
 
-        private readonly Document _document;
-        private readonly SemanticModel _semanticModel;
-        private readonly SyntaxNode _syntaxRoot;
+        private Document _document;
+        private SemanticModel _semanticModel;
+        private CompilationUnitSyntax _documentRoot;
 
 
         /// <summary>
@@ -74,41 +74,57 @@ namespace SharpLizer.Classification
 
             // Get the Workspace belonging to the document
             var workspace = snapshot.TextBuffer.GetWorkspace();
-
-
             if (workspace == null) return new List<ClassificationSpan>();
-            
-            // Gets the current document and its model
-            var document = snapshot.GetOpenDocumentInCurrentContextWithChanges();
-            var semanticModel = document.GetSemanticModelAsync().Result;
-            var documentRoot = semanticModel.SyntaxTree.GetCompilationUnitRoot();
+
+            // Get the current document and its model
+            if (_document == null) _document = snapshot.GetOpenDocumentInCurrentContextWithChanges();
+            if (_semanticModel == null) _semanticModel = _document.GetSemanticModelAsync().Result;
+            if(_documentRoot == null) _documentRoot = _semanticModel.SyntaxTree.GetCompilationUnitRoot();
 
             var currentDocumentSpan = new TextSpan(span.Start.Position, span.Length);
-            var classifiedSpans = Classifier.GetClassifiedSpans(semanticModel, currentDocumentSpan,workspace);
+            var classifiedSpans = Classifier.GetClassifiedSpans(_semanticModel, currentDocumentSpan,workspace);
 
             foreach (var classifiedSpan in classifiedSpans)
             {
-                var node = documentRoot.FindNode(classifiedSpan.TextSpan,true,true);
-                var type = classifiedSpan.ClassificationType;
-                var kind = node.Kind();
-
-                var symbol = semanticModel.GetSymbolInfo(node).Symbol;
-                if(symbol==null) symbol = semanticModel.GetDeclaredSymbol(node);
-
-
-                switch (kind)
-                {
-                    case SyntaxKind.MethodDeclaration:
-                        result.Add(new ClassificationSpan(new SnapshotSpan(snapshot, classifiedSpan.TextSpan.Start, classifiedSpan.TextSpan.Length), methodClassification));
-                        break;
-                    default: break;
-                }
-
+                var classificationSpan = GetClassificationSpan(snapshot, classifiedSpan, _documentRoot, _semanticModel);
+                result.Add(classificationSpan);
 
             }
             return result;
         }
 
+        private ClassificationSpan GetClassificationSpan(ITextSnapshot snapshot, ClassifiedSpan currentSpan, CompilationUnitSyntax documentRoot, SemanticModel semanticModel) {
+
+            var classificationType = GetClassificationType(currentSpan, snapshot, documentRoot, semanticModel);
+            return new ClassificationSpan(new SnapshotSpan(snapshot, currentSpan.TextSpan.Start, currentSpan.TextSpan.Length), classificationType);
+        }
+
+        private IClassificationType GetClassificationType(ClassifiedSpan currentSpan, ITextSnapshot snapshot, CompilationUnitSyntax documentRoot, SemanticModel semanticModel)
+        {
+            // Get the innermost span, which corresponds to the span being proccessed
+            var node = documentRoot.FindNode(currentSpan.TextSpan, true, true);
+
+            var type = currentSpan.ClassificationType;
+            var kind = node.Kind();
+
+            var symbol = semanticModel.GetSymbolInfo(node).Symbol;
+            if (symbol == null) symbol = semanticModel.GetDeclaredSymbol(node);
+
+
+            switch (kind)
+            {
+                case SyntaxKind.MethodDeclaration:
+                    //result.Add(new ClassificationSpan(new SnapshotSpan(snapshot, classifiedSpan.TextSpan.Start, classifiedSpan.TextSpan.Length), methodClassification));
+                    break;
+                default: break;
+            }
+
+            return null;
+        }
+
+        
         #endregion
     }
+
+
 }
