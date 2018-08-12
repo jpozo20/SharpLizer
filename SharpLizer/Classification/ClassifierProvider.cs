@@ -52,6 +52,14 @@ namespace SharpLizer.Classification
             classificationTypes.Add(ClassificationTypes.AbstractionTypes.SealedKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.AbstractionTypes.SealedKeyword));
             classificationTypes.Add(ClassificationTypes.AbstractionTypes.VirtualKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.AbstractionTypes.VirtualKeyword));
 
+            classificationTypes.Add(ClassificationTypes.DeclarationTypes.DeclarationKeywords, classificationRegistry.GetClassificationType(ClassificationTypes.DeclarationTypes.DeclarationKeywords));
+            classificationTypes.Add(ClassificationTypes.DeclarationTypes.ClassKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.DeclarationTypes.ClassKeyword));
+            classificationTypes.Add(ClassificationTypes.DeclarationTypes.DelegateKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.DeclarationTypes.DelegateKeyword));
+            classificationTypes.Add(ClassificationTypes.DeclarationTypes.EnumKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.DeclarationTypes.EnumKeyword));
+            classificationTypes.Add(ClassificationTypes.DeclarationTypes.InterfaceKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.DeclarationTypes.InterfaceKeyword));
+            classificationTypes.Add(ClassificationTypes.DeclarationTypes.NamespaceKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.DeclarationTypes.NamespaceKeyword));
+            classificationTypes.Add(ClassificationTypes.DeclarationTypes.StructKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.DeclarationTypes.StructKeyword));
+
             return classificationTypes;
         }
 

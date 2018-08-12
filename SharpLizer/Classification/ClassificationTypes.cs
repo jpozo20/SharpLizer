@@ -10,13 +10,24 @@ namespace SharpLizer.Classification
     {
         public static class AbstractionTypes
         {
-            public const string AbstractionKeywords = "SharpLizer.AbstractionKeyword";
+            public const string AbstractionKeywords = "SharpLizer.AbstractionKeywords";
             public const string AbstractKeyword = "SharpLizer.AbstractKeyword";
             public const string AsyncKeyword = "SharpLizer.AsyncKeyword";
             public const string NewKeyword = "SharpLizer.NewKeyword";
             public const string OverrideKeyword = "SharpLizer.OverrideKeyword";
             public const string SealedKeyword = "SharpLizer.SealedKeyword";
             public const string VirtualKeyword = "SharpLizer.VirtualKeyword";
+        }
+
+        public static class DeclarationTypes
+        {
+            public const string DeclarationKeywords = "SharpLizer.DeclarationKeywords";
+            public const string ClassKeyword = "SharpLizer.ClassKeyword";
+            public const string DelegateKeyword = "SharpLizer.DelegateKeyword";
+            public const string EnumKeyword = "SharpLizer.EnumKeyword";
+            public const string InterfaceKeyword = "SharpLizer.InterfaceKeyword";
+            public const string NamespaceKeyword = "SharpLizer.NamespaceKeyword";
+            public const string StructKeyword = "SharpLizer.StructKeyword";
         }
 
         public const string FieldType = "SharpLizer.FieldType";

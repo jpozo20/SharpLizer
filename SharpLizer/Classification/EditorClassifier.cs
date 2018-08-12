@@ -57,10 +57,10 @@ namespace SharpLizer.Classification
             var classificationChangedHandler = this.ClassificationChanged;
             if (classificationChangedHandler == null) return;
 
-            var snapshop = e.After;
+            var newSnapshot = e.After;
             foreach (var change in e.Changes)
             {
-                var snapshopSpan = new SnapshotSpan(snapshop, change.NewSpan);
+                var snapshopSpan = new SnapshotSpan(newSnapshot, change.NewSpan);
                 classificationChangedHandler(this, new ClassificationChangedEventArgs(snapshopSpan));
 
             }
@@ -143,6 +143,21 @@ namespace SharpLizer.Classification
                         return _classifications[ClassificationTypes.AbstractionTypes.SealedKeyword];
                     case SyntaxKind.VirtualKeyword:
                         return _classifications[ClassificationTypes.AbstractionTypes.VirtualKeyword];
+                    #endregion
+
+                    #region Declaration Keywords
+                    case SyntaxKind.ClassKeyword:
+                        return _classifications[ClassificationTypes.DeclarationTypes.ClassKeyword];
+                    case SyntaxKind.DelegateKeyword:
+                        return _classifications[ClassificationTypes.DeclarationTypes.DelegateKeyword];
+                    case SyntaxKind.EnumKeyword:
+                        return _classifications[ClassificationTypes.DeclarationTypes.ClassKeyword];
+                    case SyntaxKind.InterfaceKeyword:
+                        return _classifications[ClassificationTypes.DeclarationTypes.InterfaceKeyword];
+                    case SyntaxKind.NamespaceKeyword:
+                        return _classifications[ClassificationTypes.DeclarationTypes.NamespaceKeyword];
+                    case SyntaxKind.StructKeyword:
+                        return _classifications[ClassificationTypes.DeclarationTypes.StructKeyword];
                     #endregion
 
 
