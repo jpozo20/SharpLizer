@@ -34,11 +34,25 @@ namespace SharpLizer.Classification
         /// <returns>A classifier for the text buffer, or null if the provider cannot do so in its current state.</returns>
         public IClassifier GetClassifier(ITextBuffer textBuffer)
         {
-            var classificationTypes = new Dictionary<string, IClassificationType>(2);
+            var classificationTypes = GetClassificationTypes();
+            return textBuffer.Properties.GetOrCreateSingletonProperty<EditorClassifier>(creator: () => new EditorClassifier(this.classificationRegistry,textBuffer,classificationTypes));
+        }
+
+        IDictionary<string, IClassificationType> GetClassificationTypes()
+        {
+            var classificationTypes = new Dictionary<string, IClassificationType>();
             classificationTypes.Add(ClassificationTypes.FieldType, classificationRegistry.GetClassificationType(ClassificationTypes.FieldType));
             classificationTypes.Add(ClassificationTypes.MethodType, classificationRegistry.GetClassificationType(ClassificationTypes.MethodType));
 
-            return textBuffer.Properties.GetOrCreateSingletonProperty<EditorClassifier>(creator: () => new EditorClassifier(this.classificationRegistry,classificationTypes));
+            classificationTypes.Add(ClassificationTypes.AbstractionTypes.AbstractionKeywords, classificationRegistry.GetClassificationType(ClassificationTypes.AbstractionTypes.AbstractionKeywords));
+            classificationTypes.Add(ClassificationTypes.AbstractionTypes.AbstractKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.AbstractionTypes.AbstractKeyword));
+            classificationTypes.Add(ClassificationTypes.AbstractionTypes.AsyncKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.AbstractionTypes.AsyncKeyword));
+            classificationTypes.Add(ClassificationTypes.AbstractionTypes.NewKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.AbstractionTypes.NewKeyword));
+            classificationTypes.Add(ClassificationTypes.AbstractionTypes.OverrideKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.AbstractionTypes.OverrideKeyword));
+            classificationTypes.Add(ClassificationTypes.AbstractionTypes.SealedKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.AbstractionTypes.SealedKeyword));
+            classificationTypes.Add(ClassificationTypes.AbstractionTypes.VirtualKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.AbstractionTypes.VirtualKeyword));
+
+            return classificationTypes;
         }
 
         #endregion
