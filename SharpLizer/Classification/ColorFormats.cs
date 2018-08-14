@@ -52,7 +52,7 @@ namespace SharpLizer.Classification
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.AbstractionTypes.AbstractionKeywords)]
     [Name(ClassificationTypes.AbstractionTypes.AbstractionKeywords)]
-    [UserVisible(true)] // This should be visible to the end user
+    [UserVisible(false)] // This should be visible to the end user
     [Order(After = Priority.High)] // Set the priority to be after the default classifiers
     internal sealed class AbstractionKeywordsClassification : ClassificationFormatDefinition
     {
@@ -189,7 +189,7 @@ namespace SharpLizer.Classification
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.DeclarationTypes.DeclarationKeywords)]
     [Name(ClassificationTypes.DeclarationTypes.DeclarationKeywords)]
-    [UserVisible(true)] // This should be visible to the end user
+    [UserVisible(false)] // This should be visible to the end user
     [Order(After = Priority.High)] // Set the priority to be after the default classifiers
     internal sealed class DeclarationKeywordsClassification : ClassificationFormatDefinition
     {
@@ -198,7 +198,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public DeclarationKeywordsClassification()
         {
-            this.DisplayName = "SharpLizer: Class Keyword"; // Human readable version of the name
+            this.DisplayName = "SharpLizer: Declaration Keywords"; // Human readable version of the name
             this.ForegroundColor = Colors.Yellow;
             this.TextDecorations = System.Windows.TextDecorations.Underline;
         }
@@ -314,4 +314,22 @@ namespace SharpLizer.Classification
     }
 
     #endregion
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.EncapsulationKeywords)]
+    [Name(ClassificationTypes.EncapsulationKeywords)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class EncapsulationKeywordsClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EncapsulationKeywordsClassification"/> class.
+        /// </summary>
+        public EncapsulationKeywordsClassification()
+        {
+            this.DisplayName = "SharpLizer: Encapsulation Keywords"; // Human readable version of the name
+            this.ForegroundColor = Colors.Aqua;
+            this.TextDecorations = System.Windows.TextDecorations.Underline;
+        }
+    }
 }

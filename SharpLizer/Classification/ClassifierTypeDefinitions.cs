@@ -103,6 +103,11 @@ namespace SharpLizer.Classification
 
         #endregion
 
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.EncapsulationKeywords)]
+        [Name(ClassificationTypes.EncapsulationKeywords)]
+        private static ClassificationTypeDefinition encapsulationKeywordsDefinition;
+
 #pragma warning restore 169
     }
 }
