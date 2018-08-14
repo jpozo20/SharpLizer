@@ -160,6 +160,13 @@ namespace SharpLizer.Classification
                         return _classifications[ClassificationTypes.DeclarationTypes.StructKeyword];
                     #endregion
 
+                    #region Encapsulation Keywords
+                    case SyntaxKind.PublicKeyword:
+                    case SyntaxKind.PrivateKeyword:
+                    case SyntaxKind.InternalKeyword:
+                    case SyntaxKind.ProtectedKeyword:
+                        return _classifications[ClassificationTypes.EncapsulationKeywords];
+                    #endregion
 
                     default:
                         return null;

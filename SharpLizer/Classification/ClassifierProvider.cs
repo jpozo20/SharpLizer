@@ -59,6 +59,7 @@ namespace SharpLizer.Classification
             classificationTypes.Add(ClassificationTypes.DeclarationTypes.InterfaceKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.DeclarationTypes.InterfaceKeyword));
             classificationTypes.Add(ClassificationTypes.DeclarationTypes.NamespaceKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.DeclarationTypes.NamespaceKeyword));
             classificationTypes.Add(ClassificationTypes.DeclarationTypes.StructKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.DeclarationTypes.StructKeyword));
+            classificationTypes.Add(ClassificationTypes.EncapsulationKeywords, classificationRegistry.GetClassificationType(ClassificationTypes.EncapsulationKeywords));
 
             return classificationTypes;
         }

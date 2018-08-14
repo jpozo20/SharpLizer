@@ -30,9 +30,12 @@ namespace SharpLizer.Classification
             public const string StructKeyword = "SharpLizer.StructKeyword";
         }
 
+        public const string EncapsulationKeywords = "SharpLizer.EncapsulationKeywords";
+
         public const string FieldType = "SharpLizer.FieldType";
         public const string MethodType = "SharpLizer.MethodType";
         public const string ConstantFieldType = "SharpLizer.ConstantFieldType";
+        
 
     }
 }
