@@ -41,8 +41,6 @@ namespace SharpLizer.Classification
         IDictionary<string, IClassificationType> GetClassificationTypes()
         {
             var classificationTypes = new Dictionary<string, IClassificationType>();
-            classificationTypes.Add(ClassificationTypes.FieldType, classificationRegistry.GetClassificationType(ClassificationTypes.FieldType));
-            classificationTypes.Add(ClassificationTypes.MethodType, classificationRegistry.GetClassificationType(ClassificationTypes.MethodType));
 
             classificationTypes.Add(ClassificationTypes.AbstractionTypes.AbstractionKeywords, classificationRegistry.GetClassificationType(ClassificationTypes.AbstractionTypes.AbstractionKeywords));
             classificationTypes.Add(ClassificationTypes.AbstractionTypes.AbstractKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.AbstractionTypes.AbstractKeyword));
@@ -60,6 +58,18 @@ namespace SharpLizer.Classification
             classificationTypes.Add(ClassificationTypes.DeclarationTypes.NamespaceKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.DeclarationTypes.NamespaceKeyword));
             classificationTypes.Add(ClassificationTypes.DeclarationTypes.StructKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.DeclarationTypes.StructKeyword));
             classificationTypes.Add(ClassificationTypes.EncapsulationKeywords, classificationRegistry.GetClassificationType(ClassificationTypes.EncapsulationKeywords));
+
+            classificationTypes.Add(ClassificationTypes.Identifiers.AttributeIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.AttributeIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.AttributePropertyIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.AttributePropertyIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.ClassIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.ClassIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.ConstructorIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.ConstructorIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.DelegateIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.DelegateIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.EnumIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.EnumIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.FieldIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.FieldIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.InterfaceIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.InterfaceIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.MethodIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.MethodIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.NamespaceIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.NamespaceIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.StructIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.StructIdentifier));
 
             return classificationTypes;
         }

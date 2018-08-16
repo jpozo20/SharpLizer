@@ -5,48 +5,6 @@ using Microsoft.VisualStudio.Utilities;
 
 namespace SharpLizer.Classification
 {
-    /// <summary>
-    /// Defines an editor format for the EditorClassifier type that has a purple background
-    /// and is underlined.
-    /// </summary>
-    [Export(typeof(EditorFormatDefinition))]
-    [ClassificationType(ClassificationTypeNames = ClassificationTypes.FieldType)]
-    [Name(ClassificationTypes.FieldType)]
-    [UserVisible(true)] // This should be visible to the end user
-    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
-    internal sealed class FieldTypeClassification : ClassificationFormatDefinition
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FieldTypeClassification"/> class.
-        /// </summary>
-        public FieldTypeClassification()
-        {
-            this.DisplayName = "SharpLizer: Field Type"; // Human readable version of the name
-            this.BackgroundColor = Colors.Red;
-            this.ForegroundColor = Colors.Black;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
-        }
-    }
-
-    [Export(typeof(EditorFormatDefinition))]
-    [ClassificationType(ClassificationTypeNames = ClassificationTypes.MethodType)]
-    [Name(ClassificationTypes.MethodType)]
-    [UserVisible(true)] // This should be visible to the end user
-    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
-    internal sealed class MethodTypeClassification : ClassificationFormatDefinition
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MethodTypeClassification"/> class.
-        /// </summary>
-        public MethodTypeClassification()
-        {
-            this.DisplayName = "SharpLizer: Method Type"; // Human readable version of the name
-            this.BackgroundColor = Colors.Red;
-            this.ForegroundColor = Colors.Yellow;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
-        }
-    }
-
     #region Abstraction Keywords Colors
 
     [Export(typeof(EditorFormatDefinition))]
@@ -332,4 +290,203 @@ namespace SharpLizer.Classification
             this.TextDecorations = System.Windows.TextDecorations.Underline;
         }
     }
+
+    #region Identifier Colors
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.AttributeIdentifier)]
+    [Name(ClassificationTypes.Identifiers.AttributeIdentifier)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class AttributeIdentifierClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AttributeIdentifierClassification"/> class.
+        /// </summary>
+        public AttributeIdentifierClassification()
+        {
+            this.DisplayName = "SharpLizer: Attribute Identifier"; // Human readable version of the name
+            this.ForegroundColor = Colors.Violet;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.AttributePropertyIdentifier)]
+    [Name(ClassificationTypes.Identifiers.AttributePropertyIdentifier)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class AttributePropertyIdentifierClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AttributePropertyIdentifierClassification"/> class.
+        /// </summary>
+        public AttributePropertyIdentifierClassification()
+        {
+            this.DisplayName = "SharpLizer: Attribute Property Identifier"; // Human readable version of the name
+            this.ForegroundColor = Colors.Azure;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.ClassIdentifier)]
+    [Name(ClassificationTypes.Identifiers.ClassIdentifier)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class ClassIdentifierClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClassIdentifierClassification"/> class.
+        /// </summary>
+        public ClassIdentifierClassification()
+        {
+            this.DisplayName = "SharpLizer: Class Identifier"; // Human readable version of the name
+            this.ForegroundColor = Colors.Bisque;
+            this.TextDecorations = System.Windows.TextDecorations.Underline;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.ConstructorIdentifier)]
+    [Name(ClassificationTypes.Identifiers.ConstructorIdentifier)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class ConstructorIdentifierClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConstructorIdentifierClassification"/> class.
+        /// </summary>
+        public ConstructorIdentifierClassification()
+        {
+            this.DisplayName = "SharpLizer: Constructor Identifier"; // Human readable version of the name
+            this.ForegroundColor = Colors.Yellow;
+            this.TextDecorations = System.Windows.TextDecorations.Underline;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.DelegateIdentifier)]
+    [Name(ClassificationTypes.Identifiers.DelegateIdentifier)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class DelegateIdentifierClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClassIdentifierClassification"/> class.
+        /// </summary>
+        public DelegateIdentifierClassification()
+        {
+            this.DisplayName = "SharpLizer: Delegate Identifier"; // Human readable version of the name
+            this.ForegroundColor = Colors.Chocolate;
+            this.TextDecorations = System.Windows.TextDecorations.Underline;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.EnumIdentifier)]
+    [Name(ClassificationTypes.Identifiers.EnumIdentifier)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class EnumIdentifierClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnumIdentifierClassification"/> class.
+        /// </summary>
+        public EnumIdentifierClassification()
+        {
+            this.DisplayName = "SharpLizer: Enum Identifier"; // Human readable version of the name
+            this.ForegroundColor = Colors.Coral;
+            this.TextDecorations = System.Windows.TextDecorations.Underline;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.FieldIdentifier)]
+    [Name(ClassificationTypes.Identifiers.FieldIdentifier)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class FieldIdentifierClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FieldIdentifierClassification"/> class.
+        /// </summary>
+        public FieldIdentifierClassification()
+        {
+            this.DisplayName = "SharpLizer: Field Identifier"; // Human readable version of the name
+            this.ForegroundColor = Colors.Cornsilk;
+            this.TextDecorations = System.Windows.TextDecorations.Underline;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.InterfaceIdentifier)]
+    [Name(ClassificationTypes.Identifiers.InterfaceIdentifier)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class InterfaceIdentifierClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InterfaceIdentifierClassification"/> class.
+        /// </summary>
+        public InterfaceIdentifierClassification()
+        {
+            this.DisplayName = "SharpLizer: Interface Identifier"; // Human readable version of the name
+            this.ForegroundColor = Colors.Cyan;
+            this.TextDecorations = System.Windows.TextDecorations.Underline;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.MethodIdentifier)]
+    [Name(ClassificationTypes.Identifiers.MethodIdentifier)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class MethodIdentifierClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MethodIdentifierClassification"/> class.
+        /// </summary>
+        public MethodIdentifierClassification()
+        {
+            this.DisplayName = "SharpLizer: Method Identifier"; // Human readable version of the name
+            this.ForegroundColor = Colors.DarkGoldenrod;
+            this.TextDecorations = System.Windows.TextDecorations.Underline;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.NamespaceIdentifier)]
+    [Name(ClassificationTypes.Identifiers.NamespaceIdentifier)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class NamespaceIdentifierClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NamespaceIdentifierClassification"/> class.
+        /// </summary>
+        public NamespaceIdentifierClassification()
+        {
+            this.DisplayName = "SharpLizer: Namespace Identifier"; // Human readable version of the name
+            this.ForegroundColor = Colors.DarkSalmon;
+            this.TextDecorations = System.Windows.TextDecorations.Underline;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.StructIdentifier)]
+    [Name(ClassificationTypes.Identifiers.StructIdentifier)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class StructIdentifierClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NamespaceIdentifierClassification"/> class.
+        /// </summary>
+        public StructIdentifierClassification()
+        {
+            this.DisplayName = "SharpLizer: Struct Identifier"; // Human readable version of the name
+            this.ForegroundColor = Colors.DarkTurquoise;
+            this.TextDecorations = System.Windows.TextDecorations.Underline;
+        }
+    }
+
+    #endregion
 }

@@ -27,14 +27,14 @@ namespace SharpLizer.Classification
         /// Initializes a new instance of the <see cref="EditorClassifier"/> class.
         /// </summary>
         /// <param name="registry">Classification registry.</param>
-        internal EditorClassifier(IClassificationTypeRegistryService registry, ITextBuffer buffer, IDictionary<string,IClassificationType> classifications)
+        internal EditorClassifier(IClassificationTypeRegistryService registry, ITextBuffer buffer, IDictionary<string, IClassificationType> classifications)
         {
             _registryService = registry;
             _classifications = classifications;
             _textBuffer = buffer;
             _textBuffer.Changed += TextBufferChanged;
         }
-        
+
 
         #region IClassifier
 
@@ -80,7 +80,7 @@ namespace SharpLizer.Classification
         /// </remarks>
         /// <param name="span">The span currently being classified.</param>
         /// <returns>A list of ClassificationSpans that represent spans identified to be of this classification.</returns>
-        public  IList<ClassificationSpan> GetClassificationSpans(SnapshotSpan span)
+        public IList<ClassificationSpan> GetClassificationSpans(SnapshotSpan span)
         {
             // Get a snaphot of the current document
             var snapshot = span.Snapshot;
@@ -95,7 +95,7 @@ namespace SharpLizer.Classification
             var documentRoot = semanticModel.SyntaxTree.GetCompilationUnitRoot();
 
             var currentDocumentSpan = new TextSpan(span.Start.Position, span.Length);
-            var classifiedSpans = Classifier.GetClassifiedSpans(semanticModel, currentDocumentSpan,workspace);
+            var classifiedSpans = Classifier.GetClassifiedSpans(semanticModel, currentDocumentSpan, workspace);
 
             var result = new List<ClassificationSpan>();
             foreach (var classifiedSpan in classifiedSpans)
@@ -109,7 +109,10 @@ namespace SharpLizer.Classification
             return result;
         }
 
-        private ClassificationSpan GetClassificationSpan(ITextSnapshot snapshot, ClassifiedSpan currentSpan, CompilationUnitSyntax documentRoot, SemanticModel semanticModel) {
+        #endregion
+
+        private ClassificationSpan GetClassificationSpan(ITextSnapshot snapshot, ClassifiedSpan currentSpan, CompilationUnitSyntax documentRoot, SemanticModel semanticModel)
+        {
 
             var classificationType = GetClassificationType(currentSpan, snapshot, documentRoot, semanticModel);
             if (classificationType == null) return null;
@@ -119,45 +122,58 @@ namespace SharpLizer.Classification
 
         private IClassificationType GetClassificationType(ClassifiedSpan currentSpan, ITextSnapshot snapshot, CompilationUnitSyntax documentRoot, SemanticModel semanticModel)
         {
+            IClassificationType classificationType = null;
             // Get the innermost span, which corresponds to the span being proccessed
             var node = documentRoot.FindNode(currentSpan.TextSpan, true, true);
 
             var type = currentSpan.ClassificationType;
             var nodeKind = node.Kind();
 
-            if (nodeKind.ToString().EndsWith("Declaration",StringComparison.InvariantCultureIgnoreCase))
+            if (nodeKind.ToString().EndsWith("Declaration", StringComparison.InvariantCultureIgnoreCase))
             {
                 var token = node.FindToken(currentSpan.TextSpan.Start);
                 switch (token.Kind())
                 {
                     #region Abstraction Keywords
                     case SyntaxKind.AbstractKeyword:
-                        return _classifications[ClassificationTypes.AbstractionTypes.AbstractKeyword];
+                        classificationType = _classifications[ClassificationTypes.AbstractionTypes.AbstractKeyword];
+                        break;
                     case SyntaxKind.AsyncKeyword:
-                        return _classifications[ClassificationTypes.AbstractionTypes.AsyncKeyword];
+                        classificationType = _classifications[ClassificationTypes.AbstractionTypes.AsyncKeyword];
+                        break;
                     case SyntaxKind.NewKeyword:
-                        return _classifications[ClassificationTypes.AbstractionTypes.NewKeyword];
+                        classificationType = _classifications[ClassificationTypes.AbstractionTypes.NewKeyword];
+                        break;
                     case SyntaxKind.OverrideKeyword:
-                        return _classifications[ClassificationTypes.AbstractionTypes.OverrideKeyword];
+                        classificationType = _classifications[ClassificationTypes.AbstractionTypes.OverrideKeyword];
+                        break;
                     case SyntaxKind.SealedKeyword:
-                        return _classifications[ClassificationTypes.AbstractionTypes.SealedKeyword];
+                        classificationType = _classifications[ClassificationTypes.AbstractionTypes.SealedKeyword];
+                        break;
                     case SyntaxKind.VirtualKeyword:
-                        return _classifications[ClassificationTypes.AbstractionTypes.VirtualKeyword];
+                        classificationType = _classifications[ClassificationTypes.AbstractionTypes.VirtualKeyword];
+                        break;
                     #endregion
 
                     #region Declaration Keywords
                     case SyntaxKind.ClassKeyword:
-                        return _classifications[ClassificationTypes.DeclarationTypes.ClassKeyword];
+                        classificationType = _classifications[ClassificationTypes.DeclarationTypes.ClassKeyword];
+                        break;
                     case SyntaxKind.DelegateKeyword:
-                        return _classifications[ClassificationTypes.DeclarationTypes.DelegateKeyword];
+                        classificationType = _classifications[ClassificationTypes.DeclarationTypes.DelegateKeyword];
+                        break;
                     case SyntaxKind.EnumKeyword:
-                        return _classifications[ClassificationTypes.DeclarationTypes.ClassKeyword];
+                        classificationType = _classifications[ClassificationTypes.DeclarationTypes.ClassKeyword];
+                        break;
                     case SyntaxKind.InterfaceKeyword:
-                        return _classifications[ClassificationTypes.DeclarationTypes.InterfaceKeyword];
+                        classificationType = _classifications[ClassificationTypes.DeclarationTypes.InterfaceKeyword];
+                        break;
                     case SyntaxKind.NamespaceKeyword:
-                        return _classifications[ClassificationTypes.DeclarationTypes.NamespaceKeyword];
+                        classificationType = _classifications[ClassificationTypes.DeclarationTypes.NamespaceKeyword];
+                        break;
                     case SyntaxKind.StructKeyword:
-                        return _classifications[ClassificationTypes.DeclarationTypes.StructKeyword];
+                        classificationType = _classifications[ClassificationTypes.DeclarationTypes.StructKeyword];
+                        break;
                     #endregion
 
                     #region Encapsulation Keywords
@@ -165,24 +181,80 @@ namespace SharpLizer.Classification
                     case SyntaxKind.PrivateKeyword:
                     case SyntaxKind.InternalKeyword:
                     case SyntaxKind.ProtectedKeyword:
-                        return _classifications[ClassificationTypes.EncapsulationKeywords];
-                    #endregion
+                        classificationType = _classifications[ClassificationTypes.EncapsulationKeywords];
+                        break;
+                        #endregion
 
-                    default:
-                        return null;
                 }
-            }
-            else
-            {
-                switch (nodeKind)
+
+                if (classificationType == null && token.Kind() == SyntaxKind.IdentifierToken)
                 {
-                    case SyntaxKind.MethodDeclaration:
-                        return _classifications[ClassificationTypes.MethodType];
-                    default:
-                        return null;
+                    switch (token.Parent.Kind())
+                    {
+                        #region Identifiers
+                        case SyntaxKind.ClassDeclaration:
+                            classificationType = _classifications[ClassificationTypes.Identifiers.ClassIdentifier];
+                            break;
+                        case SyntaxKind.ConstructorDeclaration:
+                            classificationType = _classifications[ClassificationTypes.Identifiers.ConstructorIdentifier];
+                            break;
+                        case SyntaxKind.DelegateDeclaration:
+                            classificationType = _classifications[ClassificationTypes.Identifiers.DelegateIdentifier];
+                            break;
+                        case SyntaxKind.EnumDeclaration:
+                            classificationType = _classifications[ClassificationTypes.Identifiers.EnumIdentifier];
+                            break;
+                        case SyntaxKind.FieldDeclaration:
+                            classificationType = _classifications[ClassificationTypes.Identifiers.FieldIdentifier];
+                            break;
+                        case SyntaxKind.InterfaceDeclaration:
+                            classificationType = _classifications[ClassificationTypes.Identifiers.InterfaceIdentifier];
+                            break;
+                        case SyntaxKind.MethodDeclaration:
+                            classificationType = _classifications[ClassificationTypes.Identifiers.MethodIdentifier];
+                            break;
+                        case SyntaxKind.StructDeclaration:
+                            classificationType = _classifications[ClassificationTypes.Identifiers.StructIdentifier];
+                            break;
+                            #endregion
+                    }
                 }
             }
+
+            // Namespace declarations start with an IdentifierName node. There are two cases we need to handle:
+            // 1) If the namespace is topmost (e.g: SharpLizer), the parent will have the NamespaceDeclaration as SyntaxKind
+            // 2) If the namespace is nested (e.g: SharpLizer.Classification), the grandparent will have the NamespaceDeclaration as SyntaxKind
+            else if (node.Kind() == SyntaxKind.QualifiedName || node.Parent?.Kind() == SyntaxKind.QualifiedName || node.Parent?.Kind() == SyntaxKind.NamespaceDeclaration)
+            {
+                if (node.Parent?.Kind() == SyntaxKind.NamespaceDeclaration || node.Parent?.Parent?.Kind() == SyntaxKind.NamespaceDeclaration)
+                {
+                    classificationType = _classifications[ClassificationTypes.Identifiers.NamespaceIdentifier];
+                }
+
+            }
+
+            // Attributes also start with an IdentifierName node but 
+            // in this case we need to look only for the grandparent  to know if it's part of an attribute
+            else if (node.Parent?.Parent?.Kind() == SyntaxKind.AttributeList
+                    || node.Parent?.Parent?.Kind() == SyntaxKind.AttributeArgumentList
+                    || node.Parent?.Parent?.Kind() == SyntaxKind.AttributeArgument)
+            {
+                var token = node.FindToken(currentSpan.TextSpan.Start);
+                switch (node.Parent?.Kind())
+                {
+                    case SyntaxKind.NameEquals:
+                        {
+                            if (token.Kind() == SyntaxKind.IdentifierToken) classificationType = _classifications[ClassificationTypes.Identifiers.AttributePropertyIdentifier];
+                            break;
+                        }
+                    case SyntaxKind.Attribute:
+                        classificationType = _classifications[ClassificationTypes.Identifiers.AttributeIdentifier];
+                        break;
+                }
+            }
+
+            return classificationType;
         }
-        #endregion
+
     }
 }

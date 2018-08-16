@@ -30,10 +30,23 @@ namespace SharpLizer.Classification
             public const string StructKeyword = "SharpLizer.StructKeyword";
         }
 
-        public const string EncapsulationKeywords = "SharpLizer.EncapsulationKeywords";
+        public static class Identifiers
+        {
+            public const string AttributeIdentifier = "SharpLizer.AttributeIdentifier";
+            public const string AttributePropertyIdentifier = "SharpLizer.AttributeArgument";
+            public const string ClassIdentifier = "SharpLizer.ClassIdentifier";
+            public const string ConstructorIdentifier = "SharpLizer.ConstructorIdentifier";
+            public const string DelegateIdentifier = "SharpLizer.DelegateIdentifier";
+            public const string EnumIdentifier = "SharpLizer.EnumIdentifier";
+            public const string FieldIdentifier = "SharpLizer.FieldIdentifier";
+            public const string InterfaceIdentifier = "SharpLizer.InterfaceIdentifier";
+            public const string MethodIdentifier = "SharpLizer.MethodIdentifier";
+            public const string NamespaceIdentifier = "SharpLizer.NamespaceIdentifier";
+            public const string StructIdentifier = "SharpLizer.StructIdentifier";
+        }
 
-        public const string FieldType = "SharpLizer.FieldType";
-        public const string MethodType = "SharpLizer.MethodType";
+        public const string EncapsulationKeywords = "SharpLizer.EncapsulationKeywords";
+        
         public const string ConstantFieldType = "SharpLizer.ConstantFieldType";
         
 
