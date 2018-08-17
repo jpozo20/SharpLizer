@@ -57,7 +57,7 @@ namespace SharpLizer.Classification
             classificationTypes.Add(ClassificationTypes.DeclarationTypes.InterfaceKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.DeclarationTypes.InterfaceKeyword));
             classificationTypes.Add(ClassificationTypes.DeclarationTypes.NamespaceKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.DeclarationTypes.NamespaceKeyword));
             classificationTypes.Add(ClassificationTypes.DeclarationTypes.StructKeyword, classificationRegistry.GetClassificationType(ClassificationTypes.DeclarationTypes.StructKeyword));
-            classificationTypes.Add(ClassificationTypes.EncapsulationKeywords, classificationRegistry.GetClassificationType(ClassificationTypes.EncapsulationKeywords));
+            classificationTypes.Add(ClassificationTypes.DeclarationTypes.EncapsulationKeywords, classificationRegistry.GetClassificationType(ClassificationTypes.DeclarationTypes.EncapsulationKeywords));
 
             classificationTypes.Add(ClassificationTypes.Identifiers.AttributeIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.AttributeIdentifier));
             classificationTypes.Add(ClassificationTypes.Identifiers.AttributePropertyIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.AttributePropertyIdentifier));
@@ -70,6 +70,15 @@ namespace SharpLizer.Classification
             classificationTypes.Add(ClassificationTypes.Identifiers.MethodIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.MethodIdentifier));
             classificationTypes.Add(ClassificationTypes.Identifiers.NamespaceIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.NamespaceIdentifier));
             classificationTypes.Add(ClassificationTypes.Identifiers.StructIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.StructIdentifier));
+
+            classificationTypes.Add(ClassificationTypes.Fields.BooleanField, classificationRegistry.GetClassificationType(ClassificationTypes.Fields.BooleanField));
+            classificationTypes.Add(ClassificationTypes.Fields.ByteField, classificationRegistry.GetClassificationType(ClassificationTypes.Fields.ByteField));
+            classificationTypes.Add(ClassificationTypes.Fields.CharField, classificationRegistry.GetClassificationType(ClassificationTypes.Fields.CharField));
+            classificationTypes.Add(ClassificationTypes.Fields.ConstantField, classificationRegistry.GetClassificationType(ClassificationTypes.Fields.ConstantField));
+            classificationTypes.Add(ClassificationTypes.Fields.DateTimeField, classificationRegistry.GetClassificationType(ClassificationTypes.Fields.DateTimeField));
+            classificationTypes.Add(ClassificationTypes.Fields.Field, classificationRegistry.GetClassificationType(ClassificationTypes.Fields.Field));
+            classificationTypes.Add(ClassificationTypes.Fields.NumericField, classificationRegistry.GetClassificationType(ClassificationTypes.Fields.NumericField));
+            classificationTypes.Add(ClassificationTypes.Fields.StringField, classificationRegistry.GetClassificationType(ClassificationTypes.Fields.StringField));
 
             return classificationTypes;
         }

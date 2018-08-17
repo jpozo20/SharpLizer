@@ -64,6 +64,11 @@ namespace SharpLizer.Classification
         private static ClassificationTypeDefinition declarationKeywordsDefinition;
 
         [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.DeclarationTypes.EncapsulationKeywords)]
+        [Name(ClassificationTypes.DeclarationTypes.EncapsulationKeywords)]
+        private static ClassificationTypeDefinition encapsulationKeywordsDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
         [ClassificationType(ClassificationTypeNames = ClassificationTypes.DeclarationTypes.ClassKeyword)]
         [Name(ClassificationTypes.DeclarationTypes.ClassKeyword)]
         private static ClassificationTypeDefinition classKeywordDefinition;
@@ -94,11 +99,6 @@ namespace SharpLizer.Classification
         private static ClassificationTypeDefinition structKeywordDefinition;
 
         #endregion
-
-        [Export(typeof(ClassificationTypeDefinition))]
-        [ClassificationType(ClassificationTypeNames = ClassificationTypes.EncapsulationKeywords)]
-        [Name(ClassificationTypes.EncapsulationKeywords)]
-        private static ClassificationTypeDefinition encapsulationKeywordsDefinition;
 
         #region Identifier TypeDefinitions
         [Export(typeof(ClassificationTypeDefinition))]
@@ -155,7 +155,50 @@ namespace SharpLizer.Classification
         [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.StructIdentifier)]
         [Name(ClassificationTypes.Identifiers.StructIdentifier)]
         private static ClassificationTypeDefinition structIdentifierDefinition;
-        
+
+        #endregion
+
+        #region Field TypeDefinitions
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.BooleanField)]
+        [Name(ClassificationTypes.Fields.BooleanField)]
+        private static ClassificationTypeDefinition booleanFieldDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.ByteField)]
+        [Name(ClassificationTypes.Fields.ByteField)]
+        private static ClassificationTypeDefinition byteFieldDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.CharField)]
+        [Name(ClassificationTypes.Fields.CharField)]
+        private static ClassificationTypeDefinition charFieldDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.ConstantField)]
+        [Name(ClassificationTypes.Fields.ConstantField)]
+        private static ClassificationTypeDefinition constantFieldDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.DateTimeField)]
+        [Name(ClassificationTypes.Fields.DateTimeField)]
+        private static ClassificationTypeDefinition dateTimeFieldDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.Field)]
+        [Name(ClassificationTypes.Fields.Field)]
+        private static ClassificationTypeDefinition fieldDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.NumericField)]
+        [Name(ClassificationTypes.Fields.NumericField)]
+        private static ClassificationTypeDefinition numericFieldDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.StringField)]
+        [Name(ClassificationTypes.Fields.StringField)]
+        private static ClassificationTypeDefinition stringFieldDefinition;
+
         #endregion
 
 #pragma warning restore 169

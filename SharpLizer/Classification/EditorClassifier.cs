@@ -181,7 +181,7 @@ namespace SharpLizer.Classification
                     case SyntaxKind.PrivateKeyword:
                     case SyntaxKind.InternalKeyword:
                     case SyntaxKind.ProtectedKeyword:
-                        classificationType = _classifications[ClassificationTypes.EncapsulationKeywords];
+                        classificationType = _classifications[ClassificationTypes.DeclarationTypes.EncapsulationKeywords];
                         break;
                         #endregion
 
@@ -251,6 +251,65 @@ namespace SharpLizer.Classification
                         classificationType = _classifications[ClassificationTypes.Identifiers.AttributeIdentifier];
                         break;
                 }
+            }
+
+            else if (type.Contains("name") && nodeKind == SyntaxKind.VariableDeclarator)
+            {
+                var token = node.FindToken(currentSpan.TextSpan.Start);
+
+                var symbol = semanticModel.GetDeclaredSymbol(node);
+                if (symbol == null) symbol = semanticModel.GetSymbolInfo(node).Symbol;
+                if (symbol == null) return classificationType;
+
+                switch (symbol.Kind)
+                {
+                    case SymbolKind.Field:
+                        {
+                            var typeInformation = (symbol as IFieldSymbol)?.Type;
+                            switch (typeInformation.SpecialType)
+                            {
+                                case SpecialType.System_Boolean:
+                                    classificationType = _classifications[ClassificationTypes.Fields.BooleanField];
+                                    break;
+
+                                case SpecialType.System_Byte:
+                                case SpecialType.System_SByte:
+                                    classificationType = _classifications[ClassificationTypes.Fields.ByteField];
+                                    break;
+
+                                case SpecialType.System_Char:
+                                    classificationType = _classifications[ClassificationTypes.Fields.CharField];
+                                    break;
+
+                                case SpecialType.System_DateTime:
+                                    classificationType = _classifications[ClassificationTypes.Fields.DateTimeField];
+                                    break;
+
+                                case SpecialType.System_Int16:
+                                case SpecialType.System_Int32:
+                                case SpecialType.System_Int64:
+                                case SpecialType.System_UInt16:
+                                case SpecialType.System_UInt32:
+                                case SpecialType.System_UInt64:
+                                case SpecialType.System_Decimal:
+                                case SpecialType.System_Double:
+                                case SpecialType.System_Single:
+                                    classificationType = _classifications[ClassificationTypes.Fields.NumericField];
+                                    break;
+
+                                case SpecialType.System_String:
+                                    classificationType = _classifications[ClassificationTypes.Fields.StringField];
+                                    break;
+
+                                default:
+                                    classificationType = _classifications[ClassificationTypes.Fields.Field];
+                                    break;
+                            }
+
+                        }
+                        break;
+                }
+
             }
 
             return classificationType;

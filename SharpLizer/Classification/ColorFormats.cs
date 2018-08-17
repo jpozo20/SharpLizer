@@ -271,11 +271,9 @@ namespace SharpLizer.Classification
         }
     }
 
-    #endregion
-
     [Export(typeof(EditorFormatDefinition))]
-    [ClassificationType(ClassificationTypeNames = ClassificationTypes.EncapsulationKeywords)]
-    [Name(ClassificationTypes.EncapsulationKeywords)]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.DeclarationTypes.EncapsulationKeywords)]
+    [Name(ClassificationTypes.DeclarationTypes.EncapsulationKeywords)]
     [UserVisible(true)] // This should be visible to the end user
     [Order(After = Priority.High)] // Set the priority to be after the default classifiers
     internal sealed class EncapsulationKeywordsClassification : ClassificationFormatDefinition
@@ -290,6 +288,8 @@ namespace SharpLizer.Classification
             this.TextDecorations = System.Windows.TextDecorations.Underline;
         }
     }
+
+    #endregion
 
     #region Identifier Colors
     [Export(typeof(EditorFormatDefinition))]
@@ -485,6 +485,146 @@ namespace SharpLizer.Classification
             this.DisplayName = "SharpLizer: Struct Identifier"; // Human readable version of the name
             this.ForegroundColor = Colors.DarkTurquoise;
             this.TextDecorations = System.Windows.TextDecorations.Underline;
+        }
+    }
+
+    #endregion
+
+    #region Field Colors
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.BooleanField)]
+    [Name(ClassificationTypes.Fields.BooleanField)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class BooleanFieldClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BooleanFieldClassification"/> class.
+        /// </summary>
+        public BooleanFieldClassification()
+        {
+            this.DisplayName = "SharpLizer: Boolean Field"; // Human readable version of the name
+            this.ForegroundColor = Colors.FloralWhite;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.ByteField)]
+    [Name(ClassificationTypes.Fields.ByteField)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class ByteFieldClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ByteFieldClassification"/> class.
+        /// </summary>
+        public ByteFieldClassification()
+        {
+            this.DisplayName = "SharpLizer: Byte Field"; // Human readable version of the name
+            this.ForegroundColor = Colors.MediumAquamarine;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.CharField)]
+    [Name(ClassificationTypes.Fields.CharField)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class CharFieldClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CharFieldClassification"/> class.
+        /// </summary>
+        public CharFieldClassification()
+        {
+            this.DisplayName = "SharpLizer: Char Field"; // Human readable version of the name
+            this.ForegroundColor = Colors.Fuchsia;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.ConstantField)]
+    [Name(ClassificationTypes.Fields.ConstantField)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class ConstantFieldClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConstantFieldClassification"/> class.
+        /// </summary>
+        public ConstantFieldClassification()
+        {
+            this.DisplayName = "SharpLizer: Constant Field"; // Human readable version of the name
+            this.ForegroundColor = Colors.ForestGreen;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.DateTimeField)]
+    [Name(ClassificationTypes.Fields.DateTimeField)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class DateTimeFieldClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DateTimeFieldClassification"/> class.
+        /// </summary>
+        public DateTimeFieldClassification()
+        {
+            this.DisplayName = "SharpLizer: DateTime Field"; // Human readable version of the name
+            this.ForegroundColor = Colors.BlueViolet;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.Field)]
+    [Name(ClassificationTypes.Fields.Field)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class FieldClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FieldClassification"/> class.
+        /// </summary>
+        public FieldClassification()
+        {
+            this.DisplayName = "SharpLizer: Field"; // Human readable version of the name
+            this.ForegroundColor = Colors.DarkSlateBlue;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.NumericField)]
+    [Name(ClassificationTypes.Fields.NumericField)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class NumericFieldClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NumericFieldClassification"/> class.
+        /// </summary>
+        public NumericFieldClassification()
+        {
+            this.DisplayName = "SharpLizer: Numeric Field"; // Human readable version of the name
+            this.ForegroundColor = Colors.BlanchedAlmond;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.StringField)]
+    [Name(ClassificationTypes.Fields.StringField)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class StringFieldClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StringFieldClassification"/> class.
+        /// </summary>
+        public StringFieldClassification()
+        {
+            this.DisplayName = "SharpLizer: String Field"; // Human readable version of the name
+            this.ForegroundColor = Colors.Red;
         }
     }
 
