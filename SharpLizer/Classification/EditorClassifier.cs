@@ -204,9 +204,6 @@ namespace SharpLizer.Classification
                         case SyntaxKind.EnumDeclaration:
                             classificationType = _classifications[ClassificationTypes.Identifiers.EnumIdentifier];
                             break;
-                        case SyntaxKind.FieldDeclaration:
-                            classificationType = _classifications[ClassificationTypes.Identifiers.FieldIdentifier];
-                            break;
                         case SyntaxKind.InterfaceDeclaration:
                             classificationType = _classifications[ClassificationTypes.Identifiers.InterfaceIdentifier];
                             break;
@@ -308,6 +305,50 @@ namespace SharpLizer.Classification
 
                         }
                         break;
+                    case SymbolKind.Property:
+                        {
+                            var typeInformation = (symbol as IPropertySymbol)?.Type;
+                            switch (typeInformation.SpecialType)
+                            {
+                                case SpecialType.System_Boolean:
+                                    classificationType = _classifications[ClassificationTypes.Properties.BooleanProperty];
+                                    break;
+
+                                case SpecialType.System_SByte:
+                                case SpecialType.System_Byte:
+                                    classificationType = _classifications[ClassificationTypes.Properties.ByteProperty];
+                                    break;
+
+                                case SpecialType.System_Char:
+                                    classificationType = _classifications[ClassificationTypes.Properties.CharProperty];
+                                    break;
+
+                                case SpecialType.System_DateTime:
+                                    classificationType = _classifications[ClassificationTypes.Properties.DateTimeProperty];
+                                    break;
+
+                                case SpecialType.System_Int16:
+                                case SpecialType.System_UInt16:
+                                case SpecialType.System_Int32:
+                                case SpecialType.System_UInt32:
+                                case SpecialType.System_Int64:
+                                case SpecialType.System_UInt64:
+                                case SpecialType.System_Decimal:
+                                case SpecialType.System_Single:
+                                case SpecialType.System_Double:
+                                    classificationType = _classifications[ClassificationTypes.Properties.NumericProperty];
+                                    break;
+
+                                case SpecialType.System_String:
+                                    classificationType = _classifications[ClassificationTypes.Properties.StringProperty];
+                                    break;
+
+                                default:
+                                    classificationType = _classifications[ClassificationTypes.Properties.Property];
+                                    break;
+                            }
+                            break;
+                        }
                 }
 
             }

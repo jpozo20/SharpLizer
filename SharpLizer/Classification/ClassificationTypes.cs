@@ -38,6 +38,7 @@ namespace SharpLizer.Classification
             public const string CharField = "SharpLizer.CharField";
             public const string ConstantField = "SharpLizer.ConstantField";
             public const string DateTimeField = "SharpLizer.DateTimeField";
+            public const string EventHandler = "SharpLizer.EventHandler";
             public const string NumericField = "SharpLizer.NumericField";
             public const string StringField = "SharpLizer.StringField";
             public const string Field = "SharpLizer.Field";
@@ -51,7 +52,6 @@ namespace SharpLizer.Classification
             public const string ConstructorIdentifier = "SharpLizer.ConstructorIdentifier";
             public const string DelegateIdentifier = "SharpLizer.DelegateIdentifier";
             public const string EnumIdentifier = "SharpLizer.EnumIdentifier";
-            public const string FieldIdentifier = "SharpLizer.FieldIdentifier";
             public const string InterfaceIdentifier = "SharpLizer.InterfaceIdentifier";
             public const string MethodIdentifier = "SharpLizer.MethodIdentifier";
             public const string NamespaceIdentifier = "SharpLizer.NamespaceIdentifier";
@@ -68,11 +68,11 @@ namespace SharpLizer.Classification
         public static class Properties
         {
             public const string BooleanProperty = "SharpLizer.BooleanProperty";
-            public const string ConstantProperty = "SharpLizer.ConstantProperty";
+            public const string ByteProperty = "SharpLizer.ByteProperty";
+            public const string CharProperty = "SharpLizer.CharProperty";
             public const string DateTimeProperty = "SharpLizer.DateTimeProperty";
             public const string NumericProperty = "SharpLizer.NumericProperty";
             public const string StringProperty = "SharpLizer.StringProperty";
-            public const string EventHandler = "SharpLizer.EventHandler";
             public const string Property = "SharpLizer.Property";
         }
 

@@ -291,7 +291,7 @@ namespace SharpLizer.Classification
 
     #endregion
 
-    #region Identifier Colors
+    #region Identifiers Colors
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.AttributeIdentifier)]
     [Name(ClassificationTypes.Identifiers.AttributeIdentifier)]
@@ -399,24 +399,6 @@ namespace SharpLizer.Classification
     }
 
     [Export(typeof(EditorFormatDefinition))]
-    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.FieldIdentifier)]
-    [Name(ClassificationTypes.Identifiers.FieldIdentifier)]
-    [UserVisible(true)] // This should be visible to the end user
-    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
-    internal sealed class FieldIdentifierClassification : ClassificationFormatDefinition
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FieldIdentifierClassification"/> class.
-        /// </summary>
-        public FieldIdentifierClassification()
-        {
-            this.DisplayName = "SharpLizer: Field Identifier"; // Human readable version of the name
-            this.ForegroundColor = Colors.Cornsilk;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
-        }
-    }
-
-    [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.InterfaceIdentifier)]
     [Name(ClassificationTypes.Identifiers.InterfaceIdentifier)]
     [UserVisible(true)] // This should be visible to the end user
@@ -490,8 +472,23 @@ namespace SharpLizer.Classification
 
     #endregion
 
-    #region Field Colors
-
+    #region Fields Colors
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.Field)]
+    [Name(ClassificationTypes.Fields.Field)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class FieldClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FieldClassification"/> class.
+        /// </summary>
+        public FieldClassification()
+        {
+            this.DisplayName = "SharpLizer: Field"; // Human readable version of the name
+            this.ForegroundColor = Colors.DarkSlateBlue;
+        }
+    }
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.BooleanField)]
     [Name(ClassificationTypes.Fields.BooleanField)]
@@ -577,22 +574,6 @@ namespace SharpLizer.Classification
         }
     }
 
-    [Export(typeof(EditorFormatDefinition))]
-    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.Field)]
-    [Name(ClassificationTypes.Fields.Field)]
-    [UserVisible(true)] // This should be visible to the end user
-    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
-    internal sealed class FieldClassification : ClassificationFormatDefinition
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FieldClassification"/> class.
-        /// </summary>
-        public FieldClassification()
-        {
-            this.DisplayName = "SharpLizer: Field"; // Human readable version of the name
-            this.ForegroundColor = Colors.DarkSlateBlue;
-        }
-    }
 
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.NumericField)]
@@ -628,5 +609,126 @@ namespace SharpLizer.Classification
         }
     }
 
+    #endregion
+
+    #region Properties Colors
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.Property)]
+    [Name(ClassificationTypes.Properties.Property)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class PropertyClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PropertyClassification"/> class.
+        /// </summary>
+        public PropertyClassification()
+        {
+            this.DisplayName = "SharpLizer: Property"; // Human readable version of the name
+            this.ForegroundColor = Colors.Brown;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.BooleanProperty)]
+    [Name(ClassificationTypes.Properties.BooleanProperty)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class BooleanPropertyClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BooleanPropertyClassification"/> class.
+        /// </summary>
+        public BooleanPropertyClassification()
+        {
+            this.DisplayName = "SharpLizer: Boolean Property"; // Human readable version of the name
+            this.ForegroundColor = Colors.Crimson;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.ByteProperty)]
+    [Name(ClassificationTypes.Properties.ByteProperty)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class BytePropertyClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BytePropertyClassification"/> class.
+        /// </summary>
+        public BytePropertyClassification()
+        {
+            this.DisplayName = "SharpLizer: Byte Property"; // Human readable version of the name
+            this.ForegroundColor = Colors.Cornsilk;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.CharProperty)]
+    [Name(ClassificationTypes.Properties.CharProperty)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class CharPropertyClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CharPropertyClassification"/> class.
+        /// </summary>
+        public CharPropertyClassification()
+        {
+            this.DisplayName = "SharpLizer: Char Property"; // Human readable version of the name
+            this.ForegroundColor = Colors.Chocolate;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.DateTimeProperty)]
+    [Name(ClassificationTypes.Properties.DateTimeProperty)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class DateTimePropertyClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DateTimePropertyClassification"/> class.
+        /// </summary>
+        public DateTimePropertyClassification()
+        {
+            this.DisplayName = "SharpLizer: DateTime Property"; // Human readable version of the name
+            this.ForegroundColor = Colors.CadetBlue;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.NumericProperty)]
+    [Name(ClassificationTypes.Properties.NumericProperty)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class NumericPropertyClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NumericPropertyClassification"/> class.
+        /// </summary>
+        public NumericPropertyClassification()
+        {
+            this.DisplayName = "SharpLizer: Numeric Property"; // Human readable version of the name
+            this.ForegroundColor = Colors.Chartreuse;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.StringProperty)]
+    [Name(ClassificationTypes.Properties.StringProperty)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class StringPropertyClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StringPropertyClassification"/> class.
+        /// </summary>
+        public StringPropertyClassification()
+        {
+            this.DisplayName = "SharpLizer: String Property"; // Human readable version of the name
+            this.ForegroundColor = Colors.BurlyWood;
+        }
+    }
     #endregion
 }

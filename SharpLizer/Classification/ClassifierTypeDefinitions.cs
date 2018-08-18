@@ -132,11 +132,6 @@ namespace SharpLizer.Classification
         private static ClassificationTypeDefinition enumIdentifierDefinition;
 
         [Export(typeof(ClassificationTypeDefinition))]
-        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.FieldIdentifier)]
-        [Name(ClassificationTypes.Identifiers.FieldIdentifier)]
-        private static ClassificationTypeDefinition fieldIdentifierDefinition;
-
-        [Export(typeof(ClassificationTypeDefinition))]
         [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.InterfaceIdentifier)]
         [Name(ClassificationTypes.Identifiers.InterfaceIdentifier)]
         private static ClassificationTypeDefinition interfaceIdentifierDefinition;
@@ -157,7 +152,7 @@ namespace SharpLizer.Classification
         private static ClassificationTypeDefinition structIdentifierDefinition;
 
         #endregion
-
+        
         #region Field TypeDefinitions
         [Export(typeof(ClassificationTypeDefinition))]
         [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.BooleanField)]
@@ -175,6 +170,7 @@ namespace SharpLizer.Classification
         private static ClassificationTypeDefinition charFieldDefinition;
 
         [Export(typeof(ClassificationTypeDefinition))]
+
         [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.ConstantField)]
         [Name(ClassificationTypes.Fields.ConstantField)]
         private static ClassificationTypeDefinition constantFieldDefinition;
@@ -183,6 +179,11 @@ namespace SharpLizer.Classification
         [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.DateTimeField)]
         [Name(ClassificationTypes.Fields.DateTimeField)]
         private static ClassificationTypeDefinition dateTimeFieldDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.EventHandler)]
+        [Name(ClassificationTypes.Fields.EventHandler)]
+        private static ClassificationTypeDefinition eventHandlerFieldDefinition;
 
         [Export(typeof(ClassificationTypeDefinition))]
         [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.Field)]
@@ -199,6 +200,43 @@ namespace SharpLizer.Classification
         [Name(ClassificationTypes.Fields.StringField)]
         private static ClassificationTypeDefinition stringFieldDefinition;
 
+        #endregion
+
+        #region Property TypeDefinitions
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.Property)]
+        [Name(ClassificationTypes.Properties.Property)]
+        private static ClassificationTypeDefinition propertyDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.BooleanProperty)]
+        [Name(ClassificationTypes.Properties.BooleanProperty)]
+        private static ClassificationTypeDefinition booleanPropertyDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.ByteProperty)]
+        [Name(ClassificationTypes.Properties.ByteProperty)]
+        private static ClassificationTypeDefinition bytePropertyDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.CharProperty)]
+        [Name(ClassificationTypes.Properties.CharProperty)]
+        private static ClassificationTypeDefinition charPropertyDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.DateTimeProperty)]
+        [Name(ClassificationTypes.Properties.DateTimeProperty)]
+        private static ClassificationTypeDefinition dateTimePropertyDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.NumericProperty)]
+        [Name(ClassificationTypes.Properties.NumericProperty)]
+        private static ClassificationTypeDefinition numericPropertyDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.StringProperty)]
+        [Name(ClassificationTypes.Properties.StringProperty)]
+        private static ClassificationTypeDefinition stringPropertyDefinition;
         #endregion
 
 #pragma warning restore 169
