@@ -284,7 +284,7 @@ namespace SharpLizer.Classification
         public EncapsulationKeywordsClassification()
         {
             this.DisplayName = "SharpLizer: Encapsulation Keywords"; // Human readable version of the name
-            this.ForegroundColor = Colors.Aqua;
+            this.ForegroundColor = Colors.Azure;
             this.TextDecorations = System.Windows.TextDecorations.Underline;
         }
     }
