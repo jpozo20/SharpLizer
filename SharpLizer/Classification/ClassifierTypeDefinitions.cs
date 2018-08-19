@@ -206,7 +206,7 @@ namespace SharpLizer.Classification
         private static ClassificationTypeDefinition stringFieldDefinition;
 
         #endregion
-
+                
         #region Property TypeDefinitions
         [Export(typeof(ClassificationTypeDefinition))]
         [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.Property)]
@@ -238,6 +238,7 @@ namespace SharpLizer.Classification
         [Name(ClassificationTypes.Properties.EnumProperty)]
         private static ClassificationTypeDefinition enumPropertyDefinition;
 
+
         [Export(typeof(ClassificationTypeDefinition))]
         [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.NumericProperty)]
         [Name(ClassificationTypes.Properties.NumericProperty)]
@@ -247,6 +248,48 @@ namespace SharpLizer.Classification
         [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.StringProperty)]
         [Name(ClassificationTypes.Properties.StringProperty)]
         private static ClassificationTypeDefinition stringPropertyDefinition;
+        #endregion
+
+        #region Variable TypeDefinitions
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Variables.LocalVariable)]
+        [Name(ClassificationTypes.Variables.LocalVariable)]
+        private static ClassificationTypeDefinition localVarialeDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Variables.BooleanVariable)]
+        [Name(ClassificationTypes.Variables.BooleanVariable)]
+        private static ClassificationTypeDefinition booleanVarialeDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Variables.ByteVariable)]
+        [Name(ClassificationTypes.Variables.ByteVariable)]
+        private static ClassificationTypeDefinition byteVarialeDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Variables.CharVariable)]
+        [Name(ClassificationTypes.Variables.CharVariable)]
+        private static ClassificationTypeDefinition charVarialeDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Variables.DateTimeVariable)]
+        [Name(ClassificationTypes.Variables.DateTimeVariable)]
+        private static ClassificationTypeDefinition dateTimeVarialeDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Variables.EnumVariable)]
+        [Name(ClassificationTypes.Variables.EnumVariable)]
+        private static ClassificationTypeDefinition enumVarialeDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Variables.NumericVariable)]
+        [Name(ClassificationTypes.Variables.NumericVariable)]
+        private static ClassificationTypeDefinition numericVarialeDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Variables.StringVariable)]
+        [Name(ClassificationTypes.Variables.StringVariable)]
+        private static ClassificationTypeDefinition stringVarialeDefinition;
         #endregion
 
 #pragma warning restore 169

@@ -169,17 +169,59 @@ namespace SharpLizer.Classification
         private IClassificationType GetVariableClassification(SyntaxNode node, SemanticModel semanticModel)
         {
             var declarationNode = node.Parent.Parent;
+
+            var symbol = GetSymbol(node, semanticModel);
+            if (symbol == null) return null;
             switch (declarationNode.Kind())
             {
                 case SyntaxKind.FieldDeclaration:
-                    {
-                        var symbol = GetSymbol(node, semanticModel);
-                        if (symbol == null) return null;
-                        return GetFieldClassification(symbol);
-                    }
+                    return GetFieldClassification(symbol);
+
+                case SyntaxKind.LocalDeclarationStatement:
+                    return GetLocalVariableClassification(symbol);
                 default:
                     return null;
             }
+        }
+        private IClassificationType GetLocalVariableClassification(ISymbol symbol)
+        {
+            var typeInfo = (symbol as ILocalSymbol)?.Type;
+            switch (typeInfo.SpecialType)
+            {
+                case SpecialType.System_Boolean:
+                    return _classifications[ClassificationTypes.Variables.BooleanVariable];
+
+                case SpecialType.System_Byte:
+                case SpecialType.System_SByte:
+                    return _classifications[ClassificationTypes.Variables.ByteVariable];
+
+                case SpecialType.System_Char:
+                    return _classifications[ClassificationTypes.Variables.CharVariable];
+
+                case SpecialType.System_DateTime:
+                    return _classifications[ClassificationTypes.Variables.DateTimeVariable];
+
+                case SpecialType.System_Enum:
+                    return _classifications[ClassificationTypes.Variables.EnumVariable];
+
+                case SpecialType.System_Int16:
+                case SpecialType.System_Int32:
+                case SpecialType.System_Int64:
+                case SpecialType.System_UInt16:
+                case SpecialType.System_UInt32:
+                case SpecialType.System_UInt64:
+                case SpecialType.System_Decimal:
+                case SpecialType.System_Double:
+                case SpecialType.System_Single:
+                    return _classifications[ClassificationTypes.Variables.NumericVariable];
+
+                case SpecialType.System_String:
+                    return _classifications[ClassificationTypes.Variables.StringVariable];
+
+                default:
+                    return _classifications[ClassificationTypes.Variables.LocalVariable];
+            }
+
         }
         private IClassificationType GetFieldClassification(ISymbol symbol)
         {

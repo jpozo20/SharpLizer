@@ -38,7 +38,7 @@ namespace SharpLizer.Classification
             public const string CharField = "SharpLizer.CharField";
             public const string ConstantField = "SharpLizer.ConstantField";
             public const string DateTimeField = "SharpLizer.DateTimeField";
-            public const string EnumField = "SharpLizer.EventHandler";
+            public const string EnumField = "SharpLizer.EnumField";
             public const string EventHandler = "SharpLizer.EventHandler";
             public const string NumericField = "SharpLizer.NumericField";
             public const string StringField = "SharpLizer.StringField";
@@ -84,13 +84,10 @@ namespace SharpLizer.Classification
             public const string ByteVariable = "SharpLizer.ByteVariable";
             public const string CharVariable = "SharpLizer.CharVariable";
             public const string DateTimeVariable = "SharpLizer.DateTimeVariable";
-            public const string EnumVariable = "SharpLizer.DateTimeVariable";
+            public const string EnumVariable = "SharpLizer.EnumVariable";
             public const string NumericVariable = "SharpLizer.NumericVariable";
             public const string StringVariable = "SharpLizer.StringVariable";
-            public const string RangeVariable = "SharpLizer.RangeVariable";
+            public const string LocalVariable = "SharpLizer.LocalVariable";
         }
-
-        
-
     }
 }

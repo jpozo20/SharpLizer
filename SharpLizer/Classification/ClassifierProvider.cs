@@ -100,6 +100,17 @@ namespace SharpLizer.Classification
             classificationTypes.Add(ClassificationTypes.Properties.StringProperty, classificationRegistry.GetClassificationType(ClassificationTypes.Properties.StringProperty));
             #endregion
 
+            #region Properties
+            classificationTypes.Add(ClassificationTypes.Variables.LocalVariable, classificationRegistry.GetClassificationType(ClassificationTypes.Variables.LocalVariable));
+            classificationTypes.Add(ClassificationTypes.Variables.BooleanVariable, classificationRegistry.GetClassificationType(ClassificationTypes.Variables.BooleanVariable));
+            classificationTypes.Add(ClassificationTypes.Variables.ByteVariable, classificationRegistry.GetClassificationType(ClassificationTypes.Variables.ByteVariable));
+            classificationTypes.Add(ClassificationTypes.Variables.CharVariable, classificationRegistry.GetClassificationType(ClassificationTypes.Variables.CharVariable));
+            classificationTypes.Add(ClassificationTypes.Variables.DateTimeVariable, classificationRegistry.GetClassificationType(ClassificationTypes.Variables.DateTimeVariable));
+            classificationTypes.Add(ClassificationTypes.Variables.EnumVariable, classificationRegistry.GetClassificationType(ClassificationTypes.Variables.EnumVariable));
+            classificationTypes.Add(ClassificationTypes.Variables.NumericVariable, classificationRegistry.GetClassificationType(ClassificationTypes.Variables.NumericVariable));
+            classificationTypes.Add(ClassificationTypes.Variables.StringVariable, classificationRegistry.GetClassificationType(ClassificationTypes.Variables.StringVariable));
+            #endregion
+
             return classificationTypes;
         }
 

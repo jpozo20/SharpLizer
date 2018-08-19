@@ -784,4 +784,142 @@ namespace SharpLizer.Classification
         }
     }
     #endregion
+
+    #region Variables Colors
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Variables.LocalVariable)]
+    [Name(ClassificationTypes.Variables.LocalVariable)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class LocalVariableClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LocalVariableClassification"/> class.
+        /// </summary>
+        public LocalVariableClassification()
+        {
+            this.DisplayName = "SharpLizer: Local Variable"; // Human readable version of the name
+            this.ForegroundColor = Colors.CornflowerBlue;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Variables.BooleanVariable)]
+    [Name(ClassificationTypes.Variables.BooleanVariable)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class BooleanVariableClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BooleanVariableClassification"/> class.
+        /// </summary>
+        public BooleanVariableClassification()
+        {
+            this.DisplayName = "SharpLizer: Boolean Variable"; // Human readable version of the name
+            this.ForegroundColor = Colors.Firebrick;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Variables.ByteVariable)]
+    [Name(ClassificationTypes.Variables.ByteVariable)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class ByteVariableClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ByteVariableClassification"/> class.
+        /// </summary>
+        public ByteVariableClassification()
+        {
+            this.DisplayName = "SharpLizer: Byte Variable"; // Human readable version of the name
+            this.ForegroundColor = Colors.DodgerBlue;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Variables.CharVariable)]
+    [Name(ClassificationTypes.Variables.CharVariable)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class CharVariableClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CharVariableClassification"/> class.
+        /// </summary>
+        public CharVariableClassification()
+        {
+            this.DisplayName = "SharpLizer: Char Variable"; // Human readable version of the name
+            this.ForegroundColor = Colors.LightCyan;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Variables.DateTimeVariable)]
+    [Name(ClassificationTypes.Variables.DateTimeVariable)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class DateTimeVariableClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DateTimeVariableClassification"/> class.
+        /// </summary>
+        public DateTimeVariableClassification()
+        {
+            this.DisplayName = "SharpLizer: DateTime Variable"; // Human readable version of the name
+            this.ForegroundColor = Colors.LightSalmon;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Variables.EnumVariable)]
+    [Name(ClassificationTypes.Variables.EnumVariable)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class EnumVariableClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnumVariableClassification"/> class.
+        /// </summary>
+        public EnumVariableClassification()
+        {
+            this.DisplayName = "SharpLizer: Enum Variable"; // Human readable version of the name
+            this.ForegroundColor = Colors.Maroon;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Variables.NumericVariable)]
+    [Name(ClassificationTypes.Variables.NumericVariable)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class NumericVariableClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NumericVariableClassification"/> class.
+        /// </summary>
+        public NumericVariableClassification()
+        {
+            this.DisplayName = "SharpLizer: Numeric Variable"; // Human readable version of the name
+            this.ForegroundColor = Colors.RoyalBlue;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Variables.StringVariable)]
+    [Name(ClassificationTypes.Variables.StringVariable)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class StringVariableClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StringVariableClassification"/> class.
+        /// </summary>
+        public StringVariableClassification()
+        {
+            this.DisplayName = "SharpLizer: String Variable"; // Human readable version of the name
+            this.ForegroundColor = Colors.RosyBrown;
+        }
+    }
+    #endregion
 }
