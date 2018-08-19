@@ -193,6 +193,7 @@ namespace SharpLizer.Classification
                     return _classifications[ClassificationTypes.Identifiers.NamespaceIdentifier];
                 case SyntaxKind.PropertyDeclaration:
                     {
+                        if (semanticModel == null) return null;
                         var symbol = GetSymbol(token.Parent, semanticModel);
                         if (symbol == null) return null;
                         return GetPropertyClassification(symbol);
@@ -204,7 +205,7 @@ namespace SharpLizer.Classification
                     return GetVariableClassification(token.Parent, semanticModel);
 
                 case SyntaxKind.IdentifierName:
-                    return GetIdentifierNameClassification(token);
+                    return GetIdentifierNameClassification(token,semanticModel);
                 default:
                     return null;
                     #endregion
@@ -408,7 +409,7 @@ namespace SharpLizer.Classification
                     return null;
             }
         }
-        private IClassificationType GetIdentifierNameClassification(SyntaxToken token)
+        private IClassificationType GetIdentifierNameClassification(SyntaxToken token, SemanticModel semanticModel = null)
         {
             var tokenGrandParent = token.Parent.Parent;
             switch (tokenGrandParent.Kind())
@@ -418,6 +419,30 @@ namespace SharpLizer.Classification
                 case SyntaxKind.NameEquals:
                     if (token.Parent.Parent.Parent.Kind() == SyntaxKind.AttributeArgument) return _classifications[ClassificationTypes.Identifiers.AttributePropertyIdentifier];
                     return null;
+
+                case SyntaxKind.SimpleMemberAccessExpression:
+                case SyntaxKind.EqualsExpression:
+                case SyntaxKind.AsExpression:
+                case SyntaxKind.IsExpression:
+                case SyntaxKind.ElementAccessExpression:
+                case SyntaxKind.SimpleAssignmentExpression:
+                case SyntaxKind.Argument:
+                    {
+                        if (semanticModel == null) return null;
+                        if( tokenGrandParent is MemberAccessExpressionSyntax accessExpression)
+                        {
+                            // Remove colorizing of elements after the dot token, until we add special colors for them
+                            if (!token.ValueText.Equals(accessExpression.GetText().ToString().Split('.')[0])) return null;
+                        }
+                        var symbol = GetSymbol(token.Parent, semanticModel);
+                        if (symbol is IPropertySymbol) return GetPropertyClassification(symbol);
+                        if (symbol is ILocalSymbol) return GetLocalVariableClassification(symbol);
+                        if (symbol is IFieldSymbol) return GetFieldClassification(symbol);
+                        
+                    }
+
+                    return null;
+                    
                 default:
                     return null;
             }
