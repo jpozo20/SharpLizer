@@ -166,6 +166,50 @@ namespace SharpLizer.Classification
             return classificationType;
         }
 
+        private IClassificationType GetIdentifierClassification(SyntaxToken token, SemanticModel semanticModel = null)
+        {
+            switch (token.Parent.Kind())
+            {
+                #region Identifiers
+                case SyntaxKind.ClassDeclaration:
+                    return _classifications[ClassificationTypes.Identifiers.ClassIdentifier];
+
+                case SyntaxKind.ConstructorDeclaration:
+                    return _classifications[ClassificationTypes.Identifiers.ConstructorIdentifier];
+
+                case SyntaxKind.DelegateDeclaration:
+                    return _classifications[ClassificationTypes.Identifiers.DelegateIdentifier];
+
+                case SyntaxKind.EnumDeclaration:
+                    return _classifications[ClassificationTypes.Identifiers.EnumIdentifier];
+
+                case SyntaxKind.InterfaceDeclaration:
+                    return _classifications[ClassificationTypes.Identifiers.InterfaceIdentifier];
+
+                case SyntaxKind.MethodDeclaration:
+                    return _classifications[ClassificationTypes.Identifiers.MethodIdentifier];
+
+                case SyntaxKind.NamespaceDeclaration:
+                    return _classifications[ClassificationTypes.Identifiers.NamespaceIdentifier];
+                case SyntaxKind.PropertyDeclaration:
+                    {
+                        var symbol = GetSymbol(token.Parent, semanticModel);
+                        if (symbol == null) return null;
+                        return GetPropertyClassification(symbol);
+                    }
+
+                case SyntaxKind.StructDeclaration:
+                    return _classifications[ClassificationTypes.Identifiers.StructIdentifier];
+                case SyntaxKind.VariableDeclarator:
+                    return GetVariableClassification(token.Parent, semanticModel);
+
+                case SyntaxKind.IdentifierName:
+                    return GetIdentifierNameClassification(token);
+                default:
+                    return null;
+                    #endregion
+            }
+        }
         private IClassificationType GetVariableClassification(SyntaxNode node, SemanticModel semanticModel)
         {
             var declarationNode = node.Parent.Parent;
@@ -364,47 +408,23 @@ namespace SharpLizer.Classification
                     return null;
             }
         }
-        private IClassificationType GetIdentifierClassification(SyntaxToken token, SemanticModel semanticModel = null)
+        private IClassificationType GetIdentifierNameClassification(SyntaxToken token)
         {
-            switch (token.Parent.Kind())
+            var tokenGrandParent = token.Parent.Parent;
+            switch (tokenGrandParent.Kind())
             {
-                #region Identifiers
-                case SyntaxKind.ClassDeclaration:
-                    return _classifications[ClassificationTypes.Identifiers.ClassIdentifier];
-
-                case SyntaxKind.ConstructorDeclaration:
-                    return _classifications[ClassificationTypes.Identifiers.ConstructorIdentifier];
-
-                case SyntaxKind.DelegateDeclaration:
-                    return _classifications[ClassificationTypes.Identifiers.DelegateIdentifier];
-
-                case SyntaxKind.EnumDeclaration:
-                    return _classifications[ClassificationTypes.Identifiers.EnumIdentifier];
-
-                case SyntaxKind.InterfaceDeclaration:
-                    return _classifications[ClassificationTypes.Identifiers.InterfaceIdentifier];
-
-                case SyntaxKind.MethodDeclaration:
-                    return _classifications[ClassificationTypes.Identifiers.MethodIdentifier];
-
-                case SyntaxKind.NamespaceDeclaration:
-                    return _classifications[ClassificationTypes.Identifiers.NamespaceIdentifier];
-                case SyntaxKind.PropertyDeclaration:
-                    {
-                        var symbol = GetSymbol(token.Parent, semanticModel);
-                        if (symbol == null) return null;
-                        return GetPropertyClassification(symbol);
-                    }
-
-                case SyntaxKind.StructDeclaration:
-                    return _classifications[ClassificationTypes.Identifiers.StructIdentifier];
-                case SyntaxKind.VariableDeclarator:
-                    return GetVariableClassification(token.Parent, semanticModel);
+                case SyntaxKind.Attribute:
+                    return _classifications[ClassificationTypes.Identifiers.AttributeIdentifier];
+                case SyntaxKind.NameEquals:
+                    if (token.Parent.Parent.Parent.Kind() == SyntaxKind.AttributeArgument) return _classifications[ClassificationTypes.Identifiers.AttributePropertyIdentifier];
+                    return null;
                 default:
                     return null;
-                    #endregion
             }
+
         }
+        
+
 
         #region Helpers
         private bool IsChildOfKind(SyntaxToken token,SyntaxKind kind)

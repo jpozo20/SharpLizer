@@ -322,7 +322,7 @@ namespace SharpLizer.Classification
         public AttributePropertyIdentifierClassification()
         {
             this.DisplayName = "SharpLizer: Attribute Property Identifier"; // Human readable version of the name
-            this.ForegroundColor = Colors.Azure;
+            this.ForegroundColor = Colors.SandyBrown;
         }
     }
 
