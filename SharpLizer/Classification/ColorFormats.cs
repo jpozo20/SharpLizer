@@ -575,6 +575,41 @@ namespace SharpLizer.Classification
     }
 
 
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.EnumField)]
+    [Name(ClassificationTypes.Fields.EnumField)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class EnumFieldClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnumFieldClassification"/> class.
+        /// </summary>
+        public EnumFieldClassification()
+        {
+            this.DisplayName = "SharpLizer: Enum Field"; // Human readable version of the name
+            this.ForegroundColor = Colors.DarkMagenta;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.EventHandler)]
+    [Name(ClassificationTypes.Fields.EventHandler)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class EventHandlerClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventHandlerClassification"/> class.
+        /// </summary>
+        public EventHandlerClassification()
+        {
+            this.DisplayName = "SharpLizer: Event Handler Field"; // Human readable version of the name
+            this.ForegroundColor = Colors.Honeydew;
+        }
+    }
+
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.NumericField)]
     [Name(ClassificationTypes.Fields.NumericField)]
@@ -693,6 +728,24 @@ namespace SharpLizer.Classification
         public DateTimePropertyClassification()
         {
             this.DisplayName = "SharpLizer: DateTime Property"; // Human readable version of the name
+            this.ForegroundColor = Colors.CadetBlue;
+        }
+    }
+
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.EnumProperty)]
+    [Name(ClassificationTypes.Properties.EnumProperty)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class EnumPropertyClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnumPropertyClassification"/> class.
+        /// </summary>
+        public EnumPropertyClassification()
+        {
+            this.DisplayName = "SharpLizer: Enum Property"; // Human readable version of the name
             this.ForegroundColor = Colors.CadetBlue;
         }
     }

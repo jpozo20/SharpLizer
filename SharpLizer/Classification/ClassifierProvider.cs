@@ -82,6 +82,8 @@ namespace SharpLizer.Classification
             classificationTypes.Add(ClassificationTypes.Fields.CharField, classificationRegistry.GetClassificationType(ClassificationTypes.Fields.CharField));
             classificationTypes.Add(ClassificationTypes.Fields.ConstantField, classificationRegistry.GetClassificationType(ClassificationTypes.Fields.ConstantField));
             classificationTypes.Add(ClassificationTypes.Fields.DateTimeField, classificationRegistry.GetClassificationType(ClassificationTypes.Fields.DateTimeField));
+            classificationTypes.Add(ClassificationTypes.Fields.EnumField, classificationRegistry.GetClassificationType(ClassificationTypes.Fields.EnumField));
+            classificationTypes.Add(ClassificationTypes.Fields.EventHandler, classificationRegistry.GetClassificationType(ClassificationTypes.Fields.EventHandler));
             classificationTypes.Add(ClassificationTypes.Fields.Field, classificationRegistry.GetClassificationType(ClassificationTypes.Fields.Field));
             classificationTypes.Add(ClassificationTypes.Fields.NumericField, classificationRegistry.GetClassificationType(ClassificationTypes.Fields.NumericField));
             classificationTypes.Add(ClassificationTypes.Fields.StringField, classificationRegistry.GetClassificationType(ClassificationTypes.Fields.StringField));
@@ -93,6 +95,7 @@ namespace SharpLizer.Classification
             classificationTypes.Add(ClassificationTypes.Properties.ByteProperty, classificationRegistry.GetClassificationType(ClassificationTypes.Properties.ByteProperty));
             classificationTypes.Add(ClassificationTypes.Properties.CharProperty, classificationRegistry.GetClassificationType(ClassificationTypes.Properties.CharProperty));
             classificationTypes.Add(ClassificationTypes.Properties.DateTimeProperty, classificationRegistry.GetClassificationType(ClassificationTypes.Properties.DateTimeProperty));
+            classificationTypes.Add(ClassificationTypes.Properties.EnumProperty, classificationRegistry.GetClassificationType(ClassificationTypes.Properties.EnumProperty));
             classificationTypes.Add(ClassificationTypes.Properties.NumericProperty, classificationRegistry.GetClassificationType(ClassificationTypes.Properties.NumericProperty));
             classificationTypes.Add(ClassificationTypes.Properties.StringProperty, classificationRegistry.GetClassificationType(ClassificationTypes.Properties.StringProperty));
             #endregion

@@ -199,6 +199,9 @@ namespace SharpLizer.Classification
                 case SpecialType.System_DateTime:
                     return _classifications[ClassificationTypes.Fields.DateTimeField];
 
+                case SpecialType.System_Enum:
+                    return _classifications[ClassificationTypes.Fields.EnumField];
+
                 case SpecialType.System_Int16:
                 case SpecialType.System_Int32:
                 case SpecialType.System_Int64:
@@ -209,6 +212,9 @@ namespace SharpLizer.Classification
                 case SpecialType.System_Double:
                 case SpecialType.System_Single:
                     return _classifications[ClassificationTypes.Fields.NumericField];
+
+                case SpecialType.System_MulticastDelegate:
+                    return _classifications[ClassificationTypes.Fields.EventHandler];
 
                 case SpecialType.System_String:
                     return _classifications[ClassificationTypes.Fields.StringField];
@@ -235,6 +241,9 @@ namespace SharpLizer.Classification
 
                 case SpecialType.System_DateTime:
                     return _classifications[ClassificationTypes.Properties.DateTimeProperty];
+
+                case SpecialType.System_Enum:
+                    return _classifications[ClassificationTypes.Properties.EnumProperty];
 
                 case SpecialType.System_Int16:
                 case SpecialType.System_UInt16:

@@ -181,6 +181,11 @@ namespace SharpLizer.Classification
         private static ClassificationTypeDefinition dateTimeFieldDefinition;
 
         [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.EnumField)]
+        [Name(ClassificationTypes.Fields.EnumField)]
+        private static ClassificationTypeDefinition enumFieldDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
         [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.EventHandler)]
         [Name(ClassificationTypes.Fields.EventHandler)]
         private static ClassificationTypeDefinition eventHandlerFieldDefinition;
@@ -227,6 +232,11 @@ namespace SharpLizer.Classification
         [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.DateTimeProperty)]
         [Name(ClassificationTypes.Properties.DateTimeProperty)]
         private static ClassificationTypeDefinition dateTimePropertyDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.EnumProperty)]
+        [Name(ClassificationTypes.Properties.EnumProperty)]
+        private static ClassificationTypeDefinition enumPropertyDefinition;
 
         [Export(typeof(ClassificationTypeDefinition))]
         [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.NumericProperty)]
