@@ -67,9 +67,6 @@ namespace SharpLizer.Classification
                 classificationChangedHandler(this, new ClassificationChangedEventArgs(snapshopSpan));
 
             }
-
-            //classificationChangedHandler(this,new ClassificationChangedEventArgs(snapshop))
-
         }
 
 #pragma warning restore 67
@@ -112,8 +109,6 @@ namespace SharpLizer.Classification
             return result;
         }
 
-        #endregion
-
         private ClassificationSpan GetClassificationSpan(ITextSnapshot snapshot, ClassifiedSpan currentSpan, CompilationUnitSyntax documentRoot, SemanticModel semanticModel)
         {
 
@@ -126,13 +121,13 @@ namespace SharpLizer.Classification
         private IClassificationType GetClassificationType(ClassifiedSpan currentSpan, CompilationUnitSyntax documentRoot, SemanticModel semanticModel)
         {
             IClassificationType classificationType = null;
-            
+
             // Get the innermost span, which corresponds to the span being proccessed
-            var spanType = currentSpan.ClassificationType;
             var node = documentRoot.FindNode(currentSpan.TextSpan, true, true);
             var nodeKind = node.Kind();
-            
+
             var token = node.FindToken(currentSpan.TextSpan.Start);
+            var spanType = currentSpan.ClassificationType;
 
             if (spanType.Contains("name")) classificationType = GetIdentifierClassification(token, semanticModel);
             else
@@ -165,7 +160,11 @@ namespace SharpLizer.Classification
 
             return classificationType;
         }
+        #endregion
 
+
+
+        #region Classification Methods
         private IClassificationType GetIdentifierClassification(SyntaxToken token, SemanticModel semanticModel = null)
         {
             switch (token.Parent.Kind())
@@ -205,7 +204,7 @@ namespace SharpLizer.Classification
                     return GetVariableClassification(token.Parent, semanticModel);
 
                 case SyntaxKind.IdentifierName:
-                    return GetIdentifierNameClassification(token,semanticModel);
+                    return GetIdentifierNameClassification(token, semanticModel);
                 default:
                     return null;
                     #endregion
@@ -429,7 +428,7 @@ namespace SharpLizer.Classification
                 case SyntaxKind.Argument:
                     {
                         if (semanticModel == null) return null;
-                        if( tokenGrandParent is MemberAccessExpressionSyntax accessExpression)
+                        if (tokenGrandParent is MemberAccessExpressionSyntax accessExpression)
                         {
                             // Remove colorizing of elements after the dot token, until we add special colors for them
                             if (!token.ValueText.Equals(accessExpression.GetText().ToString().Split('.')[0])) return null;
@@ -438,33 +437,31 @@ namespace SharpLizer.Classification
                         if (symbol is IPropertySymbol) return GetPropertyClassification(symbol);
                         if (symbol is ILocalSymbol) return GetLocalVariableClassification(symbol);
                         if (symbol is IFieldSymbol) return GetFieldClassification(symbol);
-                        
+
                     }
 
                     return null;
-                    
+
                 default:
                     return null;
             }
 
         }
-        
+        #endregion
 
 
         #region Helpers
-        private bool IsChildOfKind(SyntaxToken token,SyntaxKind kind)
+        private bool IsChildOfKind(SyntaxToken token, SyntaxKind kind)
         {
             var declarationNode = GetDeclarationNode(token);
             if (declarationNode == null) return false;
             return declarationNode.IsKind(kind);
         }
-
         SyntaxNode GetDeclarationNode(SyntaxToken token)
         {
             if (token.Parent != null && token.Parent.Kind().ToString().Contains("Declaration")) return token.Parent;
             return GetParentNode(token.Parent);
         }
-
         SyntaxNode GetParentNode(SyntaxNode node)
         {
             if (node.Parent == null) return null;
@@ -472,7 +469,6 @@ namespace SharpLizer.Classification
             return GetParentNode(node.Parent);
 
         }
-
         private ISymbol GetSymbol(SyntaxNode node, SemanticModel semanticModel)
         {
             var symbol = semanticModel.GetDeclaredSymbol(node);

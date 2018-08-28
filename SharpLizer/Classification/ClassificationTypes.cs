@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SharpLizer.Classification
+﻿namespace SharpLizer.Classification
 {
     internal static class ClassificationTypes
     {
@@ -89,6 +83,6 @@ namespace SharpLizer.Classification
             public const string NumericVariable = "SharpLizer.NumericVariable";
             public const string StringVariable = "SharpLizer.StringVariable";
             public const string LocalVariable = "SharpLizer.LocalVariable";
-        }        
+        }
     }
 }
