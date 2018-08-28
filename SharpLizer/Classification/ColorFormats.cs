@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.Composition;
-using System.Windows.Media;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Utilities;
 
@@ -19,10 +18,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public AbstractionKeywordsClassification()
         {
-            this.DisplayName = "SharpLizer: Abstraction Keywords"; // Human readable version of the name
-            this.BackgroundColor = Colors.Blue;
-            this.ForegroundColor = Colors.Yellow;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Abstraction Keywords"; 
         }
     }
 
@@ -38,10 +34,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public AbstractKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Abstract Keyword"; // Human readable version of the name
-            this.BackgroundColor = Colors.Red;
-            this.ForegroundColor = Colors.Yellow;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Abstract Keyword"; 
         }
     }
 
@@ -57,10 +50,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public AsyncKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Async Keyword"; // Human readable version of the name
-            this.BackgroundColor = Colors.Navy;
-            this.ForegroundColor = Colors.Yellow;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Async Keyword"; 
         }
     }
 
@@ -76,10 +66,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public NewKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: New Keyword"; // Human readable version of the name
-            this.BackgroundColor = Colors.NavajoWhite;
-            this.ForegroundColor = Colors.Yellow;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: New Keyword"; 
         }
     }
 
@@ -95,10 +82,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public OverrideKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Override Keyword"; // Human readable version of the name
-            this.BackgroundColor = Colors.CornflowerBlue;
-            this.ForegroundColor = Colors.Yellow;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Override Keyword"; 
         }
     }
 
@@ -114,10 +98,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public SealedKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Sealed Keyword"; // Human readable version of the name
-            this.BackgroundColor = Colors.DarkBlue;
-            this.ForegroundColor = Colors.Yellow;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Sealed Keyword"; 
         }
     }
 
@@ -133,10 +114,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public VirtualKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Virtual Keyword"; // Human readable version of the name
-            this.BackgroundColor = Colors.DarkGray;
-            this.ForegroundColor = Colors.Yellow;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Virtual Keyword"; 
         }
     }
 
@@ -156,9 +134,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public DeclarationKeywordsClassification()
         {
-            this.DisplayName = "SharpLizer: Declaration Keywords"; // Human readable version of the name
-            this.ForegroundColor = Colors.Yellow;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Declaration Keywords"; 
         }
     }
 
@@ -174,9 +150,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public ClassKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Class Keyword"; // Human readable version of the name
-            this.ForegroundColor = Colors.Red;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Class Keyword"; 
         }
     }
 
@@ -192,9 +166,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public DelegateKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Delegate Keyword"; // Human readable version of the name
-            this.ForegroundColor = Colors.YellowGreen;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Delegate Keyword"; 
         }
     }
 
@@ -210,9 +182,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public EnumKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Enum Keyword"; // Human readable version of the name
-            this.ForegroundColor = Colors.Tomato;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Enum Keyword"; 
         }
     }
 
@@ -228,9 +198,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public InterfaceKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Interface Keyword"; // Human readable version of the name
-            this.ForegroundColor = Colors.Violet;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Interface Keyword"; 
         }
     }
 
@@ -246,9 +214,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public NamespaceKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Namespace Keyword"; // Human readable version of the name
-            this.ForegroundColor = Colors.PaleGreen;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Namespace Keyword"; 
         }
     }
 
@@ -265,9 +231,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public StructKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Struct Keyword"; // Human readable version of the name
-            this.ForegroundColor = Colors.MediumVioletRed;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Struct Keyword"; 
         }
     }
 
@@ -283,9 +247,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public EncapsulationKeywordsClassification()
         {
-            this.DisplayName = "SharpLizer: Encapsulation Keywords"; // Human readable version of the name
-            this.ForegroundColor = Colors.Azure;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Encapsulation Keywords"; 
         }
     }
 
@@ -304,8 +266,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public AttributeIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Attribute Identifier"; // Human readable version of the name
-            this.ForegroundColor = Colors.Violet;
+            this.DisplayName = "SharpLizer: Attribute Identifier"; 
         }
     }
 
@@ -321,8 +282,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public AttributePropertyIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Attribute Property Identifier"; // Human readable version of the name
-            this.ForegroundColor = Colors.SandyBrown;
+            this.DisplayName = "SharpLizer: Attribute Property Identifier"; 
         }
     }
 
@@ -338,9 +298,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public ClassIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Class Identifier"; // Human readable version of the name
-            this.ForegroundColor = Colors.Bisque;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Class Identifier"; 
         }
     }
 
@@ -356,9 +314,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public ConstructorIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Constructor Identifier"; // Human readable version of the name
-            this.ForegroundColor = Colors.Yellow;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Constructor Identifier"; 
         }
     }
 
@@ -374,9 +330,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public DelegateIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Delegate Identifier"; // Human readable version of the name
-            this.ForegroundColor = Colors.Chocolate;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Delegate Identifier"; 
         }
     }
 
@@ -392,9 +346,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public EnumIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Enum Identifier"; // Human readable version of the name
-            this.ForegroundColor = Colors.Coral;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Enum Identifier"; 
         }
     }
 
@@ -410,9 +362,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public InterfaceIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Interface Identifier"; // Human readable version of the name
-            this.ForegroundColor = Colors.Cyan;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Interface Identifier"; 
         }
     }
 
@@ -428,9 +378,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public MethodIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Method Identifier"; // Human readable version of the name
-            this.ForegroundColor = Colors.DarkGoldenrod;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Method Identifier"; 
         }
     }
 
@@ -446,9 +394,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public NamespaceIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Namespace Identifier"; // Human readable version of the name
-            this.ForegroundColor = Colors.DarkSalmon;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Namespace Identifier"; 
         }
     }
 
@@ -465,9 +411,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public StructIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Struct Identifier"; // Human readable version of the name
-            this.ForegroundColor = Colors.DarkTurquoise;
-            this.TextDecorations = System.Windows.TextDecorations.Underline;
+            this.DisplayName = "SharpLizer: Struct Identifier"; 
         }
     }
 
@@ -486,8 +430,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public FieldClassification()
         {
-            this.DisplayName = "SharpLizer: Field"; // Human readable version of the name
-            this.ForegroundColor = Colors.DarkSlateBlue;
+            this.DisplayName = "SharpLizer: Field"; 
         }
     }
     [Export(typeof(EditorFormatDefinition))]
@@ -502,8 +445,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public BooleanFieldClassification()
         {
-            this.DisplayName = "SharpLizer: Boolean Field"; // Human readable version of the name
-            this.ForegroundColor = Colors.FloralWhite;
+            this.DisplayName = "SharpLizer: Boolean Field"; 
         }
     }
 
@@ -519,8 +461,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public ByteFieldClassification()
         {
-            this.DisplayName = "SharpLizer: Byte Field"; // Human readable version of the name
-            this.ForegroundColor = Colors.MediumAquamarine;
+            this.DisplayName = "SharpLizer: Byte Field"; 
         }
     }
 
@@ -536,8 +477,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public CharFieldClassification()
         {
-            this.DisplayName = "SharpLizer: Char Field"; // Human readable version of the name
-            this.ForegroundColor = Colors.Fuchsia;
+            this.DisplayName = "SharpLizer: Char Field"; 
          }
     }
 
@@ -555,8 +495,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public ConstantFieldClassification()
         {
-            this.DisplayName = "SharpLizer: Constant Field"; // Human readable version of the name
-            this.ForegroundColor = Colors.ForestGreen;    
+            this.DisplayName = "SharpLizer: Constant Field"; 
         }
     }
 
@@ -572,8 +511,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public DateTimeFieldClassification()
         {
-            this.DisplayName = "SharpLizer: DateTime Field"; // Human readable version of the name
-            this.ForegroundColor = Colors.BlueViolet;
+            this.DisplayName = "SharpLizer: DateTime Field"; 
         }
     }
 
@@ -591,8 +529,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public EnumFieldClassification()
         {
-            this.DisplayName = "SharpLizer: Enum Field"; // Human readable version of the name
-            this.ForegroundColor = Colors.DarkMagenta;
+            this.DisplayName = "SharpLizer: Enum Field"; 
         }
     }
 
@@ -608,8 +545,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public EventHandlerClassification()
         {
-            this.DisplayName = "SharpLizer: Event Handler Field"; // Human readable version of the name
-            this.ForegroundColor = Colors.Honeydew;
+            this.DisplayName = "SharpLizer: Event Handler Field"; 
         }
     }
 
@@ -625,8 +561,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public NumericFieldClassification()
         {
-            this.DisplayName = "SharpLizer: Numeric Field"; // Human readable version of the name
-            this.ForegroundColor = Colors.BlanchedAlmond;
+            this.DisplayName = "SharpLizer: Numeric Field"; 
         }
     }
 
@@ -642,8 +577,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public StringFieldClassification()
         {
-            this.DisplayName = "SharpLizer: String Field"; // Human readable version of the name
-            this.ForegroundColor = Colors.Red;
+            this.DisplayName = "SharpLizer: String Field"; 
         }
     }
 
@@ -662,8 +596,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public PropertyClassification()
         {
-            this.DisplayName = "SharpLizer: Property"; // Human readable version of the name
-            this.ForegroundColor = Colors.Brown;
+            this.DisplayName = "SharpLizer: Property"; 
         }
     }
 
@@ -679,8 +612,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public BooleanPropertyClassification()
         {
-            this.DisplayName = "SharpLizer: Boolean Property"; // Human readable version of the name
-            this.ForegroundColor = Colors.Crimson;
+            this.DisplayName = "SharpLizer: Boolean Property"; 
         }
     }
 
@@ -696,8 +628,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public BytePropertyClassification()
         {
-            this.DisplayName = "SharpLizer: Byte Property"; // Human readable version of the name
-            this.ForegroundColor = Colors.Cornsilk;
+            this.DisplayName = "SharpLizer: Byte Property"; 
         }
     }
 
@@ -713,8 +644,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public CharPropertyClassification()
         {
-            this.DisplayName = "SharpLizer: Char Property"; // Human readable version of the name
-            this.ForegroundColor = Colors.Chocolate;
+            this.DisplayName = "SharpLizer: Char Property"; 
         }
     }
 
@@ -730,8 +660,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public DateTimePropertyClassification()
         {
-            this.DisplayName = "SharpLizer: DateTime Property"; // Human readable version of the name
-            this.ForegroundColor = Colors.CadetBlue;
+            this.DisplayName = "SharpLizer: DateTime Property"; 
         }
     }
 
@@ -748,8 +677,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public EnumPropertyClassification()
         {
-            this.DisplayName = "SharpLizer: Enum Property"; // Human readable version of the name
-            this.ForegroundColor = Colors.CadetBlue;
+            this.DisplayName = "SharpLizer: Enum Property"; 
         }
     }
 
@@ -765,8 +693,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public NumericPropertyClassification()
         {
-            this.DisplayName = "SharpLizer: Numeric Property"; // Human readable version of the name
-            this.ForegroundColor = Colors.Chartreuse;
+            this.DisplayName = "SharpLizer: Numeric Property"; 
         }
     }
 
@@ -782,8 +709,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public StringPropertyClassification()
         {
-            this.DisplayName = "SharpLizer: String Property"; // Human readable version of the name
-            this.ForegroundColor = Colors.BurlyWood;
+            this.DisplayName = "SharpLizer: String Property"; 
         }
     }
     #endregion
@@ -801,8 +727,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public LocalVariableClassification()
         {
-            this.DisplayName = "SharpLizer: Local Variable"; // Human readable version of the name
-            this.ForegroundColor = Colors.CornflowerBlue;
+            this.DisplayName = "SharpLizer: Local Variable"; 
         }
     }
 
@@ -818,8 +743,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public BooleanVariableClassification()
         {
-            this.DisplayName = "SharpLizer: Boolean Variable"; // Human readable version of the name
-            this.ForegroundColor = Colors.Firebrick;
+            this.DisplayName = "SharpLizer: Boolean Variable"; 
         }
     }
 
@@ -835,8 +759,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public ByteVariableClassification()
         {
-            this.DisplayName = "SharpLizer: Byte Variable"; // Human readable version of the name
-            this.ForegroundColor = Colors.DodgerBlue;
+            this.DisplayName = "SharpLizer: Byte Variable"; 
         }
     }
 
@@ -852,8 +775,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public CharVariableClassification()
         {
-            this.DisplayName = "SharpLizer: Char Variable"; // Human readable version of the name
-            this.ForegroundColor = Colors.LightCyan;
+            this.DisplayName = "SharpLizer: Char Variable"; 
         }
     }
 
@@ -869,8 +791,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public DateTimeVariableClassification()
         {
-            this.DisplayName = "SharpLizer: DateTime Variable"; // Human readable version of the name
-            this.ForegroundColor = Colors.LightSalmon;
+            this.DisplayName = "SharpLizer: DateTime Variable"; 
         }
     }
 
@@ -886,8 +807,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public EnumVariableClassification()
         {
-            this.DisplayName = "SharpLizer: Enum Variable"; // Human readable version of the name
-            this.ForegroundColor = Colors.Maroon;
+            this.DisplayName = "SharpLizer: Enum Variable"; 
         }
     }
 
@@ -903,8 +823,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public NumericVariableClassification()
         {
-            this.DisplayName = "SharpLizer: Numeric Variable"; // Human readable version of the name
-            this.ForegroundColor = Colors.RoyalBlue;
+            this.DisplayName = "SharpLizer: Numeric Variable"; 
         }
     }
 
@@ -920,8 +839,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public StringVariableClassification()
         {
-            this.DisplayName = "SharpLizer: String Variable"; // Human readable version of the name
-            this.ForegroundColor = Colors.RosyBrown;
+            this.DisplayName = "SharpLizer: String Variable"; 
         }
     }
     #endregion
