@@ -5,10 +5,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
+
+
 using System;
 using System.Collections.Generic;
 
 namespace SharpLizer.Classification
+
 {
     /// <summary>
     /// Classifier that classifies all text as an instance of the "EditorClassifier" classification type.
@@ -114,147 +117,368 @@ namespace SharpLizer.Classification
         private ClassificationSpan GetClassificationSpan(ITextSnapshot snapshot, ClassifiedSpan currentSpan, CompilationUnitSyntax documentRoot, SemanticModel semanticModel)
         {
 
-            var classificationType = GetClassificationType(currentSpan, snapshot, documentRoot, semanticModel);
+            var classificationType = GetClassificationType(currentSpan, documentRoot, semanticModel);
             if (classificationType == null) return null;
 
             return new ClassificationSpan(new SnapshotSpan(snapshot, currentSpan.TextSpan.Start, currentSpan.TextSpan.Length), classificationType);
         }
 
-        private IClassificationType GetClassificationType(ClassifiedSpan currentSpan, ITextSnapshot snapshot, CompilationUnitSyntax documentRoot, SemanticModel semanticModel)
+        private IClassificationType GetClassificationType(ClassifiedSpan currentSpan, CompilationUnitSyntax documentRoot, SemanticModel semanticModel)
         {
             IClassificationType classificationType = null;
+            
             // Get the innermost span, which corresponds to the span being proccessed
+            var spanType = currentSpan.ClassificationType;
             var node = documentRoot.FindNode(currentSpan.TextSpan, true, true);
-
-            var type = currentSpan.ClassificationType;
             var nodeKind = node.Kind();
+            
+            var token = node.FindToken(currentSpan.TextSpan.Start);
 
-            if (nodeKind.ToString().EndsWith("Declaration", StringComparison.InvariantCultureIgnoreCase))
+            if (spanType.Contains("name")) classificationType = GetIdentifierClassification(token, semanticModel);
+            else
             {
-                var token = node.FindToken(currentSpan.TextSpan.Start);
-                switch (token.Kind())
+                switch (spanType)
                 {
-                    #region Abstraction Keywords
-                    case SyntaxKind.AbstractKeyword:
-                        classificationType = _classifications[ClassificationTypes.AbstractionTypes.AbstractKeyword];
+                    case "keyword":
+                        classificationType = GetKeywordClassification(token);
                         break;
-                    case SyntaxKind.AsyncKeyword:
-                        classificationType = _classifications[ClassificationTypes.AbstractionTypes.AsyncKeyword];
-                        break;
-                    case SyntaxKind.NewKeyword:
-                        classificationType = _classifications[ClassificationTypes.AbstractionTypes.NewKeyword];
-                        break;
-                    case SyntaxKind.OverrideKeyword:
-                        classificationType = _classifications[ClassificationTypes.AbstractionTypes.OverrideKeyword];
-                        break;
-                    case SyntaxKind.SealedKeyword:
-                        classificationType = _classifications[ClassificationTypes.AbstractionTypes.SealedKeyword];
-                        break;
-                    case SyntaxKind.VirtualKeyword:
-                        classificationType = _classifications[ClassificationTypes.AbstractionTypes.VirtualKeyword];
-                        break;
-                    #endregion
 
-                    #region Declaration Keywords
-                    case SyntaxKind.ClassKeyword:
-                        classificationType = _classifications[ClassificationTypes.DeclarationTypes.ClassKeyword];
-                        break;
-                    case SyntaxKind.DelegateKeyword:
-                        classificationType = _classifications[ClassificationTypes.DeclarationTypes.DelegateKeyword];
-                        break;
-                    case SyntaxKind.EnumKeyword:
-                        classificationType = _classifications[ClassificationTypes.DeclarationTypes.ClassKeyword];
-                        break;
-                    case SyntaxKind.InterfaceKeyword:
-                        classificationType = _classifications[ClassificationTypes.DeclarationTypes.InterfaceKeyword];
-                        break;
-                    case SyntaxKind.NamespaceKeyword:
-                        classificationType = _classifications[ClassificationTypes.DeclarationTypes.NamespaceKeyword];
-                        break;
-                    case SyntaxKind.StructKeyword:
-                        classificationType = _classifications[ClassificationTypes.DeclarationTypes.StructKeyword];
-                        break;
-                    #endregion
-
-                    #region Encapsulation Keywords
-                    case SyntaxKind.PublicKeyword:
-                    case SyntaxKind.PrivateKeyword:
-                    case SyntaxKind.InternalKeyword:
-                    case SyntaxKind.ProtectedKeyword:
-                        classificationType = _classifications[ClassificationTypes.EncapsulationKeywords];
-                        break;
-                        #endregion
-
-                }
-
-                if (classificationType == null && token.Kind() == SyntaxKind.IdentifierToken)
-                {
-                    switch (token.Parent.Kind())
-                    {
-                        #region Identifiers
-                        case SyntaxKind.ClassDeclaration:
-                            classificationType = _classifications[ClassificationTypes.Identifiers.ClassIdentifier];
-                            break;
-                        case SyntaxKind.ConstructorDeclaration:
-                            classificationType = _classifications[ClassificationTypes.Identifiers.ConstructorIdentifier];
-                            break;
-                        case SyntaxKind.DelegateDeclaration:
-                            classificationType = _classifications[ClassificationTypes.Identifiers.DelegateIdentifier];
-                            break;
-                        case SyntaxKind.EnumDeclaration:
-                            classificationType = _classifications[ClassificationTypes.Identifiers.EnumIdentifier];
-                            break;
-                        case SyntaxKind.FieldDeclaration:
-                            classificationType = _classifications[ClassificationTypes.Identifiers.FieldIdentifier];
-                            break;
-                        case SyntaxKind.InterfaceDeclaration:
-                            classificationType = _classifications[ClassificationTypes.Identifiers.InterfaceIdentifier];
-                            break;
-                        case SyntaxKind.MethodDeclaration:
-                            classificationType = _classifications[ClassificationTypes.Identifiers.MethodIdentifier];
-                            break;
-                        case SyntaxKind.StructDeclaration:
-                            classificationType = _classifications[ClassificationTypes.Identifiers.StructIdentifier];
-                            break;
-                            #endregion
-                    }
-                }
-            }
-
-            // Namespace declarations start with an IdentifierName node. There are two cases we need to handle:
-            // 1) If the namespace is topmost (e.g: SharpLizer), the parent will have the NamespaceDeclaration as SyntaxKind
-            // 2) If the namespace is nested (e.g: SharpLizer.Classification), the grandparent will have the NamespaceDeclaration as SyntaxKind
-            else if (node.Kind() == SyntaxKind.QualifiedName || node.Parent?.Kind() == SyntaxKind.QualifiedName || node.Parent?.Kind() == SyntaxKind.NamespaceDeclaration)
-            {
-                if (node.Parent?.Kind() == SyntaxKind.NamespaceDeclaration || node.Parent?.Parent?.Kind() == SyntaxKind.NamespaceDeclaration)
-                {
-                    classificationType = _classifications[ClassificationTypes.Identifiers.NamespaceIdentifier];
-                }
-
-            }
-
-            // Attributes also start with an IdentifierName node but 
-            // in this case we need to look only for the grandparent  to know if it's part of an attribute
-            else if (node.Parent?.Parent?.Kind() == SyntaxKind.AttributeList
-                    || node.Parent?.Parent?.Kind() == SyntaxKind.AttributeArgumentList
-                    || node.Parent?.Parent?.Kind() == SyntaxKind.AttributeArgument)
-            {
-                var token = node.FindToken(currentSpan.TextSpan.Start);
-                switch (node.Parent?.Kind())
-                {
-                    case SyntaxKind.NameEquals:
+                    case "identifier":
                         {
-                            if (token.Kind() == SyntaxKind.IdentifierToken) classificationType = _classifications[ClassificationTypes.Identifiers.AttributePropertyIdentifier];
+                            classificationType = GetIdentifierClassification(token);
+                            if (classificationType != null) break;
+                            if (IsChildOfKind(token, SyntaxKind.NamespaceDeclaration))
+                                classificationType = _classifications[ClassificationTypes.Identifiers.NamespaceIdentifier];
                             break;
                         }
-                    case SyntaxKind.Attribute:
-                        classificationType = _classifications[ClassificationTypes.Identifiers.AttributeIdentifier];
-                        break;
+
+                    case "operator":
+                        {
+                            if (token.Kind() == SyntaxKind.DotToken)
+                            {
+                                if (IsChildOfKind(token, SyntaxKind.NamespaceDeclaration)) classificationType = _classifications[ClassificationTypes.Identifiers.NamespaceIdentifier];
+                            }
+                            break;
+                        }
                 }
             }
 
             return classificationType;
         }
 
+        private IClassificationType GetIdentifierClassification(SyntaxToken token, SemanticModel semanticModel = null)
+        {
+            switch (token.Parent.Kind())
+            {
+                #region Identifiers
+                case SyntaxKind.ClassDeclaration:
+                    return _classifications[ClassificationTypes.Identifiers.ClassIdentifier];
+
+                case SyntaxKind.ConstructorDeclaration:
+                    return _classifications[ClassificationTypes.Identifiers.ConstructorIdentifier];
+
+                case SyntaxKind.DelegateDeclaration:
+                    return _classifications[ClassificationTypes.Identifiers.DelegateIdentifier];
+
+                case SyntaxKind.EnumDeclaration:
+                    return _classifications[ClassificationTypes.Identifiers.EnumIdentifier];
+
+                case SyntaxKind.InterfaceDeclaration:
+                    return _classifications[ClassificationTypes.Identifiers.InterfaceIdentifier];
+
+                case SyntaxKind.MethodDeclaration:
+                    return _classifications[ClassificationTypes.Identifiers.MethodIdentifier];
+
+                case SyntaxKind.NamespaceDeclaration:
+                    return _classifications[ClassificationTypes.Identifiers.NamespaceIdentifier];
+                case SyntaxKind.PropertyDeclaration:
+                    {
+                        if (semanticModel == null) return null;
+                        var symbol = GetSymbol(token.Parent, semanticModel);
+                        if (symbol == null) return null;
+                        return GetPropertyClassification(symbol);
+                    }
+
+                case SyntaxKind.StructDeclaration:
+                    return _classifications[ClassificationTypes.Identifiers.StructIdentifier];
+                case SyntaxKind.VariableDeclarator:
+                    return GetVariableClassification(token.Parent, semanticModel);
+
+                case SyntaxKind.IdentifierName:
+                    return GetIdentifierNameClassification(token,semanticModel);
+                default:
+                    return null;
+                    #endregion
+            }
+        }
+        private IClassificationType GetVariableClassification(SyntaxNode node, SemanticModel semanticModel)
+        {
+            var declarationNode = node.Parent.Parent;
+
+            var symbol = GetSymbol(node, semanticModel);
+            if (symbol == null) return null;
+            switch (declarationNode.Kind())
+            {
+                case SyntaxKind.FieldDeclaration:
+                    return GetFieldClassification(symbol);
+
+                case SyntaxKind.LocalDeclarationStatement:
+                    return GetLocalVariableClassification(symbol);
+                default:
+                    return null;
+            }
+        }
+        private IClassificationType GetLocalVariableClassification(ISymbol symbol)
+        {
+            var typeInfo = (symbol as ILocalSymbol)?.Type;
+            switch (typeInfo.SpecialType)
+            {
+                case SpecialType.System_Boolean:
+                    return _classifications[ClassificationTypes.Variables.BooleanVariable];
+
+                case SpecialType.System_Byte:
+                case SpecialType.System_SByte:
+                    return _classifications[ClassificationTypes.Variables.ByteVariable];
+
+                case SpecialType.System_Char:
+                    return _classifications[ClassificationTypes.Variables.CharVariable];
+
+                case SpecialType.System_DateTime:
+                    return _classifications[ClassificationTypes.Variables.DateTimeVariable];
+
+                case SpecialType.System_Enum:
+                    return _classifications[ClassificationTypes.Variables.EnumVariable];
+
+                case SpecialType.System_Int16:
+                case SpecialType.System_Int32:
+                case SpecialType.System_Int64:
+                case SpecialType.System_UInt16:
+                case SpecialType.System_UInt32:
+                case SpecialType.System_UInt64:
+                case SpecialType.System_Decimal:
+                case SpecialType.System_Double:
+                case SpecialType.System_Single:
+                    return _classifications[ClassificationTypes.Variables.NumericVariable];
+
+                case SpecialType.System_String:
+                    return _classifications[ClassificationTypes.Variables.StringVariable];
+
+                default:
+                    return _classifications[ClassificationTypes.Variables.LocalVariable];
+            }
+
+        }
+        private IClassificationType GetFieldClassification(ISymbol symbol)
+        {
+            var typeInfo = (symbol as IFieldSymbol)?.Type;
+            switch (typeInfo.SpecialType)
+            {
+                case SpecialType.System_Boolean:
+                    return _classifications[ClassificationTypes.Fields.BooleanField];
+
+                case SpecialType.System_Byte:
+                case SpecialType.System_SByte:
+                    return _classifications[ClassificationTypes.Fields.ByteField];
+
+                case SpecialType.System_Char:
+                    return _classifications[ClassificationTypes.Fields.CharField];
+
+                case SpecialType.System_DateTime:
+                    return _classifications[ClassificationTypes.Fields.DateTimeField];
+
+                case SpecialType.System_Enum:
+                    return _classifications[ClassificationTypes.Fields.EnumField];
+
+                case SpecialType.System_Int16:
+                case SpecialType.System_Int32:
+                case SpecialType.System_Int64:
+                case SpecialType.System_UInt16:
+                case SpecialType.System_UInt32:
+                case SpecialType.System_UInt64:
+                case SpecialType.System_Decimal:
+                case SpecialType.System_Double:
+                case SpecialType.System_Single:
+                    return _classifications[ClassificationTypes.Fields.NumericField];
+
+                case SpecialType.System_MulticastDelegate:
+                    return _classifications[ClassificationTypes.Fields.EventHandler];
+
+                case SpecialType.System_String:
+                    return _classifications[ClassificationTypes.Fields.StringField];
+
+                default:
+                    return _classifications[ClassificationTypes.Fields.Field];
+            }
+
+        }
+        private IClassificationType GetPropertyClassification(ISymbol symbol)
+        {
+            var typeInfo = (symbol as IPropertySymbol)?.Type;
+            switch (typeInfo.SpecialType)
+            {
+                case SpecialType.System_Boolean:
+                    return _classifications[ClassificationTypes.Properties.BooleanProperty];
+
+                case SpecialType.System_SByte:
+                case SpecialType.System_Byte:
+                    return _classifications[ClassificationTypes.Properties.ByteProperty];
+
+                case SpecialType.System_Char:
+                    return _classifications[ClassificationTypes.Properties.CharProperty];
+
+                case SpecialType.System_DateTime:
+                    return _classifications[ClassificationTypes.Properties.DateTimeProperty];
+
+                case SpecialType.System_Enum:
+                    return _classifications[ClassificationTypes.Properties.EnumProperty];
+
+                case SpecialType.System_Int16:
+                case SpecialType.System_UInt16:
+                case SpecialType.System_Int32:
+                case SpecialType.System_UInt32:
+                case SpecialType.System_Int64:
+                case SpecialType.System_UInt64:
+                case SpecialType.System_Decimal:
+                case SpecialType.System_Single:
+                case SpecialType.System_Double:
+                    return _classifications[ClassificationTypes.Properties.NumericProperty];
+
+                case SpecialType.System_String:
+                    return _classifications[ClassificationTypes.Properties.StringProperty];
+
+                default:
+                    return _classifications[ClassificationTypes.Properties.Property];
+            }
+        }
+        private IClassificationType GetKeywordClassification(SyntaxToken token)
+        {
+            switch (token.Kind())
+            {
+                #region Abstraction Keywords
+                case SyntaxKind.AbstractKeyword:
+                    return _classifications[ClassificationTypes.AbstractionTypes.AbstractKeyword];
+
+                case SyntaxKind.AsyncKeyword:
+                    return _classifications[ClassificationTypes.AbstractionTypes.AsyncKeyword];
+
+                case SyntaxKind.NewKeyword:
+                    return _classifications[ClassificationTypes.AbstractionTypes.NewKeyword];
+
+                case SyntaxKind.OverrideKeyword:
+                    return _classifications[ClassificationTypes.AbstractionTypes.OverrideKeyword];
+
+                case SyntaxKind.SealedKeyword:
+                    return _classifications[ClassificationTypes.AbstractionTypes.SealedKeyword];
+
+                case SyntaxKind.VirtualKeyword:
+                    return _classifications[ClassificationTypes.AbstractionTypes.VirtualKeyword];
+
+                #endregion
+
+                #region Declaration Keywords
+                case SyntaxKind.ClassKeyword:
+                    return _classifications[ClassificationTypes.DeclarationTypes.ClassKeyword];
+
+                case SyntaxKind.DelegateKeyword:
+                    return _classifications[ClassificationTypes.DeclarationTypes.DelegateKeyword];
+
+                case SyntaxKind.EnumKeyword:
+                    return _classifications[ClassificationTypes.DeclarationTypes.ClassKeyword];
+
+                case SyntaxKind.InterfaceKeyword:
+                    return _classifications[ClassificationTypes.DeclarationTypes.InterfaceKeyword];
+
+                case SyntaxKind.NamespaceKeyword:
+                    return _classifications[ClassificationTypes.DeclarationTypes.NamespaceKeyword];
+
+                case SyntaxKind.StructKeyword:
+                    return _classifications[ClassificationTypes.DeclarationTypes.StructKeyword];
+
+                #endregion
+
+                #region Encapsulation Keywords
+                case SyntaxKind.PublicKeyword:
+                case SyntaxKind.PrivateKeyword:
+                case SyntaxKind.InternalKeyword:
+                case SyntaxKind.ProtectedKeyword:
+                    return _classifications[ClassificationTypes.DeclarationTypes.EncapsulationKeywords];
+
+                #endregion
+
+                default:
+                    return null;
+            }
+        }
+        private IClassificationType GetIdentifierNameClassification(SyntaxToken token, SemanticModel semanticModel = null)
+        {
+            var tokenGrandParent = token.Parent.Parent;
+            switch (tokenGrandParent.Kind())
+            {
+                case SyntaxKind.Attribute:
+                    return _classifications[ClassificationTypes.Identifiers.AttributeIdentifier];
+                case SyntaxKind.NameEquals:
+                    if (token.Parent.Parent.Parent.Kind() == SyntaxKind.AttributeArgument) return _classifications[ClassificationTypes.Identifiers.AttributePropertyIdentifier];
+                    return null;
+
+                case SyntaxKind.SimpleMemberAccessExpression:
+                case SyntaxKind.EqualsExpression:
+                case SyntaxKind.AsExpression:
+                case SyntaxKind.IsExpression:
+                case SyntaxKind.ElementAccessExpression:
+                case SyntaxKind.SimpleAssignmentExpression:
+                case SyntaxKind.Argument:
+                    {
+                        if (semanticModel == null) return null;
+                        if( tokenGrandParent is MemberAccessExpressionSyntax accessExpression)
+                        {
+                            // Remove colorizing of elements after the dot token, until we add special colors for them
+                            if (!token.ValueText.Equals(accessExpression.GetText().ToString().Split('.')[0])) return null;
+                        }
+                        var symbol = GetSymbol(token.Parent, semanticModel);
+                        if (symbol is IPropertySymbol) return GetPropertyClassification(symbol);
+                        if (symbol is ILocalSymbol) return GetLocalVariableClassification(symbol);
+                        if (symbol is IFieldSymbol) return GetFieldClassification(symbol);
+                        
+                    }
+
+                    return null;
+                    
+                default:
+                    return null;
+            }
+
+        }
+        
+
+
+        #region Helpers
+        private bool IsChildOfKind(SyntaxToken token,SyntaxKind kind)
+        {
+            var declarationNode = GetDeclarationNode(token);
+            if (declarationNode == null) return false;
+            return declarationNode.IsKind(kind);
+        }
+
+        SyntaxNode GetDeclarationNode(SyntaxToken token)
+        {
+            if (token.Parent != null && token.Parent.Kind().ToString().Contains("Declaration")) return token.Parent;
+            return GetParentNode(token.Parent);
+        }
+
+        SyntaxNode GetParentNode(SyntaxNode node)
+        {
+            if (node.Parent == null) return null;
+            if (node.Parent.Kind().ToString().Contains("Declaration")) return node.Parent;
+            return GetParentNode(node.Parent);
+
+        }
+
+        private ISymbol GetSymbol(SyntaxNode node, SemanticModel semanticModel)
+        {
+            var symbol = semanticModel.GetDeclaredSymbol(node);
+            if (symbol == null) symbol = semanticModel.GetSymbolInfo(node).Symbol;
+            return symbol;
+        }
+        #endregion
     }
 }
