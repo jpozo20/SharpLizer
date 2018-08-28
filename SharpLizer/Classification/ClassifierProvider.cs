@@ -117,7 +117,6 @@ namespace SharpLizer.Classification
             classificationTypes.Add(ClassificationTypes.Identifiers.ConstructorIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.ConstructorIdentifier));
             classificationTypes.Add(ClassificationTypes.Identifiers.DelegateIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.DelegateIdentifier));
             classificationTypes.Add(ClassificationTypes.Identifiers.EnumIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.EnumIdentifier));
-            classificationTypes.Add(ClassificationTypes.Identifiers.FieldIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.FieldIdentifier));
             classificationTypes.Add(ClassificationTypes.Identifiers.InterfaceIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.InterfaceIdentifier));
             classificationTypes.Add(ClassificationTypes.Identifiers.MethodIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.MethodIdentifier));
             classificationTypes.Add(ClassificationTypes.Identifiers.NamespaceIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.NamespaceIdentifier));
