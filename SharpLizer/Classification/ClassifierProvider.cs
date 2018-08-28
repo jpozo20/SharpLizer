@@ -18,7 +18,7 @@ namespace SharpLizer.Classification
 
         /// <summary>
         /// Classification registry to be used for getting a reference
-        /// to the custom classification type later.
+        /// to the custom classification types later.
         /// </summary>
         [Import]
         private IClassificationTypeRegistryService classificationRegistry;
