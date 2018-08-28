@@ -31,6 +31,7 @@ namespace SharpLizer.Classification
             public const string EncapsulationKeywords = "SharpLizer.EncapsulationKeywords";
         }
 
+
         public static class Fields
         {
             public const string BooleanField = "SharpLizer.BooleanField";
@@ -77,7 +78,7 @@ namespace SharpLizer.Classification
             public const string StringProperty = "SharpLizer.StringProperty";
             public const string Property = "SharpLizer.Property";
         }
-
+      
         public static class Variables
         {
             public const string BooleanVariable = "SharpLizer.BooleanVariable";
@@ -88,6 +89,6 @@ namespace SharpLizer.Classification
             public const string NumericVariable = "SharpLizer.NumericVariable";
             public const string StringVariable = "SharpLizer.StringVariable";
             public const string LocalVariable = "SharpLizer.LocalVariable";
-        }
+        }        
     }
 }

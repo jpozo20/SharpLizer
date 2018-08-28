@@ -292,6 +292,64 @@ namespace SharpLizer.Classification
         private static ClassificationTypeDefinition stringVarialeDefinition;
         #endregion
 
+        #region Identifier TypeDefinitions
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.AttributePropertyIdentifier)]
+        [Name(ClassificationTypes.Identifiers.AttributePropertyIdentifier)]
+        private static ClassificationTypeDefinition attributeArgumentDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.AttributeIdentifier)]
+        [Name(ClassificationTypes.Identifiers.AttributeIdentifier)]
+        private static ClassificationTypeDefinition attributeIdentifierDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.ClassIdentifier)]
+        [Name(ClassificationTypes.Identifiers.ClassIdentifier)]
+        private static ClassificationTypeDefinition classIdentifierDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.ConstructorIdentifier)]
+        [Name(ClassificationTypes.Identifiers.ConstructorIdentifier)]
+        private static ClassificationTypeDefinition constructorIdentifierDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.DelegateIdentifier)]
+        [Name(ClassificationTypes.Identifiers.DelegateIdentifier)]
+        private static ClassificationTypeDefinition delegateIdentifierDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.EnumIdentifier)]
+        [Name(ClassificationTypes.Identifiers.EnumIdentifier)]
+        private static ClassificationTypeDefinition enumIdentifierDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.FieldIdentifier)]
+        [Name(ClassificationTypes.Identifiers.FieldIdentifier)]
+        private static ClassificationTypeDefinition fieldIdentifierDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.InterfaceIdentifier)]
+        [Name(ClassificationTypes.Identifiers.InterfaceIdentifier)]
+        private static ClassificationTypeDefinition interfaceIdentifierDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.MethodIdentifier)]
+        [Name(ClassificationTypes.Identifiers.MethodIdentifier)]
+        private static ClassificationTypeDefinition methodIdentifierDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.NamespaceIdentifier)]
+        [Name(ClassificationTypes.Identifiers.NamespaceIdentifier)]
+        private static ClassificationTypeDefinition namespaceIdentifierDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.StructIdentifier)]
+        [Name(ClassificationTypes.Identifiers.StructIdentifier)]
+        private static ClassificationTypeDefinition structIdentifierDefinition;
+        
+        #endregion
+
 #pragma warning restore 169
     }
 }

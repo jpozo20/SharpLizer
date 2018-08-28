@@ -452,6 +452,7 @@ namespace SharpLizer.Classification
         }
     }
 
+
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.StructIdentifier)]
     [Name(ClassificationTypes.Identifiers.StructIdentifier)]
@@ -537,8 +538,10 @@ namespace SharpLizer.Classification
         {
             this.DisplayName = "SharpLizer: Char Field"; // Human readable version of the name
             this.ForegroundColor = Colors.Fuchsia;
-        }
+         }
     }
+
+
 
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.ConstantField)]
@@ -553,7 +556,7 @@ namespace SharpLizer.Classification
         public ConstantFieldClassification()
         {
             this.DisplayName = "SharpLizer: Constant Field"; // Human readable version of the name
-            this.ForegroundColor = Colors.ForestGreen;
+            this.ForegroundColor = Colors.ForestGreen;    
         }
     }
 

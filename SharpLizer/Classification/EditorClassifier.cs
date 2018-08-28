@@ -126,12 +126,12 @@ namespace SharpLizer.Classification
         private IClassificationType GetClassificationType(ClassifiedSpan currentSpan, CompilationUnitSyntax documentRoot, SemanticModel semanticModel)
         {
             IClassificationType classificationType = null;
-
+            
             // Get the innermost span, which corresponds to the span being proccessed
             var spanType = currentSpan.ClassificationType;
             var node = documentRoot.FindNode(currentSpan.TextSpan, true, true);
             var nodeKind = node.Kind();
-
+            
             var token = node.FindToken(currentSpan.TextSpan.Start);
 
             if (spanType.Contains("name")) classificationType = GetIdentifierClassification(token, semanticModel);
@@ -480,6 +480,5 @@ namespace SharpLizer.Classification
             return symbol;
         }
         #endregion
-
     }
 }

@@ -111,6 +111,18 @@ namespace SharpLizer.Classification
             classificationTypes.Add(ClassificationTypes.Variables.StringVariable, classificationRegistry.GetClassificationType(ClassificationTypes.Variables.StringVariable));
             #endregion
 
+            classificationTypes.Add(ClassificationTypes.Identifiers.AttributeIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.AttributeIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.AttributePropertyIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.AttributePropertyIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.ClassIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.ClassIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.ConstructorIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.ConstructorIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.DelegateIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.DelegateIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.EnumIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.EnumIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.FieldIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.FieldIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.InterfaceIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.InterfaceIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.MethodIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.MethodIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.NamespaceIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.NamespaceIdentifier));
+            classificationTypes.Add(ClassificationTypes.Identifiers.StructIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.StructIdentifier));
+
             return classificationTypes;
         }
 
