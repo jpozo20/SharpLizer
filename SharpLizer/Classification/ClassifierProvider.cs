@@ -14,16 +14,16 @@ namespace SharpLizer.Classification
     internal class ClassifierProvider : IClassifierProvider
     {
         // Disable "Field is never assigned to..." compiler's warning. Justification: the field is assigned by MEF.
-#pragma warning disable 649
+        #pragma warning disable 649
 
         /// <summary>
         /// Classification registry to be used for getting a reference
-        /// to the custom classification type later.
+        /// to the custom classification types later.
         /// </summary>
         [Import]
         private IClassificationTypeRegistryService classificationRegistry;
 
-#pragma warning restore 649
+        #pragma warning restore 649
 
         #region IClassifierProvider
 

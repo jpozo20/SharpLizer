@@ -19,10 +19,18 @@ namespace SharpLizer.Classification
     internal class EditorClassifier : IClassifier
     {
         /// <summary>
-        /// Classification type.
+        /// Dictionary containing all the <see cref="IClassificationType"/> objects used for the highlighting.
         /// </summary>
         private readonly IDictionary<string, IClassificationType> _classifications;
+
+        /// <summary>
+        /// Service responsible for obtaining a <see cref="IClassificationType"/> based on the name.
+        /// </summary>
         private readonly IClassificationTypeRegistryService _registryService;
+
+        /// <summary>
+        /// Buffer used to detect changes to the code, and update classifications accordingly.
+        /// </summary>
         private ITextBuffer _textBuffer;
 
 
@@ -65,11 +73,7 @@ namespace SharpLizer.Classification
             {
                 var snapshopSpan = new SnapshotSpan(newSnapshot, change.NewSpan);
                 classificationChangedHandler(this, new ClassificationChangedEventArgs(snapshopSpan));
-
             }
-
-            //classificationChangedHandler(this,new ClassificationChangedEventArgs(snapshop))
-
         }
 
 #pragma warning restore 67
@@ -112,8 +116,15 @@ namespace SharpLizer.Classification
             return result;
         }
 
-        #endregion
 
+        /// <summary>
+        /// Gets the classification <see cref="IClassificationType"/> of a given span
+        /// </summary>
+        /// <param name="snapshot">The current text snapshot.</param>
+        /// <param name="currentSpan">The span to be processed.</param>
+        /// <param name="documentRoot">The root of the document. Needed to find the parent node of the proccessed span.</param>
+        /// <param name="semanticModel">The semantic model of the current document. Needed to find the symbols of the proccessed span.</param>
+        /// <returns></returns>
         private ClassificationSpan GetClassificationSpan(ITextSnapshot snapshot, ClassifiedSpan currentSpan, CompilationUnitSyntax documentRoot, SemanticModel semanticModel)
         {
 
@@ -123,16 +134,24 @@ namespace SharpLizer.Classification
             return new ClassificationSpan(new SnapshotSpan(snapshot, currentSpan.TextSpan.Start, currentSpan.TextSpan.Length), classificationType);
         }
 
+        /// <summary>
+        /// Obtains an <see cref="IClassificationType"/> object based on the given span. 
+        /// Returns null if no classification is found for the given span.
+        /// </summary>
+        /// <param name="currentSpan">The span to be processed.</param>
+        /// <param name="documentRoot">The root of the document. Needed to find the parent node of the proccessed span.</param>
+        /// <param name="semanticModel">The semantic model of the current document. Needed to find the symbols of the proccessed span.</param>
+        /// <returns>An <see cref="IClassificationType"/> based on the given span. Null if no classification is found.</returns>
         private IClassificationType GetClassificationType(ClassifiedSpan currentSpan, CompilationUnitSyntax documentRoot, SemanticModel semanticModel)
         {
             IClassificationType classificationType = null;
-            
+
             // Get the innermost span, which corresponds to the span being proccessed
-            var spanType = currentSpan.ClassificationType;
             var node = documentRoot.FindNode(currentSpan.TextSpan, true, true);
             var nodeKind = node.Kind();
-            
+
             var token = node.FindToken(currentSpan.TextSpan.Start);
+            var spanType = currentSpan.ClassificationType;
 
             if (spanType.Contains("name")) classificationType = GetIdentifierClassification(token, semanticModel);
             else
@@ -154,7 +173,7 @@ namespace SharpLizer.Classification
 
                     case "operator":
                         {
-                            if (token.Kind() == SyntaxKind.DotToken)
+                            if (token.IsKind(SyntaxKind.DotToken))
                             {
                                 if (IsChildOfKind(token, SyntaxKind.NamespaceDeclaration)) classificationType = _classifications[ClassificationTypes.Identifiers.NamespaceIdentifier];
                             }
@@ -165,7 +184,9 @@ namespace SharpLizer.Classification
 
             return classificationType;
         }
+        #endregion
 
+        #region Classification Methods
         private IClassificationType GetIdentifierClassification(SyntaxToken token, SemanticModel semanticModel = null)
         {
             switch (token.Parent.Kind())
@@ -205,7 +226,7 @@ namespace SharpLizer.Classification
                     return GetVariableClassification(token.Parent, semanticModel);
 
                 case SyntaxKind.IdentifierName:
-                    return GetIdentifierNameClassification(token,semanticModel);
+                    return GetIdentifierNameClassification(token, semanticModel);
                 default:
                     return null;
                     #endregion
@@ -417,7 +438,7 @@ namespace SharpLizer.Classification
                 case SyntaxKind.Attribute:
                     return _classifications[ClassificationTypes.Identifiers.AttributeIdentifier];
                 case SyntaxKind.NameEquals:
-                    if (token.Parent.Parent.Parent.Kind() == SyntaxKind.AttributeArgument) return _classifications[ClassificationTypes.Identifiers.AttributePropertyIdentifier];
+                    if (token.Parent.Parent.Parent.IsKind(SyntaxKind.AttributeArgument)) return _classifications[ClassificationTypes.Identifiers.AttributePropertyIdentifier];
                     return null;
 
                 case SyntaxKind.SimpleMemberAccessExpression:
@@ -429,7 +450,7 @@ namespace SharpLizer.Classification
                 case SyntaxKind.Argument:
                     {
                         if (semanticModel == null) return null;
-                        if( tokenGrandParent is MemberAccessExpressionSyntax accessExpression)
+                        if (tokenGrandParent is MemberAccessExpressionSyntax accessExpression)
                         {
                             // Remove colorizing of elements after the dot token, until we add special colors for them
                             if (!token.ValueText.Equals(accessExpression.GetText().ToString().Split('.')[0])) return null;
@@ -438,33 +459,50 @@ namespace SharpLizer.Classification
                         if (symbol is IPropertySymbol) return GetPropertyClassification(symbol);
                         if (symbol is ILocalSymbol) return GetLocalVariableClassification(symbol);
                         if (symbol is IFieldSymbol) return GetFieldClassification(symbol);
-                        
+
                     }
 
                     return null;
-                    
+
                 default:
                     return null;
             }
 
         }
-        
+        #endregion
 
 
         #region Helpers
-        private bool IsChildOfKind(SyntaxToken token,SyntaxKind kind)
+        /// <summary>
+        /// Finds if the given <see cref="SyntaxToken"/> is a descendant of the given <see cref="SyntaxKind"/>
+        /// </summary>
+        /// <param name="token">The token to search for.</param>
+        /// <param name="kind">The <see cref="SyntaxKind"/> which we want to know whether is a parent of the given token.</param>
+        /// <returns></returns>
+        private bool IsChildOfKind(SyntaxToken token, SyntaxKind kind)
         {
             var declarationNode = GetDeclarationNode(token);
             if (declarationNode == null) return false;
             return declarationNode.IsKind(kind);
         }
 
+        /// <summary>
+        /// Gets the Declaration Node containing the given node.
+        /// Returns null if no Declaration node is found.
+        /// </summary>
+        /// <returns></returns>
         SyntaxNode GetDeclarationNode(SyntaxToken token)
         {
             if (token.Parent != null && token.Parent.Kind().ToString().Contains("Declaration")) return token.Parent;
             return GetParentNode(token.Parent);
         }
 
+        /// <summary>
+        /// Recursively finds the parent of the given node until a Declaration node is obtained. 
+        /// Returns null if no Declaration node is found.
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
         SyntaxNode GetParentNode(SyntaxNode node)
         {
             if (node.Parent == null) return null;
@@ -473,6 +511,10 @@ namespace SharpLizer.Classification
 
         }
 
+        /// <summary>
+        /// Gets an <see cref="ISymbol"/> from <see cref="SyntaxNode"/> or null if no symbol is found
+        /// </summary>
+        /// <returns></returns>
         private ISymbol GetSymbol(SyntaxNode node, SemanticModel semanticModel)
         {
             var symbol = semanticModel.GetDeclaredSymbol(node);
