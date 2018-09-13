@@ -5,13 +5,10 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
-
-
 using System;
 using System.Collections.Generic;
 
 namespace SharpLizer.Classification
-
 {
     /// <summary>
     /// Classifier that classifies all text as an instance of the "EditorClassifier" classification type.
@@ -45,8 +42,7 @@ namespace SharpLizer.Classification
             _textBuffer = buffer;
             _textBuffer.Changed += TextBufferChanged;
         }
-
-
+        
         #region IClassifier
 
 #pragma warning disable 67
@@ -88,6 +84,7 @@ namespace SharpLizer.Classification
         /// <param name="span">The span currently being classified.</param>
         /// <returns>A list of ClassificationSpans that represent spans identified to be of this classification.</returns>
         public IList<ClassificationSpan> GetClassificationSpans(SnapshotSpan span)
+
         {
             // Get a snaphot of the current document
             var snapshot = span.Snapshot;
@@ -115,7 +112,6 @@ namespace SharpLizer.Classification
             }
             return result;
         }
-
 
         /// <summary>
         /// Gets the classification <see cref="IClassificationType"/> of a given span
@@ -508,7 +504,6 @@ namespace SharpLizer.Classification
             if (node.Parent == null) return null;
             if (node.Parent.Kind().ToString().Contains("Declaration")) return node.Parent;
             return GetParentNode(node.Parent);
-
         }
 
         /// <summary>

@@ -10,7 +10,6 @@ namespace SharpLizer.Classification
     internal static class ClassifierTypeDefinitions
     {
         // This disables "The field is never used" compiler's warning. Justification: the field is used by MEF.
-
         #pragma warning disable 169
 
         #region Abstraction Keywords TypeDefinitions
@@ -51,7 +50,7 @@ namespace SharpLizer.Classification
         private static ClassificationTypeDefinition virtualKeywordDefinition;
 
         #endregion
-
+          
         #region Declaration Keywords TypeDefinitions
 
         [Export(typeof(ClassificationTypeDefinition))]

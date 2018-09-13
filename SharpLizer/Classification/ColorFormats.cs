@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.Composition;
+using System.ComponentModel.Composition;
+using System.Windows.Media;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Utilities;
 
 namespace SharpLizer.Classification
 {
     #region Abstraction Keywords Colors
-
+    
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.AbstractionTypes.AbstractionKeywords)]
     [Name(ClassificationTypes.AbstractionTypes.AbstractionKeywords)]
@@ -50,7 +51,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public AsyncKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Async Keyword"; 
+          this.DisplayName = "SharpLizer: Async Keyword"; 
         }
     }
 
@@ -59,6 +60,8 @@ namespace SharpLizer.Classification
     [Name(ClassificationTypes.AbstractionTypes.NewKeyword)]
     [UserVisible(true)] // This should be visible to the end user
     [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+
+
     internal sealed class NewKeywordClassification : ClassificationFormatDefinition
     {
         /// <summary>
@@ -66,7 +69,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public NewKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: New Keyword"; 
+            this.DisplayName = "SharpLizer: New Keyword";
         }
     }
 

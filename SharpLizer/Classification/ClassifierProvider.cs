@@ -25,6 +25,7 @@ namespace SharpLizer.Classification
 
         #pragma warning restore 649
 
+
         #region IClassifierProvider
 
         /// <summary>
@@ -100,7 +101,7 @@ namespace SharpLizer.Classification
             classificationTypes.Add(ClassificationTypes.Properties.StringProperty, classificationRegistry.GetClassificationType(ClassificationTypes.Properties.StringProperty));
             #endregion
 
-            #region Properties
+            #region Variables
             classificationTypes.Add(ClassificationTypes.Variables.LocalVariable, classificationRegistry.GetClassificationType(ClassificationTypes.Variables.LocalVariable));
             classificationTypes.Add(ClassificationTypes.Variables.BooleanVariable, classificationRegistry.GetClassificationType(ClassificationTypes.Variables.BooleanVariable));
             classificationTypes.Add(ClassificationTypes.Variables.ByteVariable, classificationRegistry.GetClassificationType(ClassificationTypes.Variables.ByteVariable));
@@ -111,6 +112,7 @@ namespace SharpLizer.Classification
             classificationTypes.Add(ClassificationTypes.Variables.StringVariable, classificationRegistry.GetClassificationType(ClassificationTypes.Variables.StringVariable));
             #endregion
 
+            #region Identifiers
             classificationTypes.Add(ClassificationTypes.Identifiers.AttributeIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.AttributeIdentifier));
             classificationTypes.Add(ClassificationTypes.Identifiers.AttributePropertyIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.AttributePropertyIdentifier));
             classificationTypes.Add(ClassificationTypes.Identifiers.ClassIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.ClassIdentifier));
@@ -121,6 +123,7 @@ namespace SharpLizer.Classification
             classificationTypes.Add(ClassificationTypes.Identifiers.MethodIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.MethodIdentifier));
             classificationTypes.Add(ClassificationTypes.Identifiers.NamespaceIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.NamespaceIdentifier));
             classificationTypes.Add(ClassificationTypes.Identifiers.StructIdentifier, classificationRegistry.GetClassificationType(ClassificationTypes.Identifiers.StructIdentifier));
+            #endregion
 
             return classificationTypes;
         }
