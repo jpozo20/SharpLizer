@@ -1,6 +1,6 @@
 ﻿using System.Windows.Media;
 
-namespace SharpLizer.Configuration
+namespace SharpLizer.Configuration.Settings
 {
     internal class BaseSettings
     {
