@@ -1,4 +1,4 @@
-﻿namespace SharpLizer.Configuration
+﻿namespace SharpLizer.Configuration.Settings
 {
     internal class ColorSettings : BaseSettings
     {
