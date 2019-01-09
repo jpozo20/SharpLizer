@@ -30,7 +30,7 @@ namespace SharpLizer.Configuration.UI.MainOptions
             
         }
 
-        MainOptionsViewModel ViewModel => (MainOptionsViewModel) Resources["ViewModel"];
+        private MainOptionsViewModel ViewModel => (MainOptionsViewModel) Resources["ViewModel"];
                 
 
         private void ListViews_SelectedItemChanged(object sender, SelectionChangedEventArgs e)
@@ -38,7 +38,7 @@ namespace SharpLizer.Configuration.UI.MainOptions
             // Remove selection from the other lists only if this is a selection
             // and not a deselection
             if (e.AddedItems.Count > 0) {
-                ClearSelection(sender as ListView);
+                //ClearSelection(sender as ListView);
                 ViewModel.SelectedColorSettings = e.AddedItems[0] as ColorSettings;
             }
 

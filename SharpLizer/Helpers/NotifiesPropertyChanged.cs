@@ -51,9 +51,9 @@ namespace SharpLizer.Helpers
         ///     value is optional and can be provided automatically when invoked from compilers
         ///     that support <see cref="CallerMemberNameAttribute" />.
         /// </param>
-        protected void OnPropertyChanged([CallerMemberName] object property = null)
+        protected void OnPropertyChanged([CallerMemberName] string property = null)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(property)));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
     }
 }
