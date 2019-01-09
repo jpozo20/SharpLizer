@@ -22,13 +22,13 @@
                 <DataTemplate>
                     <Grid>
                         <Expander Header="{Binding DisplayName}">
-                            <Grid>
+                            <Grid Margin="0,0,10,0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="10*"/>
-                                    <ColumnDefinition Width="90*"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="250"/>
                                 </Grid.ColumnDefinitions>
-                                <ListView Grid.Column="1" ItemsSource="{Binding ChildrenColorSettings}" 
-                                          SelectionMode="Single"  SelectedItem="{Binding Path=SelectedColorSettings,Source={StaticResource ViewModel}}"
+                                <ListView Grid.Column="1" ItemsSource="{Binding ChildrenColorSettings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                          SelectionMode="Single"
                                           SelectionChanged="ListViews_SelectedItemChanged" >
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
@@ -42,5 +42,15 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        <Grid Grid.Column="1" >
+            <StackPanel Orientation="Vertical" DataContext="{Binding SelectedColorSettings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                <TextBlock Text="Color:" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                <TextBox Width="300" HorizontalAlignment="Left" Margin="0,0,0,10"></TextBox>
+                <CheckBox Content="Italic" IsChecked="{Binding IsItalic,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <CheckBox Content="Bold" IsChecked="{Binding IsBold,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <CheckBox Content="Underline" IsChecked="{Binding IsUnderlined,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <CheckBox Content="Strikethrough" IsChecked="{Binding HasStrikethrough,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

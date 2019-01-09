@@ -18,24 +18,27 @@ namespace SharpLizer.Configuration.UI.MainOptions
             Categories = LoadCategories();
         }
 
-        private IEnumerable<CategorySettings> _categories;
-        public IEnumerable<CategorySettings> Categories
+        private ObservableCollection<CategorySettings> _categories;
+        public ObservableCollection<CategorySettings> Categories
         {
             get { return _categories; }
-            set { SetProperty(ref _categories, value, nameof(Categories)); }
+            set { SetProperty(ref _categories, value); }
         }
 
         private ColorSettings _selectedColorSettings;
         public ColorSettings SelectedColorSettings
         {
             get { return _selectedColorSettings; }
-            set { SetProperty(ref _selectedColorSettings, value, nameof(SelectedColorSettings)); }
+            set {
+                _selectedColorSettings = value;
+                OnPropertyChanged();
+            }
         }
 
 
-        IEnumerable<CategorySettings> LoadCategories()
+        ObservableCollection<CategorySettings> LoadCategories()
         {
-            var categoriesList = new Collection<CategorySettings>();
+            var categoriesList = new ObservableCollection<CategorySettings>();
 
             var categoryClass = typeof(ClassificationTypes);
             var categories = categoryClass.GetNestedTypes();
