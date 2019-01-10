@@ -60,8 +60,10 @@
     <Compile Include="Classification\ColorFormats.cs" />
     <Compile Include="Classification\ClassifierProvider.cs" />
     <Compile Include="Configuration\Settings\BaseSettings.cs" />
+    <Compile Include="Configuration\Settings\CategoryItemDecorationSettings.cs" />
     <Compile Include="Configuration\Settings\CategorySettings.cs" />
-    <Compile Include="Configuration\Settings\ColorSettings.cs" />
+    <Compile Include="Configuration\Settings\ColorItem.cs" />
+    <Compile Include="Configuration\UI\MainOptions\ColorToBrushConverter.cs" />
     <Compile Include="Configuration\UI\MainOptions\MainOptionsViewModel.cs" />
     <Compile Include="Configuration\UI\MainOptions\OptionsPage.cs">
       <SubType>Component</SubType>

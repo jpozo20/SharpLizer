@@ -1,6 +1,6 @@
 ﻿namespace SharpLizer.Configuration.Settings
 {
-    internal class ColorSettings : BaseSettings
+    internal class CategoryItemDecorationSettings : BaseSettings
     {
         public bool ShouldOverrideParentColor { get; set; }
     }

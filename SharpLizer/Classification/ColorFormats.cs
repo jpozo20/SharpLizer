@@ -269,7 +269,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public AttributeIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Attribute Identifier"; 
+            this.DisplayName = "SharpLizer: Attribute Identifier";
         }
     }
 

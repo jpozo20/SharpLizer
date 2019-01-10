@@ -8,6 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <local:MainOptionsViewModel x:Key="ViewModel"></local:MainOptionsViewModel>
+        <local:ColorToBrushConverter x:Key="ColorToBrushConverter"></local:ColorToBrushConverter>
     </UserControl.Resources>
 
     <Grid DataContext="{StaticResource ViewModel}" x:Name="TopGrid">
@@ -44,12 +45,45 @@
         </ItemsControl>
         <Grid Grid.Column="1" >
             <StackPanel Orientation="Vertical" DataContext="{Binding SelectedColorSettings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-                <TextBlock Text="Color:" HorizontalAlignment="Left" Margin="0,10,0,0"/>
-                <TextBox Width="300" HorizontalAlignment="Left" Margin="0,0,0,10"></TextBox>
-                <CheckBox Content="Italic" IsChecked="{Binding IsItalic,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <CheckBox Content="Bold" IsChecked="{Binding IsBold,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <CheckBox Content="Underline" IsChecked="{Binding IsUnderlined,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <CheckBox Content="Strikethrough" IsChecked="{Binding HasStrikethrough,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <StackPanel Margin="0,0,0,5">
+                    <TextBlock Text="Foreground Color:" HorizontalAlignment="Left" Margin="0,10,0,3"/>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource ViewModel}, Path=DefaultColors}"
+                              
+                              SelectedValue="{Binding Path=ForegroundColor,Converter={StaticResource ColorToBrushConverter},ConverterParameter={StaticResource ViewModel}}"
+                              Height="20" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Width="30" Fill="{Binding Path=Color,Converter={StaticResource ColorToBrushConverter}}"/>
+                                    <TextBlock HorizontalAlignment="Stretch" Text="{Binding Path=DisplayName}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,5">
+                    <TextBlock Text="Background Color:" HorizontalAlignment="Left" Margin="0,10,0,3"/>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource ViewModel}, Path=DefaultColors}"
+                              SelectedValue="{Binding BackgroundColor, Converter={StaticResource ColorToBrushConverter},ConverterParameter={StaticResource ViewModel}}"
+                              Height="20" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Width="30" Fill="{Binding Path=Color,Converter={StaticResource ColorToBrushConverter}}"/>
+                                    <TextBlock HorizontalAlignment="Stretch" Text="{Binding Path=DisplayName}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Decoration:" Margin="0,0,0,2"/>
+                    <CheckBox Content="Italic" IsChecked="{Binding IsItalic,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="Bold" IsChecked="{Binding IsBold,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="Underline" IsChecked="{Binding IsUnderlined,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="Strikethrough" IsChecked="{Binding HasStrikethrough,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                
             </StackPanel>
         </Grid>
     </Grid>

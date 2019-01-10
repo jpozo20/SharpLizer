@@ -6,12 +6,12 @@ namespace SharpLizer.Configuration.Settings
 {
     internal class CategorySettings : NotifiesPropertyChanged
     {
-        private ObservableCollection<ColorSettings> _childrenColorSettings;
+        private ObservableCollection<CategoryItemDecorationSettings> _childrenColorSettings;
         private string _displayName;
 
         public CategorySettings()
         {
-            ChildrenColorSettings = new ObservableCollection<ColorSettings>();
+            ChildrenColorSettings = new ObservableCollection<CategoryItemDecorationSettings>();
         }
         public string DisplayName
         {
@@ -20,7 +20,7 @@ namespace SharpLizer.Configuration.Settings
                 OnPropertyChanged();
             }
         }
-        public ObservableCollection<ColorSettings> ChildrenColorSettings
+        public ObservableCollection<CategoryItemDecorationSettings> ChildrenColorSettings
         {
             get { return _childrenColorSettings; }
             set { _childrenColorSettings = value;

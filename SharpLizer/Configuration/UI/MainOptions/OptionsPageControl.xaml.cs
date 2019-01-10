@@ -39,7 +39,7 @@ namespace SharpLizer.Configuration.UI.MainOptions
             // and not a deselection
             if (e.AddedItems.Count > 0) {
                 //ClearSelection(sender as ListView);
-                ViewModel.SelectedColorSettings = e.AddedItems[0] as ColorSettings;
+                ViewModel.SelectedColorSettings = e.AddedItems[0] as CategoryItemDecorationSettings;
             }
 
         }
