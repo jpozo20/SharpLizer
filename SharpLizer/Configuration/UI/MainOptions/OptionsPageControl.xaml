@@ -11,38 +11,41 @@
         <local:ColorToBrushConverter x:Key="ColorToBrushConverter"></local:ColorToBrushConverter>
     </UserControl.Resources>
 
-    <Grid DataContext="{StaticResource ViewModel}" x:Name="TopGrid">
+
+    <Grid DataContext="{StaticResource ViewModel}" x:Name="TopGrid" ScrollViewer.VerticalScrollBarVisibility="Auto">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40*" />
             <ColumnDefinition Width="60*"/>
         </Grid.ColumnDefinitions>
-        <ItemsControl
+        <ScrollViewer VerticalScrollBarVisibility="Visible" Margin="0,0,10,0">
+            <ItemsControl
             Name="ItemsList"
             ItemsSource="{Binding Categories}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Expander Header="{Binding DisplayName}">
-                            <Grid Margin="0,0,10,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="10"/>
-                                    <ColumnDefinition Width="250"/>
-                                </Grid.ColumnDefinitions>
-                                <ListView Grid.Column="1" ItemsSource="{Binding ChildrenColorSettings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Expander Header="{Binding DisplayName}">
+                                <Grid Margin="0,0,10,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="250"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ListView Grid.Column="1" ItemsSource="{Binding ChildrenColorSettings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                                           SelectionMode="Single"
                                           SelectionChanged="ListViews_SelectedItemChanged" >
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding DisplayName}"></TextBlock>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </Grid>
-                        </Expander>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding DisplayName}"></TextBlock>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </Grid>
+                            </Expander>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
         <Grid Grid.Column="1" >
             <StackPanel Orientation="Vertical" DataContext="{Binding SelectedColorSettings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                 <StackPanel Margin="0,0,0,5">
@@ -83,7 +86,7 @@
                     <CheckBox Content="Underline" IsChecked="{Binding IsUnderlined,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     <CheckBox Content="Strikethrough" IsChecked="{Binding HasStrikethrough,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
-                
+
             </StackPanel>
         </Grid>
     </Grid>
