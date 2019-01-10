@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace SharpLizer.Configuration.UI.MainOptions
 {
@@ -16,6 +17,7 @@ namespace SharpLizer.Configuration.UI.MainOptions
         public MainOptionsViewModel()
         {
             Categories = LoadCategories();
+            DefaultColors = GetColors();
         }
 
         private ObservableCollection<CategorySettings> _categories;
@@ -25,12 +27,22 @@ namespace SharpLizer.Configuration.UI.MainOptions
             set { SetProperty(ref _categories, value); }
         }
 
-        private ColorSettings _selectedColorSettings;
-        public ColorSettings SelectedColorSettings
+        private CategoryItemDecorationSettings _selectedColorSettings;
+        public CategoryItemDecorationSettings SelectedColorSettings
         {
             get { return _selectedColorSettings; }
             set {
                 _selectedColorSettings = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private IEnumerable<ColorInfo> _defaultColors;
+        public IEnumerable<ColorInfo> DefaultColors
+        {
+            get { return _defaultColors; }
+            set {
+                _defaultColors = value;
                 OnPropertyChanged();
             }
         }
@@ -50,7 +62,7 @@ namespace SharpLizer.Configuration.UI.MainOptions
                 var categoryItems = category.GetFields();
                 foreach (var item in categoryItems)
                 {
-                    var colorSetting = new ColorSettings();
+                    var colorSetting = new CategoryItemDecorationSettings();
                     colorSetting.DisplayName = item.Name.SpliByCapitalLetters();
                     categorySetting.ChildrenColorSettings.Add(colorSetting);
                 }
@@ -59,6 +71,23 @@ namespace SharpLizer.Configuration.UI.MainOptions
             }
 
             return categoriesList;
+        }
+        IEnumerable<ColorInfo> GetColors()
+        {
+            var colors = new Collection<ColorInfo>();
+            var colorType = typeof(System.Windows.Media.Colors);
+            var colorsProps = colorType.GetProperties();
+            foreach (var colorProp in colorsProps)
+            {
+                var color = (Color)colorProp.GetValue(null, null);
+
+                var colorItem = new ColorInfo();
+                colorItem.DisplayName = colorProp.Name;
+                colorItem.Color = color;
+                colors.Add(colorItem);
+            }
+
+            return colors;
         }
     }
 }
