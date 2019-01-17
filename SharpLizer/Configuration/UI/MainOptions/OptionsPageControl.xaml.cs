@@ -3,6 +3,8 @@ using System;
 using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Collections.ObjectModel;
+using SharpLizer.Helpers;
 
 namespace SharpLizer.Configuration.UI.MainOptions
 {
@@ -16,8 +18,11 @@ namespace SharpLizer.Configuration.UI.MainOptions
             InitializeComponent();
         }
 
+        private bool _isFirsTimeLoad = true;
+
         private MainOptionsViewModel ViewModel => (MainOptionsViewModel) Resources["ViewModel"];
-                
+
+        public bool ShouldSaveChanges { get; set; }
 
         private void ListViews_SelectedItemChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -47,12 +52,34 @@ namespace SharpLizer.Configuration.UI.MainOptions
 
         private void UserControl_Unloaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            ViewModel.SaveSettings();
+            // If the user hits the OK button, save the settings
+            if (ShouldSaveChanges)
+            {
+                ViewModel.SaveSettings();
+                ShouldSaveChanges = false;
+            }
+            else
+            {
+                // Otherwise,revert the changes by 
+                // assigning the original view model on cancel
+                ViewModel.Categories = ViewModel.RevertableCategories;
+            }            
         }
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            ViewModel.LoadSettings();
+            // Load settings from JSON only once, on startup
+            // Every other time take the values from the ViewModel
+            if (_isFirsTimeLoad)
+            {
+                ViewModel.LoadSettings();
+                _isFirsTimeLoad = false;
+            }
+            else
+            {
+                // Create a deep copy of the Settings so we can revert them on cancel
+                ViewModel.RevertableCategories = ViewModel.Categories.JsonClone();
+            }            
         }
     }
 }

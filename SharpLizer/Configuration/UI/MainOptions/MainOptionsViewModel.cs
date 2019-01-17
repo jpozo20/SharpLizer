@@ -39,6 +39,8 @@ namespace SharpLizer.Configuration.UI.MainOptions
             set => SetProperty(ref _categories, value);
         }
 
+        public ObservableCollection<CategorySettings> RevertableCategories { get; set; }
+
         private CategoryItemDecorationSettings _selectedColorSettings;
 
         public CategoryItemDecorationSettings SelectedColorSettings
