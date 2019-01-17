@@ -1,8 +1,9 @@
-﻿using SharpLizer.Configuration.Settings;
+﻿using Newtonsoft.Json;
+using SharpLizer.Configuration.Settings;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+
 namespace SharpLizer.Configuration.Json
 {
     internal class SettingsLoader
@@ -12,7 +13,7 @@ namespace SharpLizer.Configuration.Json
 
         internal void SaveSettings(IEnumerable<CategorySettings> settings)
         {
-            string json = Newtonsoft.Json.JsonConvert.SerializeObject(settings);
+            string json = JsonConvert.SerializeObject(settings);
             string path = GetSettingsLocationPath();
             try
             {
@@ -33,7 +34,7 @@ namespace SharpLizer.Configuration.Json
                 string json = File.ReadAllText(path);
                 if (!string.IsNullOrWhiteSpace(json))
                 {
-                    IEnumerable<CategorySettings> loadedSettings = Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<CategorySettings>>(json);
+                    IEnumerable<CategorySettings> loadedSettings = JsonConvert.DeserializeObject<IEnumerable<CategorySettings>>(json);
                     settings.AddRange(loadedSettings);
                 }
             }

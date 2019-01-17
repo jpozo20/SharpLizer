@@ -29,6 +29,7 @@ namespace SharpLizer
     [Guid(SharpLizerPackage.PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     [ProvideOptionPage(typeof(Configuration.UI.MainOptions.OptionsPage), "SharpLizer", "General", 0, 0, true)]
+    //[ProvideBindingPath]
     public sealed class SharpLizerPackage : AsyncPackage
     {
         /// <summary>
