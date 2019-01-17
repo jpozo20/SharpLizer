@@ -1,11 +1,13 @@
 ﻿using Microsoft.VisualStudio.Text.Classification;
 using SharpLizer.Classification;
+using SharpLizer.Configuration.Json;
 using SharpLizer.Configuration.Settings;
 using SharpLizer.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.Reflection;
 using System.Windows.Media;
 
 namespace SharpLizer.Configuration.UI.MainOptions
@@ -15,10 +17,14 @@ namespace SharpLizer.Configuration.UI.MainOptions
         [Import(Common.Constants.CLASSIFIERPROVIDER_EXPORT_NAME)]
         internal IClassifierProvider _classifierProvider;
 
+        private readonly SettingsLoader _settingsLoader;
+
         public MainOptionsViewModel()
         {
             Categories = LoadCategories();
             DefaultColors = GetSystemColors();
+            _settingsLoader = new SettingsLoader();
+
             if (Common.Instances.ServiceProvider != null)
             {
                 Common.Instances.ServiceProvider.SatisfyImportsOnce(this);
@@ -104,6 +110,20 @@ namespace SharpLizer.Configuration.UI.MainOptions
             }
 
             return colors;
+        }
+
+        internal void SaveSettings()
+        {
+            _settingsLoader.SaveSettings(Categories);
+        }
+
+        internal void LoadSettings()
+        {
+            var settings = _settingsLoader.LoadSettings();
+            if (settings.Count > 0)
+            {
+                Categories = new ObservableCollection<CategorySettings>(settings);
+            }
         }
     }
 }
