@@ -1,4 +1,5 @@
 ﻿using SharpLizer.Configuration.Settings;
+using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -12,7 +13,6 @@ namespace SharpLizer.Configuration.UI.MainOptions
         public OptionsPageControl()
         {
             InitializeComponent();
-            
         }
 
         private MainOptionsViewModel ViewModel => (MainOptionsViewModel) Resources["ViewModel"];
@@ -42,6 +42,16 @@ namespace SharpLizer.Configuration.UI.MainOptions
                 if (listView == selectedListView) continue;
                 listView.SelectedItem = null;
             }
+        }
+
+        private void UserControl_Unloaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ViewModel.SaveSettings();
+        }
+
+        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ViewModel.LoadSettings();
         }
     }
 }
