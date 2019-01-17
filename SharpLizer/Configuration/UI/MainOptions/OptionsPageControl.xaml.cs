@@ -1,4 +1,5 @@
 ﻿using SharpLizer.Configuration.Settings;
+using System;
 using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Media;
