@@ -1,16 +1,8 @@
-﻿using System;
-using System.ComponentModel.Design;
-using System.Diagnostics;
+﻿using Microsoft.VisualStudio.Shell;
+using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.OLE.Interop;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.Win32;
 using Task = System.Threading.Tasks.Task;
 
 namespace SharpLizer
@@ -36,7 +28,7 @@ namespace SharpLizer
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
     [Guid(SharpLizerPackage.PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
-    [ProvideOptionPage(typeof(Configuration.UI.MainOptions.OptionsPage),"SharpLizer","General",0,0,true)]
+    [ProvideOptionPage(typeof(Configuration.UI.MainOptions.OptionsPage), "SharpLizer", "General", 0, 0, true)]
     public sealed class SharpLizerPackage : AsyncPackage
     {
         /// <summary>
@@ -53,6 +45,7 @@ namespace SharpLizer
             // any Visual Studio service because at this point the package object is created but
             // not sited yet inside Visual Studio environment. The place to do all the other
             // initialization is the Initialize method.
+            Common.Instances.ServiceProvider = this;
         }
 
         #region Package Members
@@ -71,6 +64,6 @@ namespace SharpLizer
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
         }
 
-        #endregion
+        #endregion Package Members
     }
 }
