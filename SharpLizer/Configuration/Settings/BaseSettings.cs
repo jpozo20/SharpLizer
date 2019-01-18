@@ -11,59 +11,101 @@ namespace SharpLizer.Configuration.Settings
         private bool _isItalic;
         private bool _isUnderlined;
         private bool _hasStrikethrough;
+        private bool _hasChanges;
+        private bool _isLoading;
 
         public string DisplayName { get; set; }
+
         public Color ForegroundColor
         {
             get { return _foregroundColor; }
             set
             {
-                _foregroundColor = value;
-                OnPropertyChanged();
+                if (value != _foregroundColor)
+                {
+                    _foregroundColor = value;
+                    OnPropertyChanged();
+                    this.HasChanges = true;
+                }
             }
         }
+
         public Color BackgroundColor
         {
             get { return _backgroundColor; }
             set
             {
-                _backgroundColor = value;
-                OnPropertyChanged();
+                if (value != _backgroundColor)
+                {
+                    _backgroundColor = value;
+                    OnPropertyChanged();
+                    this.HasChanges = true;
+                }
             }
         }
+
         public bool IsBold
         {
             get { return _isBold; }
             set
             {
-                _isBold = value;
-                OnPropertyChanged();
+                if (value != _isBold)
+                {
+                    _isBold = value;
+                    OnPropertyChanged();
+                    this.HasChanges = true;
+                }
             }
         }
+
         public bool IsItalic
         {
             get { return _isItalic; }
             set
             {
-                _isItalic = value;
-                OnPropertyChanged();
+                if (_isItalic != value)
+                {
+                    _isItalic = value;
+                    OnPropertyChanged();
+                    this.HasChanges = true;
+                }
             }
         }
+
         public bool IsUnderlined
         {
             get { return _isUnderlined; }
             set
             {
-                _isUnderlined = value;
-                OnPropertyChanged();
+                if (value != _isUnderlined)
+                {
+                    _isUnderlined = value;
+                    OnPropertyChanged();
+                    this.HasChanges = true;
+                }
             }
         }
+
         public bool HasStrikethrough
         {
             get { return _hasStrikethrough; }
             set
             {
-                _hasStrikethrough = value;
+                if (value != _hasStrikethrough)
+                {
+                    _hasStrikethrough = value;
+                    OnPropertyChanged();
+                    this.HasChanges = true;
+                }
+            }
+        }
+
+        public bool HasChanges
+        {
+            get { return _hasChanges; }
+            set
+            {
+                _hasChanges = value;
                 OnPropertyChanged();
             }
         }
