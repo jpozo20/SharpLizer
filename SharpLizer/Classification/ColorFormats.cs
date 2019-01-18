@@ -153,7 +153,8 @@ namespace SharpLizer.Classification
         /// </summary>
         public ClassKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Class Keyword"; 
+            this.DisplayName = "SharpLizer: Class Keyword";
+            this.ForegroundColor = Colors.Purple;
         }
     }
 
