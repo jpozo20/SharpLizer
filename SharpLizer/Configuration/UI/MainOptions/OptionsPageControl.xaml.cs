@@ -19,10 +19,9 @@ namespace SharpLizer.Configuration.UI.MainOptions
         }
 
         private bool _isFirsTimeLoad = true;
+        public bool ShouldSaveChanges { get; set; }
 
         private MainOptionsViewModel ViewModel => (MainOptionsViewModel) Resources["ViewModel"];
-
-        public bool ShouldSaveChanges { get; set; }
 
         private void ListViews_SelectedItemChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -63,7 +62,7 @@ namespace SharpLizer.Configuration.UI.MainOptions
                 // Otherwise,revert the changes by 
                 // assigning the original view model on cancel
                 ViewModel.Categories = ViewModel.RevertableCategories;
-            }            
+            }
         }
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
@@ -73,13 +72,16 @@ namespace SharpLizer.Configuration.UI.MainOptions
             if (_isFirsTimeLoad)
             {
                 ViewModel.LoadSettings();
+                ViewModel.LoadClassificationTypes();
                 _isFirsTimeLoad = false;
             }
-            else
+
+            // Create a deep copy of the Settings so we can revert them on cancel
+            if (ViewModel.Categories != ViewModel.RevertableCategories)
             {
-                // Create a deep copy of the Settings so we can revert them on cancel
                 ViewModel.RevertableCategories = ViewModel.Categories.JsonClone();
-            }            
+                ViewModel.RemoveChangesFlagFromItems();
+            }
         }
     }
 }
