@@ -163,9 +163,7 @@ namespace SharpLizer.Configuration.UI.MainOptions
                     var classificationType = _classificationTypes.FirstOrDefault(x => x.Classification.Contains(classificationKey));
                     if (classificationType == null) continue;
 
-                    var textProperties = _formatMap.GetTextProperties(classificationType);
-                    UpdateTextProperties(changedItem, textProperties);
-
+                    var textProperties = CreateTextProperties(changedItem);
                     _formatMap.SetExplicitTextProperties(classificationType, textProperties);
                 }
             }
@@ -179,14 +177,17 @@ namespace SharpLizer.Configuration.UI.MainOptions
             }
         }
 
-        private void UpdateTextProperties(CategoryItemDecorationSettings colorSetting, TextFormattingRunProperties textFormatting)
+        private TextFormattingRunProperties CreateTextProperties(CategoryItemDecorationSettings colorSetting)
         {
-            textFormatting.SetBackground(colorSetting.BackgroundColor);
-            textFormatting.SetForeground(colorSetting.ForegroundColor);
-            textFormatting.SetBold(colorSetting.IsBold);
-            textFormatting.SetItalic(colorSetting.IsItalic);
+            var textFormatting = TextFormattingRunProperties.CreateTextFormattingRunProperties();
+            textFormatting = textFormatting.SetBackground(colorSetting.BackgroundColor);
+            textFormatting = textFormatting.SetForeground(colorSetting.ForegroundColor);
+            textFormatting = textFormatting.SetBold(colorSetting.IsBold);
+            textFormatting = textFormatting.SetItalic(colorSetting.IsItalic);
             if (colorSetting.IsUnderlined) textFormatting.TextDecorations.Add(TextDecorations.Underline);
             if (colorSetting.HasStrikethrough) textFormatting.TextDecorations.Add(TextDecorations.Strikethrough);
+
+            return textFormatting;
         }
     }
 }
