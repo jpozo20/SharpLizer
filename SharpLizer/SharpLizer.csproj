@@ -76,6 +76,7 @@
       <DependentUpon>OptionsPageControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\NotifiesPropertyChanged.cs" />
+    <Compile Include="Helpers\ObjectExtensions.cs" />
     <Compile Include="Helpers\ServiceProviderExtensions.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
