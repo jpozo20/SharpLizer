@@ -302,7 +302,8 @@ namespace SharpLizer.Classification
         /// </summary>
         public ClassIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Class Identifier"; 
+            this.DisplayName = "SharpLizer: Class Identifier";
+            this.ForegroundColor = Colors.Tomato;
         }
     }
 

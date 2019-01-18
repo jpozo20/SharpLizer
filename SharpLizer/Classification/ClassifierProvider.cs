@@ -9,7 +9,8 @@ namespace SharpLizer.Classification
     /// <summary>
     /// Classifier provider. It adds the classifier to the set of classifiers.
     /// </summary>
-    [Export(Common.Constants.CLASSIFIERPROVIDER_EXPORT_NAME,typeof(IClassifierProvider))]
+    [Export(typeof(IClassifierProvider))]
+    [Export(typeof(ClassifierProvider))]
     [ContentType("CSharp")] // This classifier applies to all text files.
     internal class ClassifierProvider : IClassifierProvider
     {
@@ -40,11 +41,8 @@ namespace SharpLizer.Classification
         /// <returns>A classifier for the text buffer, or null if the provider cannot do so in its current state.</returns>
         public IClassifier GetClassifier(ITextBuffer textBuffer)
         {
-            if (_classifier == null)
-            {
-                IDictionary<string, IClassificationType> classificationTypes = GetClassificationTypes();
-                _classifier = textBuffer.Properties.GetOrCreateSingletonProperty(creator: () => new EditorClassifier(_classificationRegistry, textBuffer, classificationTypes));
-            }
+            IDictionary<string, IClassificationType> classificationTypes = GetClassificationTypes();
+            _classifier = textBuffer.Properties.GetOrCreateSingletonProperty(creator: () => new EditorClassifier(_classificationRegistry, textBuffer, classificationTypes));
             return _classifier;
         }
 
