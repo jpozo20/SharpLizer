@@ -16,8 +16,8 @@ namespace SharpLizer.Configuration.UI.MainOptions
 {
     internal class MainOptionsViewModel : NotifiesPropertyChanged
     {
-        [Import(Common.Constants.CLASSIFIERPROVIDER_EXPORT_NAME)]
-        internal IClassifierProvider _classifierProvider;
+        [Import]
+        internal ClassifierProvider _classifierProvider;
 
         private readonly SettingsLoader _settingsLoader;
         private IEnumerable<IClassificationType> _classificationTypes;
@@ -155,6 +155,7 @@ namespace SharpLizer.Configuration.UI.MainOptions
 
             try
             {
+                LoadClassificationTypes();
                 _formatMap.BeginBatchUpdate();
 
                 foreach (CategoryItemDecorationSettings changedItem in changedItems)
