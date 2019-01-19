@@ -55,6 +55,7 @@ namespace SharpLizer.Configuration.UI.MainOptions
             if (ShouldSaveChanges)
             {
                 ViewModel.SaveSettings();
+                ViewModel.BatchUpdateColors();
                 ShouldSaveChanges = false;
             }
             else
@@ -72,7 +73,6 @@ namespace SharpLizer.Configuration.UI.MainOptions
             if (_isFirsTimeLoad)
             {
                 ViewModel.LoadSettings();
-                ViewModel.LoadClassificationTypes();
                 _isFirsTimeLoad = false;
             }
 

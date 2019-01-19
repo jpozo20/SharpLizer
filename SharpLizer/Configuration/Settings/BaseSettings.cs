@@ -12,7 +12,6 @@ namespace SharpLizer.Configuration.Settings
         private bool _isUnderlined;
         private bool _hasStrikethrough;
         private bool _hasChanges;
-        private bool _isLoading;
 
         public string DisplayName { get; set; }
 

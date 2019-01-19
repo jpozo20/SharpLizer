@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualStudio.Text.Classification;
-using Microsoft.VisualStudio.Text.Formatting;
-using SharpLizer.Classification;
+﻿using SharpLizer.Classification;
 using SharpLizer.Configuration.Json;
 using SharpLizer.Configuration.Settings;
 using SharpLizer.Helpers;
@@ -9,19 +7,20 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Windows;
 using System.Windows.Media;
 
 namespace SharpLizer.Configuration.UI.MainOptions
 {
     internal class MainOptionsViewModel : NotifiesPropertyChanged
     {
+#pragma warning disable 649
+
         [Import]
-        internal ClassifierProvider _classifierProvider;
+        internal TextViewColorizersManager _textViewsManager;
+
+#pragma warning restore 649
 
         private readonly SettingsLoader _settingsLoader;
-        private IEnumerable<IClassificationType> _classificationTypes;
-        private IClassificationFormatMap _formatMap;
 
         public MainOptionsViewModel()
         {
@@ -121,12 +120,11 @@ namespace SharpLizer.Configuration.UI.MainOptions
         internal void SaveSettings()
         {
             _settingsLoader.SaveSettings(Categories);
-            BatchUpdateColors();
         }
 
         internal void LoadSettings()
         {
-            var settings = _settingsLoader.LoadSettings();
+            IList<CategorySettings> settings = _settingsLoader.LoadSettings();
             if (settings.Count == 0) return;
 
             Categories = new ObservableCollection<CategorySettings>(settings);
@@ -137,58 +135,24 @@ namespace SharpLizer.Configuration.UI.MainOptions
             Categories.ForEach(category => category.ChildrenColorSettings.ForEach(colorSetting => colorSetting.HasChanges = false));
         }
 
-        internal void LoadClassificationTypes()
+        public void BatchUpdateColors()
         {
-            var provider = _classifierProvider as ClassifierProvider;
-            if (provider == null) return;
+            if (_textViewsManager == null) return;
+            IEnumerable<CategoryItemDecorationSettings> changedItems = GetChangedItems();
+            if (!changedItems.Any()) return;
 
-            _formatMap = provider.GetFormatMapService().GetClassificationFormatMap("csharp");
-            _classificationTypes = _formatMap.CurrentPriorityOrder.Where(x => x?.Classification.Contains("SharpLizer") == true).ToList();
+            foreach (TextViewColorizer colorizer in _textViewsManager.GetColorizers())
+            {
+                colorizer.UpdateColors(changedItems);
+            }
         }
 
-        private void BatchUpdateColors()
+        private IEnumerable<CategoryItemDecorationSettings> GetChangedItems()
         {
-            var changedItems = Categories
+            return Categories
                     .Where(category => category.ChildrenColorSettings.Any(x => x.HasChanges))
                     .SelectMany(category => category.ChildrenColorSettings)
                     .Where(colorSetting => colorSetting.HasChanges).ToList();
-
-            try
-            {
-                LoadClassificationTypes();
-                _formatMap.BeginBatchUpdate();
-
-                foreach (CategoryItemDecorationSettings changedItem in changedItems)
-                {
-                    var classificationKey = changedItem.DisplayName.Replace(" ", "");
-                    var classificationType = _classificationTypes.FirstOrDefault(x => x.Classification.Contains(classificationKey));
-                    if (classificationType == null) continue;
-
-                    var textProperties = CreateTextProperties(changedItem);
-                    _formatMap.SetExplicitTextProperties(classificationType, textProperties);
-                }
-            }
-            catch (Exception)
-            {
-                //TO-DO: Log exception
-            }
-            finally
-            {
-                _formatMap.EndBatchUpdate();
-            }
-        }
-
-        private TextFormattingRunProperties CreateTextProperties(CategoryItemDecorationSettings colorSetting)
-        {
-            var textFormatting = TextFormattingRunProperties.CreateTextFormattingRunProperties();
-            textFormatting = textFormatting.SetBackground(colorSetting.BackgroundColor);
-            textFormatting = textFormatting.SetForeground(colorSetting.ForegroundColor);
-            textFormatting = textFormatting.SetBold(colorSetting.IsBold);
-            textFormatting = textFormatting.SetItalic(colorSetting.IsItalic);
-            if (colorSetting.IsUnderlined) textFormatting.TextDecorations.Add(TextDecorations.Underline);
-            if (colorSetting.HasStrikethrough) textFormatting.TextDecorations.Add(TextDecorations.Strikethrough);
-
-            return textFormatting;
         }
     }
 }
