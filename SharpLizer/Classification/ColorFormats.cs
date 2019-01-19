@@ -1,12 +1,11 @@
-using System.ComponentModel.Composition;
-using System.Windows.Media;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Utilities;
+using System.ComponentModel.Composition;
 
 namespace SharpLizer.Classification
 {
     #region Abstraction Keywords Colors
-    
+
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.AbstractionTypes.AbstractionKeywords)]
     [Name(ClassificationTypes.AbstractionTypes.AbstractionKeywords)]
@@ -19,7 +18,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public AbstractionKeywordsClassification()
         {
-            this.DisplayName = "SharpLizer: Abstraction Keywords"; 
+            this.DisplayName = "SharpLizer: Abstraction Keywords";
         }
     }
 
@@ -35,7 +34,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public AbstractKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Abstract Keyword"; 
+            this.DisplayName = "SharpLizer: Abstract Keyword";
         }
     }
 
@@ -51,7 +50,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public AsyncKeywordClassification()
         {
-          this.DisplayName = "SharpLizer: Async Keyword"; 
+            this.DisplayName = "SharpLizer: Async Keyword";
         }
     }
 
@@ -60,8 +59,6 @@ namespace SharpLizer.Classification
     [Name(ClassificationTypes.AbstractionTypes.NewKeyword)]
     [UserVisible(true)] // This should be visible to the end user
     [Order(After = Priority.High)] // Set the priority to be after the default classifiers
-
-
     internal sealed class NewKeywordClassification : ClassificationFormatDefinition
     {
         /// <summary>
@@ -85,7 +82,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public OverrideKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Override Keyword"; 
+            this.DisplayName = "SharpLizer: Override Keyword";
         }
     }
 
@@ -101,7 +98,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public SealedKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Sealed Keyword"; 
+            this.DisplayName = "SharpLizer: Sealed Keyword";
         }
     }
 
@@ -117,11 +114,11 @@ namespace SharpLizer.Classification
         /// </summary>
         public VirtualKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Virtual Keyword"; 
+            this.DisplayName = "SharpLizer: Virtual Keyword";
         }
     }
 
-    #endregion
+    #endregion Abstraction Keywords Colors
 
     #region Declaration Keywords Colors
 
@@ -137,7 +134,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public DeclarationKeywordsClassification()
         {
-            this.DisplayName = "SharpLizer: Declaration Keywords"; 
+            this.DisplayName = "SharpLizer: Declaration Keywords";
         }
     }
 
@@ -154,7 +151,6 @@ namespace SharpLizer.Classification
         public ClassKeywordClassification()
         {
             this.DisplayName = "SharpLizer: Class Keyword";
-            this.ForegroundColor = Colors.Purple;
         }
     }
 
@@ -170,7 +166,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public DelegateKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Delegate Keyword"; 
+            this.DisplayName = "SharpLizer: Delegate Keyword";
         }
     }
 
@@ -186,7 +182,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public EnumKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Enum Keyword"; 
+            this.DisplayName = "SharpLizer: Enum Keyword";
         }
     }
 
@@ -202,7 +198,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public InterfaceKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Interface Keyword"; 
+            this.DisplayName = "SharpLizer: Interface Keyword";
         }
     }
 
@@ -218,7 +214,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public NamespaceKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Namespace Keyword"; 
+            this.DisplayName = "SharpLizer: Namespace Keyword";
         }
     }
 
@@ -227,7 +223,6 @@ namespace SharpLizer.Classification
     [Name(ClassificationTypes.DeclarationTypes.StructKeyword)]
     [UserVisible(true)] // This should be visible to the end user
     [Order(After = Priority.High)] // Set the priority to be after the default classifiers
-
     internal sealed class StructKeywordClassification : ClassificationFormatDefinition
     {
         /// <summary>
@@ -235,7 +230,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public StructKeywordClassification()
         {
-            this.DisplayName = "SharpLizer: Struct Keyword"; 
+            this.DisplayName = "SharpLizer: Struct Keyword";
         }
     }
 
@@ -251,13 +246,14 @@ namespace SharpLizer.Classification
         /// </summary>
         public EncapsulationKeywordsClassification()
         {
-            this.DisplayName = "SharpLizer: Encapsulation Keywords"; 
+            this.DisplayName = "SharpLizer: Encapsulation Keywords";
         }
     }
 
-    #endregion
+    #endregion Declaration Keywords Colors
 
     #region Identifiers Colors
+
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.AttributeIdentifier)]
     [Name(ClassificationTypes.Identifiers.AttributeIdentifier)]
@@ -286,7 +282,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public AttributePropertyIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Attribute Property Identifier"; 
+            this.DisplayName = "SharpLizer: Attribute Property Identifier";
         }
     }
 
@@ -303,7 +299,6 @@ namespace SharpLizer.Classification
         public ClassIdentifierClassification()
         {
             this.DisplayName = "SharpLizer: Class Identifier";
-            this.ForegroundColor = Colors.Tomato;
         }
     }
 
@@ -319,7 +314,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public ConstructorIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Constructor Identifier"; 
+            this.DisplayName = "SharpLizer: Constructor Identifier";
         }
     }
 
@@ -335,7 +330,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public DelegateIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Delegate Identifier"; 
+            this.DisplayName = "SharpLizer: Delegate Identifier";
         }
     }
 
@@ -351,7 +346,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public EnumIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Enum Identifier"; 
+            this.DisplayName = "SharpLizer: Enum Identifier";
         }
     }
 
@@ -367,7 +362,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public InterfaceIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Interface Identifier"; 
+            this.DisplayName = "SharpLizer: Interface Identifier";
         }
     }
 
@@ -383,7 +378,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public MethodIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Method Identifier"; 
+            this.DisplayName = "SharpLizer: Method Identifier";
         }
     }
 
@@ -399,10 +394,9 @@ namespace SharpLizer.Classification
         /// </summary>
         public NamespaceIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Namespace Identifier"; 
+            this.DisplayName = "SharpLizer: Namespace Identifier";
         }
     }
-
 
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.Identifiers.StructIdentifier)]
@@ -416,13 +410,14 @@ namespace SharpLizer.Classification
         /// </summary>
         public StructIdentifierClassification()
         {
-            this.DisplayName = "SharpLizer: Struct Identifier"; 
+            this.DisplayName = "SharpLizer: Struct Identifier";
         }
     }
 
-    #endregion
+    #endregion Identifiers Colors
 
     #region Fields Colors
+
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.Field)]
     [Name(ClassificationTypes.Fields.Field)]
@@ -435,9 +430,10 @@ namespace SharpLizer.Classification
         /// </summary>
         public FieldClassification()
         {
-            this.DisplayName = "SharpLizer: Field"; 
+            this.DisplayName = "SharpLizer: Field";
         }
     }
+
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.BooleanField)]
     [Name(ClassificationTypes.Fields.BooleanField)]
@@ -450,7 +446,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public BooleanFieldClassification()
         {
-            this.DisplayName = "SharpLizer: Boolean Field"; 
+            this.DisplayName = "SharpLizer: Boolean Field";
         }
     }
 
@@ -466,7 +462,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public ByteFieldClassification()
         {
-            this.DisplayName = "SharpLizer: Byte Field"; 
+            this.DisplayName = "SharpLizer: Byte Field";
         }
     }
 
@@ -482,11 +478,9 @@ namespace SharpLizer.Classification
         /// </summary>
         public CharFieldClassification()
         {
-            this.DisplayName = "SharpLizer: Char Field"; 
-         }
+            this.DisplayName = "SharpLizer: Char Field";
+        }
     }
-
-
 
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.ConstantField)]
@@ -500,7 +494,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public ConstantFieldClassification()
         {
-            this.DisplayName = "SharpLizer: Constant Field"; 
+            this.DisplayName = "SharpLizer: Constant Field";
         }
     }
 
@@ -516,11 +510,9 @@ namespace SharpLizer.Classification
         /// </summary>
         public DateTimeFieldClassification()
         {
-            this.DisplayName = "SharpLizer: DateTime Field"; 
+            this.DisplayName = "SharpLizer: DateTime Field";
         }
     }
-
-
 
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.Fields.EnumField)]
@@ -534,7 +526,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public EnumFieldClassification()
         {
-            this.DisplayName = "SharpLizer: Enum Field"; 
+            this.DisplayName = "SharpLizer: Enum Field";
         }
     }
 
@@ -550,7 +542,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public EventHandlerClassification()
         {
-            this.DisplayName = "SharpLizer: Event Handler Field"; 
+            this.DisplayName = "SharpLizer: Event Handler Field";
         }
     }
 
@@ -566,7 +558,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public NumericFieldClassification()
         {
-            this.DisplayName = "SharpLizer: Numeric Field"; 
+            this.DisplayName = "SharpLizer: Numeric Field";
         }
     }
 
@@ -582,13 +574,14 @@ namespace SharpLizer.Classification
         /// </summary>
         public StringFieldClassification()
         {
-            this.DisplayName = "SharpLizer: String Field"; 
+            this.DisplayName = "SharpLizer: String Field";
         }
     }
 
-    #endregion
+    #endregion Fields Colors
 
     #region Properties Colors
+
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.Property)]
     [Name(ClassificationTypes.Properties.Property)]
@@ -601,7 +594,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public PropertyClassification()
         {
-            this.DisplayName = "SharpLizer: Property"; 
+            this.DisplayName = "SharpLizer: Property";
         }
     }
 
@@ -617,7 +610,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public BooleanPropertyClassification()
         {
-            this.DisplayName = "SharpLizer: Boolean Property"; 
+            this.DisplayName = "SharpLizer: Boolean Property";
         }
     }
 
@@ -633,7 +626,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public BytePropertyClassification()
         {
-            this.DisplayName = "SharpLizer: Byte Property"; 
+            this.DisplayName = "SharpLizer: Byte Property";
         }
     }
 
@@ -649,7 +642,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public CharPropertyClassification()
         {
-            this.DisplayName = "SharpLizer: Char Property"; 
+            this.DisplayName = "SharpLizer: Char Property";
         }
     }
 
@@ -665,10 +658,9 @@ namespace SharpLizer.Classification
         /// </summary>
         public DateTimePropertyClassification()
         {
-            this.DisplayName = "SharpLizer: DateTime Property"; 
+            this.DisplayName = "SharpLizer: DateTime Property";
         }
     }
-
 
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.Properties.EnumProperty)]
@@ -682,7 +674,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public EnumPropertyClassification()
         {
-            this.DisplayName = "SharpLizer: Enum Property"; 
+            this.DisplayName = "SharpLizer: Enum Property";
         }
     }
 
@@ -698,7 +690,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public NumericPropertyClassification()
         {
-            this.DisplayName = "SharpLizer: Numeric Property"; 
+            this.DisplayName = "SharpLizer: Numeric Property";
         }
     }
 
@@ -714,12 +706,14 @@ namespace SharpLizer.Classification
         /// </summary>
         public StringPropertyClassification()
         {
-            this.DisplayName = "SharpLizer: String Property"; 
+            this.DisplayName = "SharpLizer: String Property";
         }
     }
-    #endregion
+
+    #endregion Properties Colors
 
     #region Variables Colors
+
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.Variables.LocalVariable)]
     [Name(ClassificationTypes.Variables.LocalVariable)]
@@ -732,7 +726,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public LocalVariableClassification()
         {
-            this.DisplayName = "SharpLizer: Local Variable"; 
+            this.DisplayName = "SharpLizer: Local Variable";
         }
     }
 
@@ -748,7 +742,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public BooleanVariableClassification()
         {
-            this.DisplayName = "SharpLizer: Boolean Variable"; 
+            this.DisplayName = "SharpLizer: Boolean Variable";
         }
     }
 
@@ -764,7 +758,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public ByteVariableClassification()
         {
-            this.DisplayName = "SharpLizer: Byte Variable"; 
+            this.DisplayName = "SharpLizer: Byte Variable";
         }
     }
 
@@ -780,7 +774,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public CharVariableClassification()
         {
-            this.DisplayName = "SharpLizer: Char Variable"; 
+            this.DisplayName = "SharpLizer: Char Variable";
         }
     }
 
@@ -796,7 +790,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public DateTimeVariableClassification()
         {
-            this.DisplayName = "SharpLizer: DateTime Variable"; 
+            this.DisplayName = "SharpLizer: DateTime Variable";
         }
     }
 
@@ -812,7 +806,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public EnumVariableClassification()
         {
-            this.DisplayName = "SharpLizer: Enum Variable"; 
+            this.DisplayName = "SharpLizer: Enum Variable";
         }
     }
 
@@ -828,7 +822,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public NumericVariableClassification()
         {
-            this.DisplayName = "SharpLizer: Numeric Variable"; 
+            this.DisplayName = "SharpLizer: Numeric Variable";
         }
     }
 
@@ -844,8 +838,9 @@ namespace SharpLizer.Classification
         /// </summary>
         public StringVariableClassification()
         {
-            this.DisplayName = "SharpLizer: String Variable"; 
+            this.DisplayName = "SharpLizer: String Variable";
         }
     }
-    #endregion
+
+    #endregion Variables Colors
 }

@@ -60,6 +60,9 @@
     <Compile Include="Classification\ClassifierTypeDefinitions.cs" />
     <Compile Include="Classification\ColorFormats.cs" />
     <Compile Include="Classification\ClassifierProvider.cs" />
+    <Compile Include="Classification\TextViewColorizer.cs" />
+    <Compile Include="Classification\TextViewColorizersManager.cs" />
+    <Compile Include="Classification\TextViewCreationListener.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\Instances.cs" />
     <Compile Include="Configuration\Json\SettingsLoader.cs" />

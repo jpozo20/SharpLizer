@@ -25,10 +25,10 @@ namespace SharpLizer.Classification
         private IClassificationTypeRegistryService _classificationRegistry;
 
         [Import]
-        private readonly IClassificationFormatMapService _formatMapService;
+        private readonly IClassificationFormatMapService _classificationFormatMapService;
+
 
         private IClassifier _classifier;
-        
 
 #pragma warning restore 649
 
@@ -50,9 +50,9 @@ namespace SharpLizer.Classification
         {
             return _classificationRegistry;
         }
-        public IClassificationFormatMapService GetFormatMapService()
+        public IClassificationFormatMapService GetClassificationFormatMapService()
         {
-            return _formatMapService;
+            return _classificationFormatMapService;
         }
 
         private IDictionary<string, IClassificationType> GetClassificationTypes()

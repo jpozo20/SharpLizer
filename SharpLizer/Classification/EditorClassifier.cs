@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 
 namespace SharpLizer.Classification
 {
@@ -71,7 +72,6 @@ namespace SharpLizer.Classification
                 classificationChangedHandler(this, new ClassificationChangedEventArgs(snapshopSpan));
             }
         }
-
 #pragma warning restore 67
 
         /// <summary>
