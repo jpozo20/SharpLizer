@@ -142,7 +142,7 @@ namespace SharpLizer.Classification
 
             #region Parameters
 
-            classificationTypes.Add(ClassificationTypes.Parameters.Parameter, _classificationRegistry.GetClassificationType(ClassificationTypes.Parameters.Parameter));
+            classificationTypes.Add(ClassificationTypes.Parameters.ValueParameter, _classificationRegistry.GetClassificationType(ClassificationTypes.Parameters.ValueParameter));
             classificationTypes.Add(ClassificationTypes.Parameters.InParameter, _classificationRegistry.GetClassificationType(ClassificationTypes.Parameters.InParameter));
             classificationTypes.Add(ClassificationTypes.Parameters.OutParameter, _classificationRegistry.GetClassificationType(ClassificationTypes.Parameters.OutParameter));
             classificationTypes.Add(ClassificationTypes.Parameters.RefParameter, _classificationRegistry.GetClassificationType(ClassificationTypes.Parameters.RefParameter));
