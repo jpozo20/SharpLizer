@@ -223,6 +223,8 @@ namespace SharpLizer.Classification
 
                 case SyntaxKind.IdentifierName:
                     return GetIdentifierNameClassification(token, semanticModel);
+                case SyntaxKind.Parameter:
+                    return GetParameterListClassification(token, semanticModel);
                 default:
                     return null;
                     #endregion
@@ -444,6 +446,7 @@ namespace SharpLizer.Classification
                 case SyntaxKind.ElementAccessExpression:
                 case SyntaxKind.SimpleAssignmentExpression:
                 case SyntaxKind.Argument:
+                case SyntaxKind.EqualsValueClause:
                     {
                         if (semanticModel == null) return null;
                         if (tokenGrandParent is MemberAccessExpressionSyntax accessExpression)
@@ -455,7 +458,7 @@ namespace SharpLizer.Classification
                         if (symbol is IPropertySymbol) return GetPropertyClassification(symbol);
                         if (symbol is ILocalSymbol) return GetLocalVariableClassification(symbol);
                         if (symbol is IFieldSymbol) return GetFieldClassification(symbol);
-
+                        if (symbol is IParameterSymbol) return GetParameterReferenceClassification(symbol);
                     }
 
                     return null;
@@ -464,6 +467,34 @@ namespace SharpLizer.Classification
                     return null;
             }
 
+        }
+        private IClassificationType GetParameterListClassification(SyntaxToken token, SemanticModel semanticModel = null)
+        {
+            var tokenGrandParent = token.Parent;
+            var symbol = GetSymbol(token.Parent, semanticModel) as IParameterSymbol;
+            if (symbol == null) return null;
+
+            switch (symbol.RefKind)
+            {
+                case RefKind.Ref:
+                    return _classifications[ClassificationTypes.Parameters.RefParameter];
+                case RefKind.Out:
+                    return _classifications[ClassificationTypes.Parameters.OutParameter];
+                case RefKind.In:
+                    return _classifications[ClassificationTypes.Parameters.InParameter];
+
+                default:
+                    return _classifications[ClassificationTypes.Parameters.Parameter];
+            }
+        }
+        private IClassificationType GetParameterReferenceClassification(ISymbol symbol)
+        {
+            var typeInfo = (symbol as IParameterSymbol)?.Type;
+            switch (typeInfo)
+            {                
+                default:
+                    return null;
+            }
         }
         #endregion
 

@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Utilities;
 using System.ComponentModel.Composition;
+using System.Windows.Media;
 
 namespace SharpLizer.Classification
 {
@@ -843,4 +844,73 @@ namespace SharpLizer.Classification
     }
 
     #endregion Variables Colors
+
+    #region Parameters Colors
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Parameters.Parameter)]
+    [Name(ClassificationTypes.Parameters.Parameter)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class ParameterClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LocalVariableClassification"/> class.
+        /// </summary>
+        public ParameterClassification()
+        {
+            this.DisplayName = "SharpLizer: Parameter";
+            this.ForegroundColor = Colors.BlueViolet;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Parameters.InParameter)]
+    [Name(ClassificationTypes.Parameters.InParameter)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class InParameterClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LocalVariableClassification"/> class.
+        /// </summary>
+        public InParameterClassification()
+        {
+            this.DisplayName = "SharpLizer: In Parameter";
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Parameters.OutParameter)]
+    [Name(ClassificationTypes.Parameters.OutParameter)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class OutParameterClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LocalVariableClassification"/> class.
+        /// </summary>
+        public OutParameterClassification()
+        {
+            this.DisplayName = "SharpLizer: Out Parameter";
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Parameters.RefParameter)]
+    [Name(ClassificationTypes.Parameters.RefParameter)]
+    [UserVisible(true)] // This should be visible to the end user
+    [Order(After = Priority.High)] // Set the priority to be after the default classifiers
+    internal sealed class RefParameterClassification : ClassificationFormatDefinition
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LocalVariableClassification"/> class.
+        /// </summary>
+        public RefParameterClassification()
+        {
+            this.DisplayName = "SharpLizer: Ref Parameter";
+        }
+    }
+
+    #endregion
 }
