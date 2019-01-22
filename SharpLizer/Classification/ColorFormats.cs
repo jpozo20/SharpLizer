@@ -848,19 +848,18 @@ namespace SharpLizer.Classification
     #region Parameters Colors
 
     [Export(typeof(EditorFormatDefinition))]
-    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Parameters.Parameter)]
-    [Name(ClassificationTypes.Parameters.Parameter)]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypes.Parameters.ValueParameter)]
+    [Name(ClassificationTypes.Parameters.ValueParameter)]
     [UserVisible(true)] // This should be visible to the end user
     [Order(After = Priority.High)] // Set the priority to be after the default classifiers
-    internal sealed class ParameterClassification : ClassificationFormatDefinition
+    internal sealed class ParameterClassification2 : ClassificationFormatDefinition
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LocalVariableClassification"/> class.
         /// </summary>
-        public ParameterClassification()
+        public ParameterClassification2()
         {
-            this.DisplayName = "SharpLizer: Parameter";
-            this.ForegroundColor = Colors.BlueViolet;
+            this.DisplayName = "SharpLizer: Value Parameter";
         }
     }
 
@@ -876,7 +875,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public InParameterClassification()
         {
-            this.DisplayName = "SharpLizer: In Parameter";
+            this.DisplayName = "SharpLizer: in Parameter";
         }
     }
 
@@ -892,7 +891,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public OutParameterClassification()
         {
-            this.DisplayName = "SharpLizer: Out Parameter";
+            this.DisplayName = "SharpLizer: out Parameter";
         }
     }
 
@@ -908,7 +907,7 @@ namespace SharpLizer.Classification
         /// </summary>
         public RefParameterClassification()
         {
-            this.DisplayName = "SharpLizer: Ref Parameter";
+            this.DisplayName = "SharpLizer: ref Parameter";
         }
     }
 

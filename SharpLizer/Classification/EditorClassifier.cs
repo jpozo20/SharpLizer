@@ -470,7 +470,6 @@ namespace SharpLizer.Classification
         }
         private IClassificationType GetParameterListClassification(SyntaxToken token, SemanticModel semanticModel = null)
         {
-            var tokenGrandParent = token.Parent;
             var symbol = GetSymbol(token.Parent, semanticModel) as IParameterSymbol;
             if (symbol == null) return null;
 
@@ -484,14 +483,14 @@ namespace SharpLizer.Classification
                     return _classifications[ClassificationTypes.Parameters.InParameter];
 
                 default:
-                    return _classifications[ClassificationTypes.Parameters.Parameter];
+                    return _classifications[ClassificationTypes.Parameters.ValueParameter];
             }
         }
         private IClassificationType GetParameterReferenceClassification(ISymbol symbol)
         {
-            var typeInfo = (symbol as IParameterSymbol)?.Type;
-            switch (typeInfo)
-            {                
+            var typeInfo = (symbol as IParameterSymbol);
+            switch (typeInfo.RefKind)
+            {
                 default:
                     return null;
             }

@@ -63,7 +63,7 @@ namespace SharpLizer.Classification
 
         public static class Parameters
         {
-            public const string Parameter = "SharpLizer.Parameter";
+            public const string ValueParameter = "SharpLizer.ValueParameter";
             public const string InParameter = "SharpLizer.InParameter";
             public const string OutParameter = "SharpLizer.OutParameter";
             public const string RefParameter = "SharpLizer.RefParameter";            

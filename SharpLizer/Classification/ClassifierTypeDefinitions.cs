@@ -290,9 +290,9 @@ namespace SharpLizer.Classification
         #region Parameter TypeDefinitions
 
         [Export(typeof(ClassificationTypeDefinition))]
-        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Parameters.Parameter)]
-        [Name(ClassificationTypes.Parameters.Parameter)]
-        private static ClassificationTypeDefinition parameter;
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Parameters.ValueParameter)]
+        [Name(ClassificationTypes.Parameters.ValueParameter)]
+        private static ClassificationTypeDefinition valueParameter;
 
         [Export(typeof(ClassificationTypeDefinition))]
         [ClassificationType(ClassificationTypeNames = ClassificationTypes.Parameters.InParameter)]
