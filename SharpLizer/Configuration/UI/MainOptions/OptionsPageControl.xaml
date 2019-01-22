@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="SharpLizer.Configuration.UI.MainOptions.OptionsPageControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SharpLizer.Configuration.UI.MainOptions"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Unloaded="UserControl_Unloaded"
+             Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <local:MainOptionsViewModel x:Key="ViewModel"></local:MainOptionsViewModel>
+        <local:ColorToBrushConverter x:Key="ColorToBrushConverter"></local:ColorToBrushConverter>
+    </UserControl.Resources>
+
+
+    <Grid DataContext="{StaticResource ViewModel}" x:Name="TopGrid" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*" />
+            <ColumnDefinition Width="60*"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Visible" Margin="0,0,10,0">
+            <ItemsControl
+            Name="ItemsList"
+            ItemsSource="{Binding Categories}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Expander Header="{Binding DisplayName}">
+                                <Grid Margin="0,0,10,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="250"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ListView Grid.Column="1" ItemsSource="{Binding ChildrenColorSettings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                          SelectionMode="Single"
+                                          SelectionChanged="ListViews_SelectedItemChanged" >
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding DisplayName}"></TextBlock>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </Grid>
+                            </Expander>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <Grid Grid.Column="1" >
+            <StackPanel Orientation="Vertical" DataContext="{Binding SelectedColorSettings,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                <StackPanel Margin="0,0,0,5">
+                    <TextBlock Text="Foreground Color:" HorizontalAlignment="Left" Margin="0,10,0,3"/>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource ViewModel}, Path=DefaultColors}"
+                              
+                              SelectedValue="{Binding Path=ForegroundColor,Converter={StaticResource ColorToBrushConverter},ConverterParameter={StaticResource ViewModel}}"
+                              Height="20" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Width="30" Fill="{Binding Path=Color,Converter={StaticResource ColorToBrushConverter}}"/>
+                                    <TextBlock HorizontalAlignment="Stretch" Text="{Binding Path=DisplayName}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,5">
+                    <TextBlock Text="Background Color:" HorizontalAlignment="Left" Margin="0,10,0,3"/>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource ViewModel}, Path=DefaultColors}"
+                              SelectedValue="{Binding BackgroundColor, Converter={StaticResource ColorToBrushConverter},ConverterParameter={StaticResource ViewModel}}"
+                              Height="20" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Width="30" Fill="{Binding Path=Color,Converter={StaticResource ColorToBrushConverter}}"/>
+                                    <TextBlock HorizontalAlignment="Stretch" Text="{Binding Path=DisplayName}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Decoration:" Margin="0,0,0,2"/>
+                    <CheckBox Content="Italic" IsChecked="{Binding IsItalic,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="Bold" IsChecked="{Binding IsBold,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="Underline" IsChecked="{Binding IsUnderlined,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="Strikethrough" IsChecked="{Binding HasStrikethrough,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
