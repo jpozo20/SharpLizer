@@ -285,8 +285,32 @@ namespace SharpLizer.Classification
         [ClassificationType(ClassificationTypeNames = ClassificationTypes.Variables.StringVariable)]
         [Name(ClassificationTypes.Variables.StringVariable)]
         private static ClassificationTypeDefinition stringVarialeDefinition;
-        #endregion        
+        #endregion
 
-        #pragma warning restore 169
+        #region Parameter TypeDefinitions
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Parameters.Parameter)]
+        [Name(ClassificationTypes.Parameters.Parameter)]
+        private static ClassificationTypeDefinition parameter;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Parameters.InParameter)]
+        [Name(ClassificationTypes.Parameters.InParameter)]
+        private static ClassificationTypeDefinition inParameter;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Parameters.OutParameter)]
+        [Name(ClassificationTypes.Parameters.OutParameter)]
+        private static ClassificationTypeDefinition outParameter;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [ClassificationType(ClassificationTypeNames = ClassificationTypes.Parameters.RefParameter)]
+        [Name(ClassificationTypes.Parameters.RefParameter)]
+        private static ClassificationTypeDefinition refParameter;
+
+        #endregion
+
+#pragma warning restore 169
     }
 }
