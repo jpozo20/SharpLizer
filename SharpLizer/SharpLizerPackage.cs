@@ -73,8 +73,10 @@ namespace SharpLizer
         {
             // When initialized asynchronously, the current thread may be a background thread at this point.
             // Do any initialization that requires the UI thread after switching to the UI thread.
-            
-            if (_colorizersManager == null || _settingsLoader == null) await this.SatisfyImportsOnceAsync(this);
+
+            await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+
+            if (_colorizersManager == null || _settingsLoader == null) this.SatisfyImportsOnce(this);
             var appSettings = _settingsLoader.LoadSettings();
             if (appSettings != null && appSettings.ColorSettings.Any()){
                 appSettings.ColorSettings
@@ -84,7 +86,7 @@ namespace SharpLizer
 
             Common.Instances.ApplicationSettings = appSettings;
 
-            await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+            
         }
 
         #endregion Package Members

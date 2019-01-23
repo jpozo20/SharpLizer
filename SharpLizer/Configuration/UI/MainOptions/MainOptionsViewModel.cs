@@ -20,6 +20,7 @@ namespace SharpLizer.Configuration.UI.MainOptions
 
         [Import]
         private SettingsLoader _settingsLoader;
+
 #pragma warning restore 649
 
         private ApplicationSettings _settings;
@@ -27,12 +28,25 @@ namespace SharpLizer.Configuration.UI.MainOptions
         public MainOptionsViewModel()
         {
             DefaultColors = GetSystemColors();
-            if(!Common.Instances.ApplicationSettings.ColorSettings.Any())
+            InitializeCategories();
+            SatisfyImports();
+        }
+
+        private void InitializeCategories()
+        {
+            if (Common.Instances.ApplicationSettings.ColorSettings.Any())
+            {
+                Categories = new ObservableCollection<CategorySettings>(Common.Instances.ApplicationSettings.ColorSettings);
+            }
+            else
             {
                 Categories = LoadCategories();
                 Common.Instances.ApplicationSettings.ColorSettings = Categories;
             }
+        }
 
+        private void SatisfyImports()
+        {
             if (Common.Instances.ServiceProvider != null)
             {
                 Common.Instances.ServiceProvider.SatisfyImportsOnce(this);
@@ -124,8 +138,8 @@ namespace SharpLizer.Configuration.UI.MainOptions
 
         internal void SaveSettings()
         {
-            _settings.ColorSettings = Categories;
-            _settingsLoader.SaveSettings(_settings);
+            Common.Instances.ApplicationSettings.ColorSettings = Categories;
+            _settingsLoader.SaveSettings(Common.Instances.ApplicationSettings);
         }
 
         internal void LoadSettings()
