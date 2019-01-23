@@ -16,17 +16,22 @@ namespace SharpLizer.Configuration.UI.MainOptions
 #pragma warning disable 649
 
         [Import]
-        internal TextViewColorizersManager _textViewsManager;
+        private TextViewColorizersManager _textViewsManager;
 
+        [Import]
+        private SettingsLoader _settingsLoader;
 #pragma warning restore 649
 
-        private readonly SettingsLoader _settingsLoader;
+        private ApplicationSettings _settings;
 
         public MainOptionsViewModel()
         {
-            Categories = LoadCategories();
             DefaultColors = GetSystemColors();
-            _settingsLoader = new SettingsLoader();
+            if(!Common.Instances.ApplicationSettings.ColorSettings.Any())
+            {
+                Categories = LoadCategories();
+                Common.Instances.ApplicationSettings.ColorSettings = Categories;
+            }
 
             if (Common.Instances.ServiceProvider != null)
             {
@@ -119,15 +124,21 @@ namespace SharpLizer.Configuration.UI.MainOptions
 
         internal void SaveSettings()
         {
-            _settingsLoader.SaveSettings(Categories);
+            _settings.ColorSettings = Categories;
+            _settingsLoader.SaveSettings(_settings);
         }
 
         internal void LoadSettings()
         {
-            IList<CategorySettings> settings = _settingsLoader.LoadSettings();
-            if (settings.Count == 0) return;
-
-            Categories = new ObservableCollection<CategorySettings>(settings);
+            _settings = _settingsLoader.LoadSettings();
+            if (_settings == null || _settings.ColorSettings == null)
+            {
+                Categories = LoadCategories();
+            }
+            else
+            {
+                Categories = new ObservableCollection<CategorySettings>(_settings.ColorSettings);
+            }
         }
 
         internal void RemoveChangesFlagFromItems()
