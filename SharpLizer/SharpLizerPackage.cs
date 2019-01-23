@@ -1,6 +1,11 @@
 ﻿using Microsoft.VisualStudio.Shell;
+using SharpLizer.Classification;
+using SharpLizer.Configuration.Json;
+using SharpLizer.Helpers;
 using System;
+using System.ComponentModel.Composition;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Task = System.Threading.Tasks.Task;
@@ -32,6 +37,12 @@ namespace SharpLizer
     [ProvideAutoLoad(Microsoft.VisualStudio.VSConstants.UICONTEXT.SolutionOpening_string, PackageAutoLoadFlags.BackgroundLoad)]
     public sealed class SharpLizerPackage : AsyncPackage
     {
+        [Import]
+        private TextViewColorizersManager _colorizersManager;
+
+        [Import]
+        private SettingsLoader _settingsLoader;
+
         /// <summary>
         /// SharpLizerPackage GUID string.
         /// </summary>
@@ -62,6 +73,17 @@ namespace SharpLizer
         {
             // When initialized asynchronously, the current thread may be a background thread at this point.
             // Do any initialization that requires the UI thread after switching to the UI thread.
+            
+            if (_colorizersManager == null || _settingsLoader == null) await this.SatisfyImportsOnceAsync(this);
+            var appSettings = _settingsLoader.LoadSettings();
+            if (appSettings != null && appSettings.ColorSettings.Any()){
+                appSettings.ColorSettings
+                            .ForEach(settings => _colorizersManager.GetColorizers()
+                            .ForEach(colorizer => colorizer.UpdateColors(settings.ChildrenColorSettings)));
+            }
+
+            Common.Instances.ApplicationSettings = appSettings;
+
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
         }
 
