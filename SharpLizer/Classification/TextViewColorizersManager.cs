@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SharpLizer.Classification
 {
     [Export]
     internal class TextViewColorizersManager
     {
-        ICollection<TextViewColorizer> Colorizers { get; set; }
+        private ICollection<TextViewColorizer> Colorizers { get; }
 
-        public TextViewColorizersManager()
+        internal TextViewColorizersManager()
         {
             Colorizers = new List<TextViewColorizer>();
         }
 
         internal void AddColorizer(TextViewColorizer colorizer)
         {
-            
             Colorizers.Add(colorizer);
         }
 

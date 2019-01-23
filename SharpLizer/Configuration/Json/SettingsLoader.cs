@@ -2,16 +2,18 @@
 using SharpLizer.Configuration.Settings;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.IO;
 
 namespace SharpLizer.Configuration.Json
 {
+    [Export]
     internal class SettingsLoader
     {
         private const string _settingsFolderName = "SharpLizer";
-        private const string _settingsFileName = _settingsFolderName + "Colors.settings";
+        private const string _settingsFileName = _settingsFolderName + ".settings";
 
-        internal void SaveSettings(IEnumerable<CategorySettings> settings)
+        internal void SaveSettings(ApplicationSettings settings)
         {
             string json = JsonConvert.SerializeObject(settings);
             string path = GetSettingsLocationPath();
@@ -25,17 +27,16 @@ namespace SharpLizer.Configuration.Json
             }
         }
 
-        internal IList<CategorySettings> LoadSettings()
+        internal ApplicationSettings LoadSettings()
         {
-            List<CategorySettings> settings = new List<CategorySettings>();
+            var settings = new ApplicationSettings();
             try
             {
                 string path = GetSettingsLocationPath();
                 string json = File.ReadAllText(path);
                 if (!string.IsNullOrWhiteSpace(json))
                 {
-                    IEnumerable<CategorySettings> loadedSettings = JsonConvert.DeserializeObject<IEnumerable<CategorySettings>>(json);
-                    settings.AddRange(loadedSettings);
+                    settings = JsonConvert.DeserializeObject<ApplicationSettings>(json);
                 }
             }
             catch (Exception)

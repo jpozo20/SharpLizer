@@ -1,7 +1,8 @@
 ﻿using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.Shell;
 using System;
 using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Primitives;
+using System.Threading.Tasks;
 
 namespace SharpLizer.Helpers
 {
@@ -10,6 +11,7 @@ namespace SharpLizer.Helpers
         internal static void SatisfyImportsOnce(this IServiceProvider serviceProvider, object objectToCompose)
         {
             IComponentModel compositionService = Common.Instances.CompositionService;
+
             if (compositionService == null)
             {
                 compositionService = serviceProvider.GetService<SComponentModel, IComponentModel>();
@@ -18,6 +20,23 @@ namespace SharpLizer.Helpers
             if (compositionService != null)
             {
                 compositionService.DefaultCompositionService.SatisfyImportsOnce(objectToCompose);
+                if (Common.Instances.CompositionService == null) Common.Instances.CompositionService = compositionService;
+            }
+        }
+
+        internal static async System.Threading.Tasks.Task SatisfyImportsOnceAsync(this IServiceProvider serviceProvider, object objectToCompose)
+        {
+            IComponentModel compositionService = Common.Instances.CompositionService;
+
+            if (compositionService == null)
+            {
+                compositionService = await GetComponentModelAsync(serviceProvider);
+            }
+
+            if (compositionService != null)
+            {
+                compositionService.DefaultCompositionService.SatisfyImportsOnce(objectToCompose);
+                if (Common.Instances.CompositionService == null) Common.Instances.CompositionService = compositionService;
             }
         }
 
@@ -31,6 +50,20 @@ namespace SharpLizer.Helpers
             where TReturn : class
         {
             return serviceProvider.GetService(typeof(TGet)) as TReturn;
+        }
+
+        private static async Task<IComponentModel> GetComponentModelAsync(IServiceProvider serviceProvider)
+        {
+            var asyncProvider = serviceProvider as IAsyncServiceProvider;
+            if (asyncProvider == null) return null;
+            return await asyncProvider.GetServiceAsync<SComponentModel, IComponentModel>();
+        }
+
+        private static async Task<TReturn> GetServiceAsync<TGet, TReturn>(this IAsyncServiceProvider asyncServiceProvider)
+            where TGet : class
+            where TReturn : class
+        {
+            return await asyncServiceProvider.GetServiceAsync(typeof(TGet)) as TReturn;
         }
     }
 }

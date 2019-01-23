@@ -18,7 +18,6 @@ namespace SharpLizer.Configuration.UI.MainOptions
             InitializeComponent();
         }
 
-        private bool _isFirsTimeLoad = true;
         public bool ShouldSaveChanges { get; set; }
 
         private MainOptionsViewModel ViewModel => (MainOptionsViewModel) Resources["ViewModel"];
@@ -68,14 +67,6 @@ namespace SharpLizer.Configuration.UI.MainOptions
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            // Load settings from JSON only once, on startup
-            // Every other time take the values from the ViewModel
-            if (_isFirsTimeLoad)
-            {
-                ViewModel.LoadSettings();
-                _isFirsTimeLoad = false;
-            }
-
             // Create a deep copy of the Settings so we can revert them on cancel
             if (ViewModel.Categories != ViewModel.RevertableCategories)
             {
