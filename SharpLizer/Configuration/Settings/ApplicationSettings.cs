@@ -9,6 +9,6 @@ namespace SharpLizer.Configuration.Settings
             ColorSettings = new List<CategorySettings>();
         }
 
-        internal IEnumerable<CategorySettings> ColorSettings { get; set; }
+        public IEnumerable<CategorySettings> ColorSettings { get; set; }
     }
 }
