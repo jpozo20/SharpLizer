@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("SharpLizer")]
-[assembly: AssemblyDescription("A Visual Studio extension for colorizing keywords and modifiers")]
+[assembly: AssemblyDescription("A Visual Studio extension for colorizing keywords, objects and modifiers")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Jefry Pozo")]
 [assembly: AssemblyProduct("SharpLizer")]
