@@ -50,7 +50,7 @@ namespace SharpLizer.Classification
         public static class Identifiers
         {
             public const string AttributeIdentifier = "SharpLizer.AttributeIdentifier";
-            public const string AttributePropertyIdentifier = "SharpLizer.AttributeArgument";
+            public const string AttributePropertyIdentifier = "SharpLizer.AttributeArgumentIdentifier";
             public const string ClassIdentifier = "SharpLizer.ClassIdentifier";
             public const string ConstructorIdentifier = "SharpLizer.ConstructorIdentifier";
             public const string DelegateIdentifier = "SharpLizer.DelegateIdentifier";

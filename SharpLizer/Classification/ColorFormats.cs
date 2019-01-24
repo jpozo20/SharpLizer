@@ -206,7 +206,7 @@ namespace SharpLizer.Classification
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypes.DeclarationTypes.NamespaceKeyword)]
     [Name(ClassificationTypes.DeclarationTypes.NamespaceKeyword)]
-    [UserVisible(true)] // This should be visible to the end user
+    [UserVisible(false)] // This should be visible to the end user
     [Order(After = Priority.High)] // Set the priority to be after the default classifiers
     internal sealed class NamespaceKeywordClassification : ClassificationFormatDefinition
     {
@@ -860,6 +860,7 @@ namespace SharpLizer.Classification
         public ParameterClassification2()
         {
             this.DisplayName = "SharpLizer: Value Parameter";
+            
         }
     }
 

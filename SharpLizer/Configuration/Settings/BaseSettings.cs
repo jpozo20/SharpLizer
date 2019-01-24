@@ -108,5 +108,15 @@ namespace SharpLizer.Configuration.Settings
                 OnPropertyChanged();
             }
         }
+
+        public void Reset()
+        {
+            ForegroundColor = default(Color);
+            BackgroundColor = default(Color);
+            IsBold = false;
+            IsItalic = false;
+            IsUnderlined = false;
+            HasStrikethrough = false;
+        }
     }
 }

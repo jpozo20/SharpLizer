@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.Text.Classification;
+﻿using Microsoft.VisualStudio.Language.StandardClassification;
+using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Formatting;
 using SharpLizer.Configuration.Settings;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 
 namespace SharpLizer.Classification
 {
@@ -22,38 +24,39 @@ namespace SharpLizer.Classification
         [Import]
         private IClassificationTypeRegistryService _registryService;
 
+        [Import]
+        private IStandardClassificationService _standarClassificationService;
+
 #pragma warning restore 649
 
         private readonly ITextView _textView;
         private IClassificationFormatMap _classificationFormatMap;
         private IEnumerable<IClassificationType> _sharpLizerTypes;
-
         internal TextViewColorizer(ITextView textView)
         {
             _textView = textView;
             SatisfyImports();
         }
 
-        internal void UpdateColors(IEnumerable<CategoryItemDecorationSettings> changedItems)
+        void EnsureReferences()
         {
             if (_classificationFormatMapService == null || _registryService == null) SatisfyImports();
             if (_classificationFormatMap == null) _classificationFormatMap = _classificationFormatMapService.GetClassificationFormatMap(_textView);
             if (_sharpLizerTypes == null) _sharpLizerTypes = _classificationFormatMap.CurrentPriorityOrder.Where(x => x?.Classification.Contains("SharpLizer") == true).ToList();
+        }
 
+        internal void UpdateColors(IEnumerable<CategoryItemDecorationSettings> changedItems)
+        {
             try
             {
-                if (_classificationFormatMap.IsInBatchUpdate) return;
+                EnsureReferences();
 
+                if (_classificationFormatMap.IsInBatchUpdate) return;
                 _classificationFormatMap.BeginBatchUpdate();
 
                 foreach (CategoryItemDecorationSettings changedItem in changedItems)
                 {
-                    string classificationKey = changedItem.DisplayName.Replace(" ", "");
-                    IClassificationType classificationType = _sharpLizerTypes.FirstOrDefault(x => x.Classification.Contains(classificationKey));
-                    if (classificationType == null) continue;
-
-                    TextFormattingRunProperties textProperties = CreateTextProperties(changedItem);
-                    _classificationFormatMap.SetExplicitTextProperties(classificationType, textProperties);
+                    UpdateItemDecorationSettings(changedItem);
                 }
             }
             catch (Exception)
@@ -64,6 +67,36 @@ namespace SharpLizer.Classification
             {
                 _classificationFormatMap.EndBatchUpdate();
             }
+        }
+        
+        void UpdateItemDecorationSettings(CategoryItemDecorationSettings changedItem, bool setDefaultTextProperties = false)
+        {
+            string classificationKey = changedItem.DisplayName.Replace(" ", "");
+            IClassificationType classificationType = _sharpLizerTypes.FirstOrDefault(x => x.Classification.Contains(classificationKey));
+            if (classificationType == null) return;
+
+            if (setDefaultTextProperties || (changedItem.ForegroundColor == default(Color) && changedItem.BackgroundColor == default(Color)))
+            {
+                var defaultProperties = GetDefaultClassificationTextProperties(classificationKey);
+                _classificationFormatMap.SetExplicitTextProperties(classificationType, defaultProperties);
+            }
+            else
+            {
+                TextFormattingRunProperties textProperties = CreateTextProperties(changedItem);
+                _classificationFormatMap.SetExplicitTextProperties(classificationType, textProperties);
+            }
+        }
+        internal void RestoreAllColorsToDefaults()
+        {
+            foreach (var classificationType in _sharpLizerTypes)
+            {
+                _classificationFormatMap.SetExplicitTextProperties(classificationType, _classificationFormatMap.DefaultTextProperties);
+            }
+        }
+
+        internal void ChangeColorToDefaults(CategoryItemDecorationSettings item)
+        {
+            UpdateItemDecorationSettings(item, true);
         }
 
         private void SatisfyImports()
@@ -95,6 +128,54 @@ namespace SharpLizer.Classification
             }
 
             return textFormatting;
+        }
+        private TextFormattingRunProperties GetDefaultClassificationTextProperties(string classificationName)
+        {
+            IClassificationType classificationType;
+            var textProperties = TextFormattingRunProperties.CreateTextFormattingRunProperties();
+            if (classificationName.Contains("Keyword"))
+            {
+                classificationType = _standarClassificationService.Keyword;
+                textProperties = _classificationFormatMap.GetTextProperties(classificationType);
+            }
+
+            if (classificationName.Contains("Identifier"))
+            {
+                var identifierName = classificationName.Replace("Identifier","");
+                textProperties = GetDefaultIdentifierTextProperties(identifierName);
+            }
+
+            if(classificationName.Contains("Field") || classificationName.Contains("Property") || classificationName.Contains("Variable"))
+            {
+                classificationType = _standarClassificationService.SymbolReference;
+                textProperties = _classificationFormatMap.GetTextProperties(classificationType);
+            }
+            return textProperties;
+        }
+
+        
+        TextFormattingRunProperties GetDefaultIdentifierTextProperties(string identifier)
+        {
+            IClassificationType classification;
+            switch (identifier)
+            {
+                case "Class":
+                case "Struct":
+                case "Delegate":
+                  classification =  _classificationFormatMap.CurrentPriorityOrder.FirstOrDefault(classificationType => classificationType?.Classification == "class name");
+                    break;
+
+                case "Interface":
+                case "Enum":
+                    classification = _classificationFormatMap.CurrentPriorityOrder.FirstOrDefault(classificationType => classificationType?.Classification == "enum name");
+                    break;
+                default:
+                    classification = _standarClassificationService.Identifier;
+                    break;
+            }
+
+            if (classification == null) return null;
+            return _classificationFormatMap.GetTextProperties(classification);
         }
     }
 }

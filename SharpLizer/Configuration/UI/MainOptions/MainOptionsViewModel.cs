@@ -1,4 +1,8 @@
-﻿using SharpLizer.Classification;
+﻿using GalaSoft.MvvmLight.Command;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Language.StandardClassification;
+using Microsoft.VisualStudio.Shell.Interop;
+using SharpLizer.Classification;
 using SharpLizer.Configuration.Json;
 using SharpLizer.Configuration.Settings;
 using SharpLizer.Helpers;
@@ -30,6 +34,8 @@ namespace SharpLizer.Configuration.UI.MainOptions
             DefaultColors = GetSystemColors();
             InitializeCategories();
             SatisfyImports();
+
+            RestoreDefaultsCommand = new RelayCommand(RestoreDefaults);
         }
 
         private void InitializeCategories()
@@ -121,6 +127,8 @@ namespace SharpLizer.Configuration.UI.MainOptions
             Collection<ColorInfo> colors = new Collection<ColorInfo>();
             Type colorType = typeof(System.Windows.Media.Colors);
             System.Reflection.PropertyInfo[] colorsProps = colorType.GetProperties();
+
+            var defaultColor = new ColorInfo("Default", default(Color));
             foreach (System.Reflection.PropertyInfo colorProp in colorsProps)
             {
                 Color color = (Color)colorProp.GetValue(null, null);
@@ -133,8 +141,18 @@ namespace SharpLizer.Configuration.UI.MainOptions
                 colors.Add(colorItem);
             }
 
+            colors.Insert(0, defaultColor);
             return colors;
         }
+
+        private RelayCommand _restoreDefaultsCommand;
+
+        public RelayCommand RestoreDefaultsCommand
+        {
+            get { return _restoreDefaultsCommand; }
+            set { _restoreDefaultsCommand = value; }
+        }
+
 
         internal void SaveSettings()
         {
@@ -170,6 +188,12 @@ namespace SharpLizer.Configuration.UI.MainOptions
             {
                 colorizer.UpdateColors(changedItems);
             }
+        }
+
+        public void RestoreDefaults()
+        {
+            var settings = Categories.SelectMany(x => x.ChildrenColorSettings).ToList();
+            settings.ForEach(setting => setting.Reset());
         }
 
         private IEnumerable<CategoryItemDecorationSettings> GetChangedItems()
