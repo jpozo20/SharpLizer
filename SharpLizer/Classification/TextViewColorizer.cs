@@ -1,3 +1,4 @@
+
 ﻿using Microsoft.VisualStudio.Language.StandardClassification;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Editor;
@@ -10,6 +11,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+
 
 namespace SharpLizer.Classification
 {
@@ -27,11 +29,13 @@ namespace SharpLizer.Classification
         [Import]
         private IStandardClassificationService _standarClassificationService;
 
+
 #pragma warning restore 649
 
         private readonly ITextView _textView;
         private IClassificationFormatMap _classificationFormatMap;
         private IEnumerable<IClassificationType> _sharpLizerTypes;
+
         internal TextViewColorizer(ITextView textView)
         {
             _textView = textView;
@@ -68,7 +72,7 @@ namespace SharpLizer.Classification
                 _classificationFormatMap.EndBatchUpdate();
             }
         }
-        
+      
         void UpdateItemDecorationSettings(CategoryItemDecorationSettings changedItem, bool setDefaultTextProperties = false)
         {
             string classificationKey = changedItem.DisplayName.Replace(" ", "");
@@ -129,6 +133,7 @@ namespace SharpLizer.Classification
 
             return textFormatting;
         }
+      
         private TextFormattingRunProperties GetDefaultClassificationTextProperties(string classificationName)
         {
             IClassificationType classificationType;

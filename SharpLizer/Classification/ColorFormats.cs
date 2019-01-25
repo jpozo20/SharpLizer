@@ -860,7 +860,6 @@ namespace SharpLizer.Classification
         public ParameterClassification2()
         {
             this.DisplayName = "SharpLizer: Value Parameter";
-            
         }
     }
 

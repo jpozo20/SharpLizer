@@ -1,6 +1,6 @@
-﻿using System;
-
+using System;
 namespace SharpLizer.Configuration.Settings
+
 {
     internal class CategoryItemDecorationSettings : BaseSettings
     {

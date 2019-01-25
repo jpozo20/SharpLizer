@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Text.Formatting;
 using SharpLizer.Configuration.Settings;
 using System;

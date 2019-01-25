@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Command;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Language.StandardClassification;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -36,6 +36,7 @@ namespace SharpLizer.Configuration.UI.MainOptions
             SatisfyImports();
 
             RestoreDefaultsCommand = new RelayCommand(RestoreDefaults);
+
         }
 
         private void InitializeCategories()
@@ -152,7 +153,6 @@ namespace SharpLizer.Configuration.UI.MainOptions
             get { return _restoreDefaultsCommand; }
             set { _restoreDefaultsCommand = value; }
         }
-
 
         internal void SaveSettings()
         {
