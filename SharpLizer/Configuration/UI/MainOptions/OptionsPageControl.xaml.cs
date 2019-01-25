@@ -1,10 +1,7 @@
 ﻿using SharpLizer.Configuration.Settings;
-using System;
-using System.Reflection;
+using SharpLizer.Helpers;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Collections.ObjectModel;
-using SharpLizer.Helpers;
 
 namespace SharpLizer.Configuration.UI.MainOptions
 {
@@ -20,29 +17,29 @@ namespace SharpLizer.Configuration.UI.MainOptions
 
         public bool ShouldSaveChanges { get; set; }
 
-        private MainOptionsViewModel ViewModel => (MainOptionsViewModel) Resources["ViewModel"];
+        private MainOptionsViewModel ViewModel => (MainOptionsViewModel)Resources["ViewModel"];
 
         private void ListViews_SelectedItemChanged(object sender, SelectionChangedEventArgs e)
         {
             // Remove selection from the other lists only if this is a selection
             // and not a deselection
-            if (e.AddedItems.Count > 0) {
+            if (e.AddedItems.Count > 0)
+            {
                 ClearSelection(sender as ListView);
                 ViewModel.SelectedColorSettings = e.AddedItems[0] as CategoryItemDecorationSettings;
             }
-
         }
 
-        void ClearSelection(ListView selectedListView)
+        private void ClearSelection(ListView selectedListView)
         {
-            foreach (var item in ItemsList.Items)
+            foreach (object item in ItemsList.Items)
             {
-                var contentPresenter = ItemsList.ItemContainerGenerator.ContainerFromItem(item) as ContentPresenter;
-                var grid = VisualTreeHelper.GetChild(contentPresenter, 0) as Grid;
-                var expander = grid.Children[0] as Expander;
-                var expanderGrid = expander.Content as Grid;
+                ContentPresenter contentPresenter = ItemsList.ItemContainerGenerator.ContainerFromItem(item) as ContentPresenter;
+                Grid grid = VisualTreeHelper.GetChild(contentPresenter, 0) as Grid;
+                Expander expander = grid.Children[0] as Expander;
+                Grid expanderGrid = expander.Content as Grid;
 
-                var listView = expanderGrid.Children[0] as ListView;
+                ListView listView = expanderGrid.Children[0] as ListView;
                 if (listView == selectedListView) continue;
                 listView.SelectedItem = null;
             }
@@ -59,7 +56,7 @@ namespace SharpLizer.Configuration.UI.MainOptions
             }
             else
             {
-                // Otherwise,revert the changes by 
+                // Otherwise,revert the changes by
                 // assigning the original view model on cancel
                 ViewModel.Categories = ViewModel.RevertableCategories;
             }

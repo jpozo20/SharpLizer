@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SharpLizer.Configuration.Settings;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 
@@ -29,7 +28,7 @@ namespace SharpLizer.Configuration.Json
 
         internal ApplicationSettings LoadSettings()
         {
-            var settings = new ApplicationSettings();
+            ApplicationSettings settings = new ApplicationSettings();
             try
             {
                 string path = GetSettingsLocationPath();

@@ -1,9 +1,9 @@
 ﻿using SharpLizer.Configuration.Settings;
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Data;
 using System.Windows.Media;
-using System.Linq;
 
 namespace SharpLizer.Configuration.UI.MainOptions
 {
@@ -11,10 +11,10 @@ namespace SharpLizer.Configuration.UI.MainOptions
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(parameter is MainOptionsViewModel viewModel)
+            if (parameter is MainOptionsViewModel viewModel)
             {
                 var defaultColors = viewModel.DefaultColors;
-                var returningColor = defaultColors.FirstOrDefault(x => x.Color == (Color)value);
+                ColorInfo returningColor = defaultColors.FirstOrDefault(x => x.Color == (Color)value);
                 return returningColor;
             }
 

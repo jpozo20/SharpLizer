@@ -1,4 +1,5 @@
-﻿namespace SharpLizer.Configuration.Settings
+namespace SharpLizer.Configuration.Settings
+
 {
     internal class CategoryItemDecorationSettings : BaseSettings
     {

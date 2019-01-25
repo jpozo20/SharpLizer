@@ -77,16 +77,15 @@ namespace SharpLizer
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
             if (_colorizersManager == null || _settingsLoader == null) this.SatisfyImportsOnce(this);
-            var appSettings = _settingsLoader.LoadSettings();
-            if (appSettings != null && appSettings.ColorSettings.Any()){
+            Configuration.Settings.ApplicationSettings appSettings = _settingsLoader.LoadSettings();
+            if (appSettings != null && appSettings.ColorSettings.Any())
+            {
                 appSettings.ColorSettings
                             .ForEach(settings => _colorizersManager.GetColorizers()
                             .ForEach(colorizer => colorizer.UpdateColors(settings.ChildrenColorSettings)));
             }
 
             Common.Instances.ApplicationSettings = appSettings;
-
-            
         }
 
         #endregion Package Members

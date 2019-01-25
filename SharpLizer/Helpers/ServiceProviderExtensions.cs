@@ -40,12 +40,12 @@ namespace SharpLizer.Helpers
             }
         }
 
-        private static T GetService<T>(this IServiceProvider serviceProvider) where T : class
+        internal static T GetService<T>(this IServiceProvider serviceProvider) where T : class
         {
             return serviceProvider.GetService(typeof(T)) as T;
         }
 
-        private static TReturn GetService<TGet, TReturn>(this IServiceProvider serviceProvider)
+        internal static TReturn GetService<TGet, TReturn>(this IServiceProvider serviceProvider)
             where TGet : class
             where TReturn : class
         {
@@ -54,7 +54,7 @@ namespace SharpLizer.Helpers
 
         private static async Task<IComponentModel> GetComponentModelAsync(IServiceProvider serviceProvider)
         {
-            var asyncProvider = serviceProvider as IAsyncServiceProvider;
+            IAsyncServiceProvider asyncProvider = serviceProvider as IAsyncServiceProvider;
             if (asyncProvider == null) return null;
             return await asyncProvider.GetServiceAsync<SComponentModel, IComponentModel>();
         }
