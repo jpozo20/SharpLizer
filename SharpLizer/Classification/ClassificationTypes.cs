@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SharpLizer.Classification
 
 {
@@ -31,7 +25,6 @@ namespace SharpLizer.Classification
             public const string StructKeyword = "SharpLizer.StructKeyword";
             public const string EncapsulationKeywords = "SharpLizer.EncapsulationKeywords";
         }
-
 
         public static class Fields
         {
@@ -66,7 +59,7 @@ namespace SharpLizer.Classification
             public const string ValueParameter = "SharpLizer.ValueParameter";
             public const string InParameter = "SharpLizer.InParameter";
             public const string OutParameter = "SharpLizer.OutParameter";
-            public const string RefParameter = "SharpLizer.RefParameter";            
+            public const string RefParameter = "SharpLizer.RefParameter";
         }
 
         public static class Properties
@@ -80,7 +73,7 @@ namespace SharpLizer.Classification
             public const string StringProperty = "SharpLizer.StringProperty";
             public const string Property = "SharpLizer.Property";
         }
-      
+
         public static class Variables
         {
             public const string BooleanVariable = "SharpLizer.BooleanVariable";

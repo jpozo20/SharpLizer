@@ -27,7 +27,6 @@ namespace SharpLizer.Classification
         [Import]
         private readonly IClassificationFormatMapService _classificationFormatMapService;
 
-
         private IClassifier _classifier;
 
 #pragma warning restore 649
@@ -50,6 +49,7 @@ namespace SharpLizer.Classification
         {
             return _classificationRegistry;
         }
+
         public IClassificationFormatMapService GetClassificationFormatMapService()
         {
             return _classificationFormatMapService;
@@ -147,8 +147,7 @@ namespace SharpLizer.Classification
             classificationTypes.Add(ClassificationTypes.Parameters.OutParameter, _classificationRegistry.GetClassificationType(ClassificationTypes.Parameters.OutParameter));
             classificationTypes.Add(ClassificationTypes.Parameters.RefParameter, _classificationRegistry.GetClassificationType(ClassificationTypes.Parameters.RefParameter));
 
-            #endregion
-
+            #endregion Parameters
 
             return classificationTypes;
         }

@@ -1,5 +1,4 @@
-
-﻿using Microsoft.VisualStudio.Language.StandardClassification;
+using Microsoft.VisualStudio.Language.StandardClassification;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Formatting;
@@ -12,7 +11,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
-
 namespace SharpLizer.Classification
 {
     internal class TextViewColorizer
@@ -24,11 +22,10 @@ namespace SharpLizer.Classification
         private IClassificationFormatMapService _classificationFormatMapService;
 
         [Import]
-        private IClassificationTypeRegistryService _registryService;
+        private readonly IClassificationTypeRegistryService _registryService;
 
         [Import]
         private IStandardClassificationService _standarClassificationService;
-
 
 #pragma warning restore 649
 
@@ -42,7 +39,7 @@ namespace SharpLizer.Classification
             SatisfyImports();
         }
 
-        void EnsureReferences()
+        private void EnsureReferences()
         {
             if (_classificationFormatMapService == null || _registryService == null) SatisfyImports();
             if (_classificationFormatMap == null) _classificationFormatMap = _classificationFormatMapService.GetClassificationFormatMap(_textView);
@@ -72,8 +69,8 @@ namespace SharpLizer.Classification
                 _classificationFormatMap.EndBatchUpdate();
             }
         }
-      
-        void UpdateItemDecorationSettings(CategoryItemDecorationSettings changedItem, bool setDefaultTextProperties = false)
+
+        private void UpdateItemDecorationSettings(CategoryItemDecorationSettings changedItem, bool setDefaultTextProperties = false)
         {
             string classificationKey = changedItem.DisplayName.Replace(" ", "");
             IClassificationType classificationType = _sharpLizerTypes.FirstOrDefault(x => x.Classification.Contains(classificationKey));
@@ -81,7 +78,7 @@ namespace SharpLizer.Classification
 
             if (setDefaultTextProperties || (changedItem.ForegroundColor == default(Color) && changedItem.BackgroundColor == default(Color)))
             {
-                var defaultProperties = GetDefaultClassificationTextProperties(classificationKey);
+                TextFormattingRunProperties defaultProperties = GetDefaultClassificationTextProperties(classificationKey);
                 _classificationFormatMap.SetExplicitTextProperties(classificationType, defaultProperties);
             }
             else
@@ -90,9 +87,10 @@ namespace SharpLizer.Classification
                 _classificationFormatMap.SetExplicitTextProperties(classificationType, textProperties);
             }
         }
+
         internal void RestoreAllColorsToDefaults()
         {
-            foreach (var classificationType in _sharpLizerTypes)
+            foreach (IClassificationType classificationType in _sharpLizerTypes)
             {
                 _classificationFormatMap.SetExplicitTextProperties(classificationType, _classificationFormatMap.DefaultTextProperties);
             }
@@ -128,16 +126,16 @@ namespace SharpLizer.Classification
                 if (colorSetting.HasStrikethrough) decorations.Add(TextDecorations.Strikethrough);
 
                 decorationsCollection.Add(decorations);
-               textFormatting = textFormatting.SetTextDecorations(decorationsCollection);
+                textFormatting = textFormatting.SetTextDecorations(decorationsCollection);
             }
 
             return textFormatting;
         }
-      
+
         private TextFormattingRunProperties GetDefaultClassificationTextProperties(string classificationName)
         {
             IClassificationType classificationType;
-            var textProperties = TextFormattingRunProperties.CreateTextFormattingRunProperties();
+            TextFormattingRunProperties textProperties = TextFormattingRunProperties.CreateTextFormattingRunProperties();
             if (classificationName.Contains("Keyword"))
             {
                 classificationType = _standarClassificationService.Keyword;
@@ -146,11 +144,11 @@ namespace SharpLizer.Classification
 
             if (classificationName.Contains("Identifier"))
             {
-                var identifierName = classificationName.Replace("Identifier","");
+                string identifierName = classificationName.Replace("Identifier", "");
                 textProperties = GetDefaultIdentifierTextProperties(identifierName);
             }
 
-            if(classificationName.Contains("Field") || classificationName.Contains("Property") || classificationName.Contains("Variable"))
+            if (classificationName.Contains("Field") || classificationName.Contains("Property") || classificationName.Contains("Variable"))
             {
                 classificationType = _standarClassificationService.SymbolReference;
                 textProperties = _classificationFormatMap.GetTextProperties(classificationType);
@@ -158,8 +156,7 @@ namespace SharpLizer.Classification
             return textProperties;
         }
 
-        
-        TextFormattingRunProperties GetDefaultIdentifierTextProperties(string identifier)
+        private TextFormattingRunProperties GetDefaultIdentifierTextProperties(string identifier)
         {
             IClassificationType classification;
             switch (identifier)
@@ -167,13 +164,14 @@ namespace SharpLizer.Classification
                 case "Class":
                 case "Struct":
                 case "Delegate":
-                  classification =  _classificationFormatMap.CurrentPriorityOrder.FirstOrDefault(classificationType => classificationType?.Classification == "class name");
+                    classification = _classificationFormatMap.CurrentPriorityOrder.FirstOrDefault(classificationType => classificationType?.Classification == "class name");
                     break;
 
                 case "Interface":
                 case "Enum":
                     classification = _classificationFormatMap.CurrentPriorityOrder.FirstOrDefault(classificationType => classificationType?.Classification == "enum name");
                     break;
+
                 default:
                     classification = _standarClassificationService.Identifier;
                     break;

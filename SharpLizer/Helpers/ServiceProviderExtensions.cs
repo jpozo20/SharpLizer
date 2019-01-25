@@ -54,7 +54,7 @@ namespace SharpLizer.Helpers
 
         private static async Task<IComponentModel> GetComponentModelAsync(IServiceProvider serviceProvider)
         {
-            var asyncProvider = serviceProvider as IAsyncServiceProvider;
+            IAsyncServiceProvider asyncProvider = serviceProvider as IAsyncServiceProvider;
             if (asyncProvider == null) return null;
             return await asyncProvider.GetServiceAsync<SComponentModel, IComponentModel>();
         }

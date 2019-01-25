@@ -1,7 +1,6 @@
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Utilities;
 using System.ComponentModel.Composition;
-using System.Windows.Media;
 
 namespace SharpLizer.Classification
 {
@@ -911,5 +910,5 @@ namespace SharpLizer.Classification
         }
     }
 
-    #endregion
+    #endregion Parameters Colors
 }

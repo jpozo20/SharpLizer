@@ -1,4 +1,3 @@
-using System;
 namespace SharpLizer.Configuration.Settings
 
 {

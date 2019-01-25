@@ -4,7 +4,10 @@ namespace SharpLizer.Configuration.Settings
 {
     internal class ColorInfo
     {
-        internal ColorInfo() { }
+        internal ColorInfo()
+        {
+        }
+
         internal ColorInfo(string displayName, Color color)
         {
             this.DisplayName = displayName;

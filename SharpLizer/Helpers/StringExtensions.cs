@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace SharpLizer.Helpers
 {
@@ -12,9 +8,10 @@ namespace SharpLizer.Helpers
         {
             if (string.IsNullOrWhiteSpace(theString)) return string.Empty;
 
-            var builder = new StringBuilder();
-            foreach(char c in theString) {
-                if (Char.IsUpper(c) && builder.Length > 0) builder.Append(' ');
+            StringBuilder builder = new StringBuilder();
+            foreach (char c in theString)
+            {
+                if (char.IsUpper(c) && builder.Length > 0) builder.Append(' ');
                 builder.Append(c);
             }
 
